@@ -1,27 +1,39 @@
-<div id="<%= dom_id post %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
+<div id="<%= dom_id post %>" class='min-h-96'>
+  <p class="my-5 mx-3 text-xl flex text-gray-200">
+    <!-- <strong class="block font-semibold mb-1 mx-3 text-gray-200">
+      Title:
+    </strong> -->
     <%= post.title %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Content:</strong>
+  <div class="flex">
+    <p class="my-5 text-xl flex-1 flex">
+      <strong class="block font-semibold mb-1 mx-3 text-gray-200">
+        Category:
+      </strong>
+      <%= post.category %>
+    </p>
+
+    <p class="my-5 text-xl flex-1 flex">
+      <strong class="block font-semibold mb-1 mx-3 text-gray-200">
+        Status:
+      </strong>
+      <%= post.status %>
+    </p>
+  </div>
+
+  <hr>
+  <div class="my-5 mx-3 text-xl">
     <%= post.content %>
-  </p>
+  </div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= post.status %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Category:</strong>
-    <%= post.category %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this post", post, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this post', edit_post_path(post), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+  <div class="mt-2 mb-4 mx-3">
+    <% if action_name != "show" %>
+    <%= link_to 'Edit this post', edit_post_path(post), class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80" %>
+    <% if action_name != "index" %>
+      <%= link_to 'Back to posts', posts_path, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline" %>
+    <% end %>
     <hr class="mt-6">
-  <% end %>
+    <% end %>
+  </div>
 </div>
