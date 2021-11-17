@@ -22,7 +22,6 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = Post.new(post_params)
-
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
     else
@@ -54,5 +53,6 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :content, :status, :category)
+      # params.fetch(:post, {}).permit(:title, :content, :status, :category)
     end
 end
