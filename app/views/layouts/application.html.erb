@@ -13,7 +13,10 @@
   </head>
 
   <body class='text-gray-200 bg-gray-800'>
-    <main class="container mx-auto mt-12 px-5 flex max-w-6xl w-full h-screen bg-gray-800">
+    <div class="flex flex-1 justify-center mt-4">
+      <%= Time.zone.now %>
+    </div>
+    <main class="container mx-auto mt-12 px-5 flex max-w-6xl w-full h-screen flex flex-col bg-gray-800">
       <%= yield %>
     </main>
   </body>

@@ -1,16 +1,16 @@
-<div class="w-full mx-auto h-screen">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="text-lg font-bold text-4xl">Posts</h1>
-    <%= link_to 'New post', new_post_path, class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 block font-medium hover:opacity-80" %>
+<%= turbo_frame_tag 'post' do %>
+  <div class="w-full mx-auto h-screen">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-lg font-bold text-4xl">Posts</h1>
+      <%= link_to 'New post', new_post_path, 'data-turbo_frame': 'post',
+           class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 block font-medium hover:opacity-80" %>
+    </div>
+    <hr>
+    <div id="posts" class="grid gap-5 grid-cols-2 mt-4">
+      <%= render @posts %>
+    </div>
   </div>
-
-  <hr>
-
-  <div id="posts" class="grid gap-5 grid-cols-2 mt-4">
-    <%= render @posts %>
-  </div>
-</div>
+<% end %>
