@@ -1,3 +1,1 @@
-# HOTWIRE_CRUD_MODAL
-
-Full CRUD on Hotwire
+# Full CRUD on Hotwire
