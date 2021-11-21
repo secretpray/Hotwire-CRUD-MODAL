@@ -14,3 +14,5 @@ ActiveStorage.start()
 
 require("trix")
 require("@rails/actiontext")
+
+window.Rails = Rails

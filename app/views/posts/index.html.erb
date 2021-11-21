@@ -1,16 +1,24 @@
-<%= turbo_frame_tag 'post' do %>
-  <div class="w-full mx-auto h-screen">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<%= turbo_stream_from :posts %>
+
+<% unless @posts.present? %>
+  <div class="w-full justify-center">
+    <h1 class="font-bold text-4xl text-gray-400 mt-10 text-center w-full inline-block">
+      There are no posts to display! Do you want to add?
+    </h1>
+  <div>
+<% else %>
+  <div class="w-full mx-auto">
     <div class="flex justify-between items-center mb-4">
-      <h1 class="text-lg font-bold text-4xl">Posts</h1>
-      <%= link_to 'New post', new_post_path, 'data-turbo_frame': 'post',
-           class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 block font-medium hover:opacity-80" %>
+      <h1 class="text-lg font-bold text-4xl p-2 mt-5" id='posts_counter'>
+        Post<%= @posts.size > 1 ? 's: ' : ': ' %><%= @posts.size %>
+      </h1>
+      <%= link_to 'New post', new_post_path,
+           class: "p-2 ml-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer",
+           data: { turbo_frame: :modal } %>
     </div>
     <hr>
-    <div id="posts" class="grid gap-5 grid-cols-2 mt-4">
-      <%= render @posts %>
-    </div>
+      <%= turbo_frame_tag :posts do %>
+        <%= render 'posts/posts', posts: Post.recent %>
+      <% end %>
   </div>
 <% end %>

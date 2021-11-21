@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.recent
   end
 
   def show; end
@@ -15,24 +15,40 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    if @post.save
-      redirect_to posts_url, notice: 'Post was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @post.save
+        flash.now[:notice] = "Post '#{@post.title}' created!"
+        format.turbo_stream
+        format.html { redirect_to posts_url }
+      else
+        # flash.now[:alert] = @post.errors.full_messages.join('. ')
+        format.turbo_stream
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
   def update
-    if @post.update(post_params)
-      redirect_to posts_url, notice: 'Post was successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      if @post.update(post_params)
+        flash.now[:notice] = "Post '#{@post.title}' updated!"
+        format.turbo_stream
+        format.html { redirect_to posts_url }
+      else
+        # flash.now[:alert] = @post.errors.full_messages.join('. ')
+        format.turbo_stream
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    flash.now[:notice] = "Post '#{@post.title}' destroyed!"
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to posts_url }
+    end
   end
 
   private

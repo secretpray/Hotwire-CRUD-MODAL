@@ -12,12 +12,16 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class='text-gray-200 bg-gray-800'>
-    <div class="flex flex-1 justify-center mt-4">
-      <%= Time.zone.now %>
-    </div>
-    <main class="container mx-auto mt-12 px-5 flex max-w-6xl w-full h-screen flex flex-col bg-gray-800">
+  <body class='text-gray-200 bg-gray-800'
+        data-controller='modal'
+        data-controller-name=<%= controller_name %>
+        data-action-name=<%= action_name %>>
+
+    <div class="max-w-7xl w-full mx-auto">
+      <%= turbo_frame_tag :flash %>
+      <p class='mt-12 text-center'><%= Time.zone.now %></p>
       <%= yield %>
-    </main>
+    </div>
+    <%= turbo_frame_tag :modal, data: { modal_target: 'frame' } %>
   </body>
 </html>

@@ -1,0 +1,10 @@
+<% if @post.errors.any? %>
+  <%= turbo_stream.replace 'new_post', partial: 'form', locals: { post: @post } %>
+<% else %>
+  <%= render_flash %>
+  <%= turbo_stream.update('posts_counter', "Post#{Post.all.size > 1 ? 's: ' : ': '}#{Post.all.size}" ) %>
+  <%= turbo_stream.replace 'new_post', partial: 'form', locals: { post: @post } %>
+  <%#= turbo_stream.prepend :posts, partial: 'post', collection: Post.recent, as: :post %>
+  <%= turbo_stream.replace :posts, partial: 'posts/posts', locals: { posts: Post.recent } %>
+  <%= turbo_stream.update('modal', nil) %>
+<% end %>
