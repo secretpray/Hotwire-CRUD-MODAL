@@ -1,7 +1,13 @@
-<%= turbo_frame_tag 'post' do %>
-  <div class="mx-auto md:w-2/3 w-full">
-    <h1 class="text-lg font-bold text-4xl">New post</h1>
-
-    <%= render "form", post: @post %>
+<%= turbo_frame_tag :modal do %>
+  <div class="flex flex-col items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-900 bg-opacity-80"
+     data-modal-target='container'
+     data-action='click->modal#closeBackground keyup@window->modal#closeWithKeyboard'>
+    <div class="bg-gray-800 rounded-lg max-w-3xl p-4">
+      <div class="flex flex-col items-center p-4">
+        <div>
+          <%= render "form", post: @post %>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>

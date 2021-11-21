@@ -1,0 +1,7 @@
+<% if @post.errors.any? %>
+  <%= turbo_stream.replace "form_post_#{@post.id}", partial: 'posts/form', locals: { post: @post } %>
+<% else %>
+  <%= render_flash %>
+  <%= turbo_stream.replace "post_#{@post.id}", partial: 'posts/post', locals: { post: @post } %>
+  <%= turbo_stream.update('modal', nil) %>
+<% end %>

@@ -1,11 +1,16 @@
-<%= form_with(model: post, id: dom_id(post), class: "contents") do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<% uniq_id = post.new_record? ? dom_id(post) : "form_#{dom_id(post)}" %>
+<%= form_with(model: post, id: uniq_id, class: "contents", data: { turbo_frame_target: :_top }) do |form| %>
+  <div class="flex justify-between">
+    <h1 class="font-bold text-4xl"><%= post.new_record? ? 'New post' : 'Edit post' %></h1>
+    <a href="javascript:void(0);" class='text-orange-500 text-3xl font-semibold' data-action='modal#close'>&times;</a>
+  </div>
 
-      <ul>
+  <% if post.errors.any? %>
+    <div id="error_explanation" class="bg-transparent border-l-8 border-red-500 py-3 px-5 text-red-500 font-medium rounded mt-3 mb-2 rounded-lg border-opacity-60">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul class='mt-1'>
         <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li>* <%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
@@ -40,8 +45,8 @@
   </div>
 
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80" %>
-    <%= link_to 'Back to posts', posts_path, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline" %>
+  <div class="ml-auto inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80"  %>
+    <a href="javascript:void(0);" class='rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline' data-action='modal#close'>Cancel</a>
   </div>
 <% end %>
