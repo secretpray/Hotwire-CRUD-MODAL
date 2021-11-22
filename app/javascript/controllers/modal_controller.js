@@ -17,12 +17,9 @@ export default class extends Controller {
   }
 
   close(event) {
-    // event && event.preventDefault()
-    // event.preventDefault()
+    event && event.preventDefault()
     // event.stopPropagation()
-    // console.log('this.containerTarget: ', this.containerTarget)
     this.containerTarget.remove()
-    // console.log('this.frameTarget.src: ', this.frameTarget.src )
     this.frameTarget.src = ''
   }
 }
