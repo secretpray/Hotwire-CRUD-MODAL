@@ -1,0 +1,28 @@
+<div class="flex items-center justify-center mt-6">
+  <div class="bg-gray-800 flex flex-col xs:w-full md:w-7/12 xl:w-4/12 border border-gray-500 rounded-xl px-8 pb-6">
+    <div class="text-white">
+      <h2 class="font-bold pt-12 text-4xl text-yellow-500 text-center w-full inline-block">Resend confirmation</h2>
+      <p class="text-xl pt-3 text-gray-400 text-center font-semibold">Edit account</p>
+    </div>
+    <div class="pb-3 pt-1 px-3 rounded-xl w-full shadow-sm">
+      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, data: { turbo: false } }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field">
+          <%= f.label :email, class: "block mb-2 font-bold text-gray-400" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",
+              value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+              class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Resend confirmation",
+              class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+        </div>
+      <% end %>
+      <div class="p-3 mt-3">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>

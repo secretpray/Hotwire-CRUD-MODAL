@@ -1,9 +1,19 @@
-<div id="<%= dom_id post %>" class='min-h-96'>
-  <p class="my-5 mx-3 text-xl flex text-gray-200">
-    <%= post.title %>
+<div id="<%= dom_id post %>"
+     class='min-h-96 rounded-xl transform transition duration-500 <%= action_name == "index" ? "hover:scale-95" : " " %>'
+     <% if controller_name == 'posts' && action_name == "index" %>
+       data-action='dblclick->modal#showPost'
+     <% end %>
+     >
+  <p class="my-5 mx-3 text-xl flex text-gray-200 justify-between items-center">
+    <%#= link_to post.title, post_path(post), class: 'hover:underline', data: { turbo_frame: :post } %>
+    <%= link_to truncated_title(post.title, controller_name, action_name), post_path(post),
+        class: 'hover:text-yellow-400 focus:opacity-90 transition duration-300 cursor-pointer',
+        data: { modal_target: 'showButton', turbo_frame: :_top } %>
+    <span class='text-xs text-gray-400'>
+      <%= time_ago_in_words(post.created_at) %> ago by <%= post.user&.email %></span>
   </p>
 
-  <div class="flex">
+  <div class="flex justify-between">
     <p class="my-5 text-xl flex-1 flex">
       <strong class="block font-semibold mb-1 mx-3 text-gray-200">
         Category:
@@ -11,11 +21,11 @@
       <%= post.category %>
     </p>
 
-    <p class="my-5 text-xl flex-1 flex">
-      <strong class="block font-semibold mb-1 mx-3 text-gray-200">
-        Status:
+    <p class="my-5 text-xl flex-1 flex mr-2">
+      <strong class="block font-semibold mb-1 ml-auto text-gray-200">
+        <!-- Status: -->
       </strong>
-      <%= post.status %>
+      <span class='text-xs px-3 py-2 text-center rounded-lg' style='background-color: <%= status_color(post.status) %>;'> <%= post.status %></span>
     </p>
   </div>
 
@@ -31,8 +41,7 @@
     <%= button_to 'Delete', post_path(post), method: :delete, data: { confirm: "Are you sure you want to delete this post?" },
       class: "p-2 ml-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
     <% if controller_name == 'posts' && action_name == "show" %>
-      <% binding.pry %>
-      <%= link_to 'Back', posts_path, data: { turbo_frame: :posts }, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline" %>
+      <%= link_to '◄ Back', posts_path, data: { turbo_frame: :posts }, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline" %>
     <% end %>
     <hr class="mt-6">
     <% end %>

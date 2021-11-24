@@ -11,3 +11,6 @@ application.register("autohide-flash", AutohideFlashController)
 
 import AlertController from "./alert_controller"
 application.register("alert", AlertController)
+
+import UtilsController from "./utils_controller"
+application.register("utils", UtilsController)

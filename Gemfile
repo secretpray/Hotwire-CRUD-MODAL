@@ -5,6 +5,7 @@ ruby '3.0.2'
 
 # gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'devise', github: 'heartcombo/devise', branch: 'main' # use main. it's stable.
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'hotwire-rails'
 gem 'image_processing', '~> 1.2'
@@ -13,7 +14,7 @@ gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'redis', '~> 4.0'
 gem 'sass-rails', '>= 6'
-gem "stimulus-rails"
+gem 'stimulus-rails'
 gem 'tailwindcss-rails', '~> 0.5.1'
 gem 'turbo-rails'
 gem 'turbolinks', '~> 5'

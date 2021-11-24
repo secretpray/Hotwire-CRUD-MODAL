@@ -13,3 +13,31 @@
  *= require_tree .
  *= require_self
  */
+
+
+// main_color  color: rgb(251, 191, 36);
+
+[type='text'], [type='email'],
+[type='url'], [type='password'],
+[type='number'], [type='date'],
+[type='datetime-local'],
+[type='month'], [type='search'],
+[type='tel'], [type='time'],
+[type='week'], [multiple],
+textarea, select {
+  // background-color: rgb(251, 191, 36);
+  background-color: #364151 !important;
+}
+
+[type='checkbox']:checked,
+[type='radio']:checked {
+  background-color: #364151 !important;
+}
+
+.toggle-checkbox:checked {
+  right: 0;
+  // border-color: rgb(251, 191, 36) !important;
+}
+.toggle-checkbox:checked + .toggle-label {
+  // background-color: rgb(251, 191, 36) !important;
+}

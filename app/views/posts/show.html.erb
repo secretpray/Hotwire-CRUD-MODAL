@@ -1,27 +1,20 @@
-<%= turbo_frame_tag 'post' do %>
-  <div class="mx-auto md:w-2/3 w-full max-w-6xl flex flex-col justify-center">
+<%= turbo_frame_tag :post do %>
+  <div class="mx-auto md:w-2/3 w-full max-w-6xl mt-16 flex flex-col justify-center">
     <div class="m-auto w-full max-w-2xl border-2 p-4 rounded-xl border-opacity-50"
       style="border-left-color: <%= status_color(@post.status) %>; border-left-width: 8px;">
-      <% if notice.present? %>
-        <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-      <% end %>
 
       <%= render @post %>
 
       <div class="mt-4 mx-3">
-        <%= link_to 'Edit post', edit_post_path(@post), class: "rounded-lg py-3 px-5 bg-yellow-400 text-lg filter saturate-150 contrast-75 text-yellow-800 hover:opacity-80 transition duration-300" %>
+        <%= link_to 'Edit post', edit_post_path(@post), data: { turbo_frame: :modal }, class: "rounded-lg py-3 px-5 bg-yellow-400 text-lg filter saturate-150 contrast-75 text-yellow-800 hover:opacity-80 transition duration-300" %>
         <div class="inline-block ml-2">
           <%= button_to 'Delete', post_path(@post), method: :delete, data: { confirm: "Are you sure you want to delete this post?" },
           class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
         </div>
-        <%= link_to 'Back', posts_path, 'data-turbo_frame': '_top',
-          class: "rounded-lg py-2 px-5 text-lg text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline hover:opacity-80 transition duration-300" %>
+        <%= link_to '◄ Back', posts_path,
+            data: { turbo_frame: :_top },
+            class: "rounded-lg py-2 px-5 text-lg text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline hover:opacity-80 transition duration-300 float-right" %>
       </div>
     </div>
   </div>
 <% end %>
-
-<!-- Button trigger modal -->
-<button type="button" class="inline-block font-normal text-center px-3 py-2 leading-normal text-base rounded cursor-pointer text-white bg-blue-600" data-toggle="modal" data-target="#exampleModalTwo">
-  Launch modal two
-</button>

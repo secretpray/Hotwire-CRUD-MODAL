@@ -36,14 +36,12 @@
         <%= form.text_field :category, class: "ml-4 w-full border border-gray-300 hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline placeholder-gray-300 bg-transparent" %>
       </div>
     </div>
-
   </div>
 
   <div class="my-5">
     <%= form.label :content %>
     <%= form.rich_text_area :content, rows: 4, class: "block shadow rounded-md border border-gray-300 outline-none px-3 py-2 mt-2 w-full placeholder-gray-300 bg-transparent" %>
   </div>
-
 
   <div class="ml-auto inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80"  %>

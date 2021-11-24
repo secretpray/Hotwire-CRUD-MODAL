@@ -1,0 +1,47 @@
+<div class="flex items-center justify-center mt-6">
+  <div class="bg-gray-800 flex flex-col xs:w-full md:w-7/12 xl:w-4/12 border border-gray-500 rounded-xl px-8 pb-6">
+    <div class="text-white">
+      <h2 class="font-bold pt-12 text-4xl text-yellow-500 text-center w-full inline-block">We welcome you</h2>
+      <p class="text-xl py-3 text-gray-400 text-center font-semibold">Sign up to continue</p>
+    </div>
+    <div class="pb-3 pt-1 px-3 rounded-xl w-full shadow-sm">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name),
+          html: { class: 'flex flex-col space-y-6', data: { turbo: false } } ) do |f| %>
+      <%#= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="w-full">
+          <%= f.label :email, class: "block mb-2 font-bold text-gray-400" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",
+              placeholder: "Email",
+              class: "text-gray-700 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+        </div>
+
+        <div class="w-full">
+          <%= f.label :password, class: "block font-bold text-gray-400" %>
+          <% if @minimum_password_length %>
+          <em class='text-xs text-gray-400'>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "new-password",
+              placeholder: "New password",
+              class: "mt-2 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+        </div>
+
+        <div class="w-full">
+          <%= f.label :password_confirmation, class: "block mb-2 font-bold text-gray-400" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password",
+              placeholder: "Password confirmation",
+              class: "bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+        </div>
+        <br />
+
+        <div class="actions mt-6">
+          <%= f.submit "Sign up", class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+        </div>
+      <% end %>
+      <div class="mt-3">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>

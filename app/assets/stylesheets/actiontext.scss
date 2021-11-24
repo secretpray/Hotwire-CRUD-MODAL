@@ -14,6 +14,15 @@
   padding: 1rem 0 0 1rem;
 }
 
+.trix-content pre {
+  background-color: #364151 !important;
+  font-size: 16px;
+}
+
+figure > img {
+  display: inline-block;
+}
+
 .trix-content {
   img {
     display: inline-block;

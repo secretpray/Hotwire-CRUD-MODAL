@@ -1,0 +1,50 @@
+<!-- <div class="h-full mt-12 xs:w-full md:w-7/12 xl:w-4/12 mx-auto align-middle"> -->
+<div class="flex items-center justify-center mt-6">
+  <div class="bg-gray-800 flex flex-col xs:w-full md:w-7/12 xl:w-4/12 border border-gray-500 rounded-xl px-8 pb-6">
+    <div class="text-white">
+      <h2 class="font-bold pt-12 text-4xl text-yellow-500 text-center w-full inline-block">Wellcome Back</h2>
+      <p class="text-xl py-3 text-gray-400 text-center font-semibold">Sign in to continue</p>
+    </div>
+    <div class="pb-3 pt-1 px-3 rounded-xl w-full shadow-sm">
+      <%#= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name),
+                            html: { class: 'flex flex-col space-y-8', data: { turbo: false } } ) do |f| %>
+        <div class="w-full flex">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",
+                              placeholder: "Email",
+                              class: "bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300"%>
+        </div>
+
+        <div class="w-full flex">
+          <%= f.password_field :password, autocomplete: "current-password",
+                            placeholder: "Password",
+                            class: "bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300"%>
+        </div>
+    </div>
+      <% if devise_mapping.rememberable? %>
+       <div class="p-3 justify-between flex mb-6 mt-3 w-full">
+          <div class="flex">
+            <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+             <%= f.check_box :remember_me, class: "toggle-checkbox absolute block w-6 h-6 rounded-full bg-gray-800 outline-none ring-2 ring-yellow-500 border-none appearance-none focus:ring-0 focus:ring-2 focus:ring-yellow-500 focus:outline-none focus:border-none cursor-pointer" %>
+             <label for="user_remember_me" class='toggle-label block overflow-hidden h-6 rounded-full bg-yellow-500 cursor-pointer'></label>
+             <!-- <%= f.label :remember_me, class: 'toggle-label block overflow-hidden h-6 rounded-full bg-yellow-500 cursor-pointer' %> -->
+           </div>
+           <label for="user_remember_me" class="text-gray-400 focus:opacity-90 transition duration-300 cursor-pointer hover:text-yellow-500">remeber me</label>
+         </div>
+         <div class="text-xs text-gray-400 mt-1 focus:opacity-90 transition duration-300 cursor-pointer hover:text-yellow-500">
+           <!-- <a href="">forget password?</a> -->
+         </div>
+       </div>
+     <% end %>
+
+       <div class="px-3 actions">
+         <%= f.submit "Log in",
+             data: { turbo: false },
+             class: "w-full block p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+       </div>
+    <% end %>
+    <div class="p-3 mt-3">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>
