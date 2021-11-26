@@ -1,21 +1,27 @@
 <div id="<%= dom_id post %>"
-     class='min-h-96 rounded-xl transform transition duration-500 <%= action_name == "index" ? "hover:scale-95" : " " %>'
-     <% if controller_name == 'posts' && action_name == "index" %>
-       data-action='dblclick->modal#showPost'
-     <% end %>
-     >
-  <p class="my-5 mx-3 text-xl flex text-gray-200 justify-between items-center">
-    <%#= link_to post.title, post_path(post), class: 'hover:underline', data: { turbo_frame: :post } %>
-    <%= link_to truncated_title(post.title, controller_name, action_name), post_path(post),
-        class: 'hover:text-yellow-400 focus:opacity-90 transition duration-300 cursor-pointer',
-        data: { modal_target: 'showButton', turbo_frame: :_top } %>
-    <span class='text-xs text-gray-400'>
-      <%= time_ago_in_words(post.created_at) %> ago by <%= post.user&.email %></span>
-  </p>
+  class='min-h-96 transform transition duration-500 <%= "hover:scale-95 group hover:bg-gray-700" unless controller_name == 'posts' && action_name == "show" %> rounded-xl'
+  <% unless controller_name == 'posts' && action_name == "show"%>
+    data-action='dblclick->modal#showPost'
+  <% end %>
+  >
+  <div class="mt-5 mb-1 mx-3 text-xl text-gray-200">  
+    <%= link_to post_path(post),
+                class: 'hover:text-yellow-400 focus:opacity-90 transition duration-300 cursor-pointer',
+                data: { modal_target: 'showButton', turbo_frame: :_top } do %>
+      <% if post.title.size > 40 %>
+        <marquee><%= truncated_title(post.title, controller_name, action_name) %></marquee>
+      <% else %>
+        <%= post.title %>
+      <% end %>
+    <% end %>
+  </div>
 
+  <div class='text-xs mx-3 text-gray-400'>
+    <%= time_ago_in_words(post.created_at) %> ago by <%= post.user&.email %>
+  </div>
   <div class="flex justify-between">
     <p class="my-5 text-xl flex-1 flex">
-      <strong class="block font-semibold mb-1 mx-3 text-gray-200">
+      <strong class="block font-semibold mb-1 mx-3 text-gray-400">
         Category:
       </strong>
       <%= post.category %>
@@ -25,7 +31,7 @@
       <strong class="block font-semibold mb-1 ml-auto text-gray-200">
         <!-- Status: -->
       </strong>
-      <span class='text-xs px-3 py-2 text-center rounded-lg' style='background-color: <%= status_color(post.status) %>;'> <%= post.status %></span>
+      <span class='text-xs px-3 py-2 text-center' style='border-left: 6px solid <%= status_color(post.status) %>;'> <%= post.status %></span>
     </p>
   </div>
 

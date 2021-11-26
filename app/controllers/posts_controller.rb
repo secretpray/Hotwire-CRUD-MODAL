@@ -46,7 +46,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    return unless current_user == @post.user
+    # return unless current_user == @post.user
 
     @post.destroy
     flash.now[:notice] = "Post '#{@post.title}' destroyed!"

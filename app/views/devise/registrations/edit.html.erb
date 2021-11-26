@@ -10,11 +10,40 @@
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="w-full">
+          <div class="grid grid-flow-col">
+            <div class="grid-cols-1 mx-auto">
+              <%= image_tag user_avatar(resource, 100), class: "rounded-full" %>
+            </div>
+
+            <label class="grid-cols-2 self-center mx-auto file_input_label">
+              <%= image_tag ('Cloud_upload.png') %>
+              <span class="span-select-file">Select a file</span>
+              <%= f.file_field :avatar, class: 'hidden'%>
+            </label>
+          </div>
+        </div>
+
+        <div class="w-full">
           <%= f.label :email, class: "block mb-2 font-bold text-gray-400" %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email",
               placeholder: 'Email',
               class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
         </div>
+
+        <div class="w-full">
+          <%= f.label :first_name, class: "block mb-2 font-bold text-gray-400" %>
+          <%= f.text_field :first_name,
+              placeholder: 'First name',
+              class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+        </div>
+
+        <div class="w-full">
+          <%= f.label :last_name, class: "block mb-2 font-bold text-gray-400" %>
+          <%= f.text_field :last_name,
+              placeholder: 'Last name',
+              class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+        </div>
+
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
@@ -46,16 +75,18 @@
         </div>
         <br />
         <div class="mb-3 w-full flex justify-between">
-          <%= f.submit "Update", class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
-          <%= button_to "Cancel my account", registration_path(resource_name),
-          class: 'p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-red-400 hover:text-red-400 hover:opacity-100 focus:border-4 focus:border-red-300 focus:opacity-90 transition duration-300 cursor-pointer',
-          data: { confirm: "Are you sure?", turbo: false }, method: :delete %>
+          <%= f.submit "Update",
+              class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+          <%= link_to "◄ Back", posts_path, data: { turbo_frame: :posts }, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline"%>
+          <%#= button_to "Cancel my account", registration_path(resource_name),
+              class: 'p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-red-400 hover:text-red-400 hover:opacity-100 focus:border-4 focus:border-red-300 focus:opacity-90 transition duration-300 cursor-pointer',
+              data: { confirm: "Are you sure?" }, method: :delete %>
         </div>
       <% end %>
 
-      <div class="mt-5 text-center">
+      <!-- <div class="mt-5 text-center">
         <%= link_to "◄ Back", posts_path, data: { turbo_frame: :posts }, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline"%>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
