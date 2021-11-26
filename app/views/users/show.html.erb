@@ -1,20 +1,22 @@
-<%= turbo_frame_tag :user do %>
+<%= turbo_frame_tag 'user' do %>
   <div class="mx-auto md:w-5/12 w-full max-w-6xl mt-16 flex flex-col justify-center">
     <div class="m-auto w-full max-w-2xl border-2 p-4 rounded-xl border-opacity-50">
 
       <%= render @user %>
 
       <div class="mt-4 mx-3">
-        <%= link_to 'Edit user', edit_user_registration_path(@user), data: { turbo_frame: :user_modal },
-            class: "rounded-lg py-3 px-5 bg-yellow-400 text-lg filter saturate-150 contrast-75 text-yellow-800 hover:opacity-80 transition duration-300" %>
-        <div class="inline-block ml-2">
-          <%= button_to 'Delete', cancel_user_registration_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete this user?" },
-              class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+        <% if current_user&.id == @user.id %>
+          <%= link_to 'Edit user', edit_user_registration_path, data: { turbo_frame: :user_modal },
+              class: "rounded-lg py-3 px-5 bg-yellow-400 text-lg filter saturate-150 contrast-75 text-yellow-800 hover:opacity-80 transition duration-300" %>
+          <div class="inline-block ml-2">
+            <%= button_to 'Delete', cancel_user_registration_path, method: :delete, data: { confirm: "Are you sure you want to delete this user?" },
+                class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+          </div>
+          <%= link_to '◄ Back', posts_path,
+              data: { turbo_frame: :_top },
+              class: "rounded-lg py-2 px-5 text-lg text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline hover:opacity-80 transition duration-300 float-right" %>
         </div>
-        <%= link_to '◄ Back', posts_path,
-            data: { turbo_frame: :_top },
-            class: "rounded-lg py-2 px-5 text-lg text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline hover:opacity-80 transition duration-300 float-right" %>
-      </div>
+      <% end %>
     </div>
   </div>
 <% end %>

@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <div class="flex items-center">
     <span class='text-gray-400 transform transition duration-300 hover:scale-110 cursor-pointer'>
-      <%= link_to account_path(current_user), data: { turbo: "false" } do %>
+      <%= link_to account_path(current_user), data: { turbo_frame: 'user' } do %>
         <%= user_avatar(current_user, 40) %>
       <% end %>
     </span>
@@ -22,7 +22,7 @@
       </li>
       <li class="flex align-center">
         <%= link_to 'Log in', new_user_session_path,
-            data: { turbo: "false" },
+            # data: { turbo: "false" },
             class: "p-2 ml-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
       </li>
     </div>

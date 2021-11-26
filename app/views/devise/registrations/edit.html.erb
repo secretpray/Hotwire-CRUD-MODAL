@@ -1,92 +1,37 @@
-<div class="flex items-center justify-center mt-6">
-  <div class="bg-gray-800 flex flex-col xs:w-full md:w-7/12 xl:w-4/12 border border-gray-500 rounded-xl px-8 pb-6">
-    <div class="text-white">
-      <h2 class="font-bold pt-12 text-4xl text-yellow-500 text-center w-full inline-block">Edit <%= resource_name.to_s.humanize %></h2>
-      <p class="text-xl pt-3 text-gray-400 text-center font-semibold">Edit account</p>
-    </div>
-    <div class="pb-3 pt-1 px-3 rounded-xl w-full shadow-sm">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name),
-                  html: { method: :put, class: 'flex flex-col space-y-5', data: { turbo: false } }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+<%= turbo_frame_tag :user_modal do %>
+  <div class="fixed z-10 inset-0 overflow-y-auto mt-12" aria-labelledby="modal-title"
+        role="dialog" aria-modal="true"
+        data-modal-user-target='user_modal_form'
+        data-action='click->modal-user#closeFromBackground keyup@window->modal-user#closeWithKeyboard'>
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <!--
+        Background overlay, show/hide based on modal state.
+        Entering: "ease-out duration-300"
+          From: "opacity-0"
+          To: "opacity-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100"
+          To: "opacity-0"
+      -->
+      <div class="fixed inset-0 bg-gray-700 bg-opacity-75 transition-opacity" aria-hidden="true"
+           data-modal-user-target='container_form'
+      ></div>
 
-        <div class="w-full">
-          <div class="grid grid-flow-col">
-            <div class="grid-cols-1 mx-auto">
-              <%= image_tag user_avatar(resource, 100), class: "rounded-full" %>
-            </div>
+      <!-- This element is to trick the browser into centering the modal contents. -->
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-            <label class="grid-cols-2 self-center mx-auto file_input_label">
-              <%= image_tag ('Cloud_upload.png') %>
-              <span class="span-select-file">Select a file</span>
-              <%= f.file_field :avatar, class: 'hidden'%>
-            </label>
-          </div>
-        </div>
-
-        <div class="w-full">
-          <%= f.label :email, class: "block mb-2 font-bold text-gray-400" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email",
-              placeholder: 'Email',
-              class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
-        </div>
-
-        <div class="w-full">
-          <%= f.label :first_name, class: "block mb-2 font-bold text-gray-400" %>
-          <%= f.text_field :first_name,
-              placeholder: 'First name',
-              class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
-        </div>
-
-        <div class="w-full">
-          <%= f.label :last_name, class: "block mb-2 font-bold text-gray-400" %>
-          <%= f.text_field :last_name,
-              placeholder: 'Last name',
-              class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
-        </div>
-
-
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% end %>
-
-        <div class="w-full">
-          <%= f.label :password, class: "block font-bold text-gray-400" %> <i class='text-xs text-gray-400'>(leave blank if you don't want to change it)</i>
-          <%= f.password_field :password, autocomplete: "new-password",
-                placeholder: "Password",
-                class: "mt-2 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
-          <% if @minimum_password_length %>
-            <br />
-            <em class='text-xs text-gray-400'><%= @minimum_password_length %> characters minimum</em>
-          <% end %>
-        </div>
-
-        <div class="w-full">
-          <%= f.label :password_confirmation, class: "block font-bold text-gray-400" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password",
-            placeholder: "Password confirmation",
-            class: "mt-2 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300"%>
-        </div>
-
-        <div class="w-full">
-          <%= f.label :current_password, class: "block font-bold text-gray-400" %> <i class='text-xs text-gray-400'>(we need your current password to confirm your changes)</i><br />
-          <%= f.password_field :current_password, autocomplete: "current-password",
-                placeholder: "Current password",
-                class: "mt-2 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
-        </div>
-        <br />
-        <div class="mb-3 w-full flex justify-between">
-          <%= f.submit "Update",
-              class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
-          <%= link_to "◄ Back", posts_path, data: { turbo_frame: :posts }, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline"%>
-          <%#= button_to "Cancel my account", registration_path(resource_name),
-              class: 'p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-red-400 hover:text-red-400 hover:opacity-100 focus:border-4 focus:border-red-300 focus:opacity-90 transition duration-300 cursor-pointer',
-              data: { confirm: "Are you sure?" }, method: :delete %>
-        </div>
-      <% end %>
-
-      <!-- <div class="mt-5 text-center">
-        <%= link_to "◄ Back", posts_path, data: { turbo_frame: :posts }, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline"%>
-      </div> -->
+      <!--
+        Modal panel, show/hide based on modal state.
+        Entering: "ease-out duration-300"
+          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          To: "opacity-100 translate-y-0 sm:scale-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100 translate-y-0 sm:scale-100"
+          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      -->
+      <div class="inline-block align-bottom bg-gray-800 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full sm:p-6">
+        <%= render 'form', resource: resource %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

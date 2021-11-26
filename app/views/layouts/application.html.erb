@@ -13,7 +13,7 @@
   </head>
 
   <body class='text-gray-200 bg-gray-800 h-min-screen'
-        data-controller='modal'
+        data-controller='modal modal-user'
         data-controller-name=<%= controller_name %>
         data-action-name=<%= action_name %>>
 
@@ -23,5 +23,6 @@
       <%= yield %>
     </div>
     <%= turbo_frame_tag :modal, data: { modal_target: 'frame' } %>
+    <%= turbo_frame_tag :user_modal, data: { modal_user_target: 'form_frame' } %>
   </body>
 </html>

@@ -6,6 +6,9 @@ import { application } from "./application"
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
+import ModalUserController from "./modal_user_controller"
+application.register("modal-user", ModalUserController)
+
 import AutohideFlashController from "./autohide_flash_controller"
 application.register("autohide-flash", AutohideFlashController)
 

@@ -1,7 +1,11 @@
 module UsersHelper
+  # include Rails.application.routes.url_helpers
+
   def user_avatar(user, size=40)
+    # if user.respond_to?(:avatar) && user.avatar.attached? && user.avatar.variable?
     if user.avatar.attached?
       image_tag user.avatar.variant(resize: "#{size}x#{size}!"), class: 'rounded-full'
+      # image_tag polymorphic_url(user.avatar.variant(resize: "40x40!"), only_path: true)
     else
       avatar_circle(user, size)
       # gravatar_image_url(user.email, size: size)

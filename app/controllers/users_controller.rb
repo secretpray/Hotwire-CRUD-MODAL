@@ -7,5 +7,7 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+    logger.debug "----------> User attributes hash (user controller): #{@user.attributes.inspect} <---------"
   end
+
 end
