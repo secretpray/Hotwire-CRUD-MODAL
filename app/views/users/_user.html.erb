@@ -2,8 +2,8 @@
      class='min-h-96 rounded-xl transform transition duration-500' >
   <div class="my-5 mx-3 text-xl grid grid-cols-2 gap-2 text-gray-200 justify-between items-center">
     <div class="grid-cols-1 mx-auto ml-7">
-      <%= user_avatar(current_user, 150) %>
-      <%#= image_tag user_avatar(user, 150), class: "rounded-full" %>
+      <%#= user_avatar(current_user, 150) %>
+      <%= AvatarPresenter.call(current_user, 150) %>
     </div>
     <div class="grid-cols-2 flex flex-col">
       <%= link_to user.email, edit_user_registration_path(user),

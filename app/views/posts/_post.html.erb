@@ -1,10 +1,10 @@
 <div id="<%= dom_id post %>"
-  class='min-h-96 transform transition duration-500 <%= "hover:scale-95 group hover:bg-gray-700" unless controller_name == 'posts' && action_name == "show" %> rounded-xl'
+  class='post-card min-h-96 transform transition duration-500 <%= "hover:scale-95 group hover:bg-gray-700" unless controller_name == 'posts' && action_name == "show" %> rounded-xl'
   <% unless controller_name == 'posts' && action_name == "show"%>
     data-action='dblclick->modal#showPost'
   <% end %>
   >
-  <div class="mt-5 mb-1 mx-3 text-xl text-gray-200">  
+  <div class="mt-5 mb-1 mx-3 text-xl text-gray-200">
     <%= link_to post_path(post),
                 class: 'hover:text-yellow-400 focus:opacity-90 transition duration-300 cursor-pointer',
                 data: { modal_target: 'showButton', turbo_frame: :_top } do %>

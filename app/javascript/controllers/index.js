@@ -9,11 +9,11 @@ application.register("modal", ModalController)
 import ModalUserController from "./modal_user_controller"
 application.register("modal-user", ModalUserController)
 
+import DropdownController from "./dropdown_controller"
+application.register("dropdown", DropdownController)
+
 import AutohideFlashController from "./autohide_flash_controller"
 application.register("autohide-flash", AutohideFlashController)
 
 import AlertController from "./alert_controller"
 application.register("alert", AlertController)
-
-import UtilsController from "./utils_controller"
-application.register("utils", UtilsController)

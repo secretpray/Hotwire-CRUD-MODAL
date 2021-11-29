@@ -12,7 +12,8 @@
   <div class="w-full">
     <div class="grid grid-flow-col">
       <div class="grid-cols-1 mx-auto">
-        <%= user_avatar(current_user, 100) %>
+        <%#= user_avatar(current_user, 100) %>
+        <%= AvatarPresenter.call(current_user, 100) %>
       </div>
 
       <label class="grid-cols-2 self-center mx-auto file_input_label">
