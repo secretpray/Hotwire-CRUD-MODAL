@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ['frame', 'container']
+  static targets = ['frame', 'container', 'showButton']
 
   // click on background
   closeBackground(event) {
@@ -17,12 +17,16 @@ export default class extends Controller {
   }
 
   close(event) {
-    // event && event.preventDefault()
-    // event.preventDefault()
+    event && event.preventDefault()
     // event.stopPropagation()
-    // console.log('this.containerTarget: ', this.containerTarget)
     this.containerTarget.remove()
-    // console.log('this.frameTarget.src: ', this.frameTarget.src )
     this.frameTarget.src = ''
+  }
+
+  // Show post with doubleclick
+  showPost(event) {
+    if (this.hasShowButtonTarget) {
+      this.showButtonTarget.click()
+    }
   }
 }

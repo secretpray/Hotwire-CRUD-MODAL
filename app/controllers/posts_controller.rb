@@ -1,8 +1,10 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  after_action :register_visit, only: :show
 
   def index
-    @posts = Post.recent
+    @posts = Post.recent.last(10)
   end
 
   def show; end
@@ -14,7 +16,8 @@ class PostsController < ApplicationController
   def edit; end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
+
     respond_to do |format|
       if @post.save
         flash.now[:notice] = "Post '#{@post.title}' created!"
@@ -43,6 +46,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    # return unless current_user == @post.user
+
     @post.destroy
     flash.now[:notice] = "Post '#{@post.title}' destroyed!"
     respond_to do |format|
@@ -58,7 +63,13 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :status, :category)
+    params.require(:post).permit(:title, :content, :status, :category, :user_id)
     # params.fetch(:post, {}).permit(:title, :content, :status, :category)
+  end
+
+  # Register 3 last viewed posts by current user
+  def register_visit
+    session[:viewed_posts] ||= []
+    session[:viewed_posts] = ([@post.id] + session[:viewed_posts]).uniq.take(3)
   end
 end

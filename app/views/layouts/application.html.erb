@@ -7,21 +7,21 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class='text-gray-200 bg-gray-800'
-        data-controller='modal'
+  <body class='text-gray-200 bg-gray-800 h-min-screen'
+        data-controller='modal modal-user'
         data-controller-name=<%= controller_name %>
-        data-action-name=<%= action_name %>>
+        data-action-name=<%= action_name %>>        
 
     <div class="max-w-7xl w-full mx-auto">
       <%= turbo_frame_tag :flash %>
-      <p class='mt-12 text-center'><%= Time.zone.now %></p>
+      <p class='mt-6 text-center'><%= Time.zone.now %></p>
       <%= yield %>
     </div>
     <%= turbo_frame_tag :modal, data: { modal_target: 'frame' } %>
+    <%= turbo_frame_tag :user_modal, data: { modal_user_target: 'form_frame' } %>
   </body>
 </html>

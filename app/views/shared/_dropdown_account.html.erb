@@ -1,0 +1,70 @@
+<div class="inline-block text-sm px-4 py-2 leading-none rounded no-underline text-gray-300 bg-gray-800 hover:text-gray-400 hover:bg-gray-700 mt-4 lg:mt-0">
+  <div class="relative"
+       data-controller="dropdown"
+       data-action='keyup@window->dropdown#closeWithKeyboard'>
+    <div data-action="click->dropdown#toggle click@window->dropdown#hide"
+         role="button"
+         data-dropdown-target="button"
+         tabindex="0"
+         class="inline-block select-none outline-none">
+      <span class="appearance-none flex items-center inline-block text-gray-700">
+        <% if current_user %>
+          <span class='h-9 w-9 align-middle mr-3 rounded-full ring-2 ring-gray-700'>
+            <%= AvatarPresenter.call(current_user, 40)%>
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="h-5 w-5 text-yellow-500" fill="currentColor">
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+          </svg>
+        <% end %>
+      </span>
+    </div>
+    <!-- <div data-action="click@window->dropdown#hide"
+         tabindex="-1"
+         class='hidden fixed inset-0 h-full w-full bg-gray-400 filter opacity-50 cursor-default'
+         data-dropdown-target="shadow">
+         <button type="button" name="button" tabindex="-1" class='fixed inset-0 h-full w-full bg-black opacity-50 cursor-default'></button>
+    </div>-->
+    <div data-dropdown-target="menu" class="z-10 absolute -left-4 mt-2 bg-gray-800 hidden">
+      <div class="bg-gray-800 shadow rounded border border-gray-600 overflow-hidden mt-1">
+        <form>
+          <div class="flex w-full bg-yellow-500 items-center px-4 py-2">
+            <span class='italic my-1 text-yellow-800 font-medium mr-1'>
+              <%= current_user&.email %>
+            </span>
+          </div>
+          <%= link_to 'Profile',  account_path(current_user),
+          data: { action: "click->dropdown#toggle", turbo_frame: 'user' },
+          class: 'no-underline block pl-2 tracking-wider py-3 mt-1.5 mx-2 rounded text-gray-400 bg-gray-800 hover:bg-gray-600 hover:text-gray-300 whitespace-nowrap' %>
+          <%#= link_to 'Password', password_path, data: {action: "click->dropdown#toggle"}, class: 'no-underline block px-8 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-nowrap' %>
+          <%#= link_to 'Accounts', user_connected_accounts_path, data: {action: "click->dropdown#toggle"}, class: 'no-underline block px-8 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-nowrap' %>
+          <%#= link_to 'Billing',  subscription_path, data: {action: "click->dropdown#toggle"}, class: 'no-underline block px-8 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-nowrap' %>
+          <div class="h-px m-2 bg-gray-400"></div>
+        </form>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete,
+        data: { action: "click->dropdown#toggle" },
+        class: 'no-underline flex flex-start w-full no-underline block pl-2 tracking-wider py-3 mt-1.5 mx-2 rounded text-gray-400 bg-gray-800 hover:bg-gray-600 hover:text-gray-300 whitespace-nowrap' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="relative">
+
+  <button type="button" name="toggle" class='z-10 relative block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white'>
+    <span class='h-full w-full object-cover'>
+      <%= AvatarPresenter.call(current_user, 40)%>
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="h-5 w-5 text-yellow-500" fill="currentColor">
+      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+    </svg>
+  </button>
+
+  <button type="button" name="close-background" tabindex="-1" class='fixed inset-0 h-full w-full bg-black opacity-50 cursor-default'></button>
+
+  <div class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow">
+    <a href="#" class='block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white'>Account settings</a>
+    <a href="#" class='block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white'>Support</a>
+    <a href="#" class='block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white'>Sign out</a>
+  </div>
+
+</div> -->

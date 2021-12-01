@@ -1,0 +1,88 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name),
+            html: { method: :put,
+                    id: "profile_form",
+                    class: 'flex flex-col space-y-5 mx-4',
+                    data: { turbo_frame: "_top" } }) do |f| %>
+  <div class="flex justify-between items-center">
+    <h2 class="ml-2 font-bold text-gray-300 text-2xl">Editing Profile</h2>
+    <a href="javascript:void(0);" class='mr-2 text-gray-300 text-3xl font-semibold' data-action='modal-user#close'>&times;</a>
+  </div>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="w-full">
+    <div class="grid grid-flow-col">
+      <div class="grid-cols-1 mx-auto">
+        <%#= user_avatar(current_user, 100) %>
+        <%= AvatarPresenter.call(current_user, 100) %>
+      </div>
+
+      <label class="grid-cols-2 self-center mx-auto file_input_label">
+        <%= image_tag ('Cloud_upload.png') %>
+        <span class="span-select-file">Select a file</span>
+        <%= f.file_field :avatar, class: 'hidden'%>
+      </label>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <%= f.label :email, class: "block mb-2 font-bold text-gray-400" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",
+        placeholder: 'Email',
+        class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+  </div>
+
+  <div class="flex justify-between gap-3">
+    <div class="w-full">
+      <%= f.label :first_name, class: "block mb-2 font-bold text-gray-400" %>
+      <%= f.text_field :first_name,
+      placeholder: 'First name',
+      class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+    </div>
+
+    <div class="w-full">
+      <%= f.label :last_name, class: "block mb-2 font-bold text-gray-400" %>
+      <%= f.text_field :last_name,
+      placeholder: 'Last name',
+      class: "text-gray-300 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+    </div>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="flex justify-between gap-3">
+    <div class="w-full">
+      <%= f.label :password, class: "block font-bold text-gray-400" %>
+      <%= f.password_field :password,
+            placeholder: "Password",
+            class: "mt-2 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+      <% if @minimum_password_length %>
+        <em class='text-xs text-gray-400'><%= @minimum_password_length %> characters minimum</em>
+      <% end %>
+    </div>
+
+    <div class="w-full">
+      <%= f.label :password_confirmation, class: "block font-bold text-gray-400" %>
+      <%= f.password_field :password_confirmation,
+        placeholder: "Password confirmation",
+        class: "mt-2 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300"%>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <%= f.label :current_password, class: "block font-bold text-gray-400" %> <i class='text-xs text-gray-400'>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password",
+          placeholder: "Current password",
+          class: "mt-2 bg-gray-700 w-full rounded-lg hover:border-yellow-400 hover:text-gray-300 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300" %>
+  </div>
+  <br />
+  <div class="mb-3 w-full flex justify-between">
+    <%= f.submit "Update",
+        class: "p-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+        <%# class: "cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-4" %>
+    <%= link_to "◄ Back", "javascript:void(0);", data: { action: 'modal-user#close' }, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:text-yellow-500"%>
+    <%#= link_to "◄ Back", account_path(resource), data: { turbo_frame: :_self }, class: "rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline"%>
+    <!-- <a href="javascript:void(0);" class='rounded-lg py-3 px-5 text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline' data-action='modal#close'>Cancel</a> -->
+  </div>
+<% end %>
