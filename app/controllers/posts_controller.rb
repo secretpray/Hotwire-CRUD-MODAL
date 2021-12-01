@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   after_action :register_visit, only: :show
 
   def index
-    @posts = Post.recent
+    @posts = Post.recent.last(10)
   end
 
   def show; end

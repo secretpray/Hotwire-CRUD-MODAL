@@ -28,16 +28,13 @@
       <div class="bg-gray-800 shadow rounded border border-gray-600 overflow-hidden mt-1">
         <form>
           <div class="flex w-full bg-yellow-500 items-center px-4 py-2">
-            <span class='h-8 w-8 align-middle mr-3 rounded-full ring-2 mt-1'>
-              <%= AvatarPresenter.call(current_user, 50)%>
-            </span>
-            <span class='text-yellow-800 hover:text-yellow-900 -400 mr-1'>
-              <%= current_user.email %>
+            <span class='italic my-1 text-yellow-800 font-medium mr-1'>
+              <%= current_user&.email %>
             </span>
           </div>
           <%= link_to 'Profile',  account_path(current_user),
           data: { action: "click->dropdown#toggle", turbo_frame: 'user' },
-          class: 'no-underline block pl-8 py-3 mt-1.5 mx-2 rounded text-gray-400 bg-gray-800 hover:bg-gray-600 hover:text-gray-300 whitespace-nowrap' %>
+          class: 'no-underline block pl-2 tracking-wider py-3 mt-1.5 mx-2 rounded text-gray-400 bg-gray-800 hover:bg-gray-600 hover:text-gray-300 whitespace-nowrap' %>
           <%#= link_to 'Password', password_path, data: {action: "click->dropdown#toggle"}, class: 'no-underline block px-8 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-nowrap' %>
           <%#= link_to 'Accounts', user_connected_accounts_path, data: {action: "click->dropdown#toggle"}, class: 'no-underline block px-8 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-nowrap' %>
           <%#= link_to 'Billing',  subscription_path, data: {action: "click->dropdown#toggle"}, class: 'no-underline block px-8 py-3 text-gray-900 bg-white hover:bg-gray-300 whitespace-nowrap' %>
@@ -45,7 +42,7 @@
         </form>
         <%= button_to "Sign out", destroy_user_session_path, method: :delete,
         data: { action: "click->dropdown#toggle" },
-        class: 'no-underline flex flex-start w-full block pl-8 py-3 mb-1.5 mx-2 rounded text-gray-400 bg-gray-800 hover:bg-gray-600 hover:text-gray-300 whitespace-nowrap' %>
+        class: 'no-underline flex flex-start w-full no-underline block pl-2 tracking-wider py-3 mt-1.5 mx-2 rounded text-gray-400 bg-gray-800 hover:bg-gray-600 hover:text-gray-300 whitespace-nowrap' %>
       </div>
     </div>
   </div>

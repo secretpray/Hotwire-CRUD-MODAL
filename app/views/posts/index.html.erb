@@ -23,7 +23,7 @@
     </div>
     <hr>
       <%= turbo_frame_tag :posts do %>
-        <%= render 'posts/posts', posts: Post.recent %>
+        <%= render 'posts/posts', posts: @posts %>
       <% end %>
   </div>
 <% end %>

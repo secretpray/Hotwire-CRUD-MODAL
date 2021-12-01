@@ -1,14 +1,16 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :authenticate_user!, except: %i[new create]
   before_action :set_user, only: %i(edit update)
+
 
   def edit; end
 
   def update
     # super
     respond_to do |format|
-      logger.debug "User should be valid (users/registrations): #{@user.valid?}"
+      logger.debug "User should be valid (users/update registrations): #{@user.valid?}"
       if @user.update(user_params)
-        flash.now[:notice] = "Post '#{@user.email}' updated!"
+        flash.now[:notice] = "User with '#{@user.email}' updated!"
         format.turbo_stream
         format.html { redirect_to account_path(@user) }
       else
