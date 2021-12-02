@@ -1,6 +1,6 @@
 <%= turbo_frame_tag :post do %>
   <div class="mx-auto md:w-2/3 w-full max-w-6xl mt-16 flex flex-col justify-center">
-    <div class="m-auto w-full max-w-2xl border-2 p-4 rounded-xl border-opacity-50"
+    <div class="m-auto w-full max-w-3xl border-2 p-4 rounded-xl border-opacity-50"
       style="border-left-color: <%= status_color(@post.status) %>; border-left-width: 8px;">
 
       <%= render @post %>
@@ -21,8 +21,12 @@
   </div>
 <% end %>
 
-<h4>Comments: <%= @comments.count %></h4>
-<div class="mt-3 mb-5">
+<%= turbo_stream_from @post, :comments %>
+<%= tag.div id: "#{dom_id(@post)}_comments_counter",
+    class: 'text-lg font-bold text-3xl p-2 mt-5 mb-3 mx-auto max-w-3xl' do %>
+    Comments: <%= @comments.count %>
+<% end %>
+<div class="mt-3 mb-5 mx-auto max-w-3xl">
   <% if user_signed_in? %>
     <%= render partial: 'comments/form', locals: {comment: Comment.new, commentable: @post } %>
   <% else %>
@@ -30,15 +34,9 @@
   <% end %>
 </div>
 
-<div class="mt-4 mb-5">
-  <% @comments.each do |comment| %>
-    <div class="mt-3 mb-5 ml-12 px-4 flex justify-between items-center bg-gray-700">
-      <div class="text-xl text-gray-200 border-l-4 border-gray-400 pl-4 py-2 my-2">
-        <%= comment.body %>
-      </div>
-      <div class='text-xs mx-3 text-gray-400'>
-        <%= time_ago_in_words(comment.created_at) %> ago by <%= comment.user&.email %>
-      </div>
-    </div>
+<div class="mt-4 mb-5 mx-auto max-w-3xl">
+  <%= turbo_stream_from @post, :comments %>
+  <%= tag.div id: "#{dom_id(@post)}_comments" do %>
+    <%= render @comments %>
   <% end %>
 </div>
