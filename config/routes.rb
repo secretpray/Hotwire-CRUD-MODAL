@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :comments
 
-  resources :users, only: :show, as: :account
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  resources :users, only: :show, as: :account
   root 'posts#index'
 end

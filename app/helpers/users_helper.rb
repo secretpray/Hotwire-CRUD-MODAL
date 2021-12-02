@@ -1,7 +1,7 @@
 module UsersHelper
 
   def is_author?(object, user)
-    user.id == object.user_id
+    user&.id == object.user_id
   end
   # # include Rails.application.routes.url_helpers
   #
