@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user, inverse_of: :posts
+  has_many :comments, as: :commentable
   has_rich_text :content
 
   enum status: %i[draft publish deleted spam] # statuses.invert

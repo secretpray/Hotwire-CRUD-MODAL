@@ -20,3 +20,25 @@
     </div>
   </div>
 <% end %>
+
+<h4>Comments: <%= @comments.count %></h4>
+<div class="mt-3 mb-5">
+  <% if user_signed_in? %>
+    <%= render partial: 'comments/form', locals: {comment: Comment.new, commentable: @post } %>
+  <% else %>
+    <%= link_to 'Sign up', new_user_registration_path %> or <%= link_to 'login', new_user_session_path %> to comment
+  <% end %>
+</div>
+
+<div class="mt-4 mb-5">
+  <% @comments.each do |comment| %>
+    <div class="mt-3 mb-5 ml-12 px-4 flex justify-between items-center bg-gray-700">
+      <div class="text-xl text-gray-200 border-l-4 border-gray-400 pl-4 py-2 my-2">
+        <%= comment.body %>
+      </div>
+      <div class='text-xs mx-3 text-gray-400'>
+        <%= time_ago_in_words(comment.created_at) %> ago by <%= comment.user&.email %>
+      </div>
+    </div>
+  <% end %>
+</div>
