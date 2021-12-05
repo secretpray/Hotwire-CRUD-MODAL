@@ -17,3 +17,6 @@ application.register("autohide-flash", AutohideFlashController)
 
 import AlertController from "./alert_controller"
 application.register("alert", AlertController)
+
+import CommentReplyController from "./comment_reply_controller"
+application.register("comment-reply", CommentReplyController)

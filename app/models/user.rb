@@ -4,8 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :posts, dependent: :destroy, inverse_of: :user
   has_one_attached :avatar
+
+  has_many :posts, dependent: :destroy, inverse_of: :user
+  has_many :comments, dependent: :destroy, inverse_of: :user
 
   validates :email, presence: true, uniqueness: {case_sensitive: false}
 end

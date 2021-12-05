@@ -23,7 +23,10 @@
     </div>
     <hr>
       <%= turbo_frame_tag :posts do %>
-        <%= render 'posts/posts', posts: @posts %>
+      <%#= render 'posts/posts', posts: @posts, user: current_user %>
+        <div id="posts" class="grid gap-5 grid-cols-2 mt-4">
+          <%= render partial: 'posts/post', collection: @posts, as: :post, locals: { user: current_user } %>
+        </div>
       <% end %>
   </div>
 <% end %>

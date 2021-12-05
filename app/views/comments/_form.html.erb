@@ -1,0 +1,33 @@
+<% model = [local_assigns[:commentable], comment].compact %>
+
+<%= form_with model: model,
+      id: dom_id_for_records(*model),
+      data: local_assigns[:data],
+      class: ["my-4"] + Array.wrap(local_assigns[:class]) do |form| %>
+  <!-- errors -->
+  <% if form.object.errors.any? %>
+    <div id="error_explanation" class="bg-transparent border-l-8 border-red-500 py-3 px-5 text-red-500 font-medium rounded mt-3 mb-2 rounded-lg border-opacity-60">
+      <h2><%= pluralize(form.object.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul class='mt-1'>
+        <% form.object.errors.full_messages.each do |message| %>
+          <li>* <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- forms content -->
+  <%= form.rich_text_area :body, rows: 4,
+                  id: "#{dom_id_for_records(*model)}_body",
+                  class: "block shadow rounded-md border border-gray-300 outline-none px-3 py-2 mt-2 w-full placeholder-gray-300 bg-transparent" %>
+  <div class="mt-3 mb-5">
+    <%= form.submit "#{form.object.new_record? ? 'Add comment' : 'Edit comment'}",
+                  class: "rounded-lg py-2 px-4 mr-1 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80 cursor-pointer" %>
+    <% if form.object.persisted? %>
+      <%= link_to 'Cancel', comment,
+                    class: "py-2 px-4 bg-transparent border-2 border-gray-300 text-gray-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer"%>
+    <% elsif form.object.errors.any? %>
+      <%= link_to 'Cancel', "javascript:void(0);", data: { controller: 'comment-reply', action: "click->comment-reply#cancel", form_id: "#{dom_id_for_records(*model)}" },
+                                class: "py-2 px-4 bg-transparent border-2 border-gray-300 text-gray-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer"%>
+    <% end %>
+  </div>
+<% end %>

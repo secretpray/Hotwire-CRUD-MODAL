@@ -1,4 +1,8 @@
 module UsersHelper
+
+  def is_author?(object, user_id)
+    user_id == object.user_id
+  end
   # # include Rails.application.routes.url_helpers
   #
   # def user_avatar(user, size=40)

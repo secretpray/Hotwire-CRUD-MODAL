@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   after_action :register_visit, only: :show
 
   def index
-    @posts = Post.recent.last(10)
+    @posts = Post.recent
   end
 
   def show; end
@@ -33,6 +33,7 @@ class PostsController < ApplicationController
 
   def update
     respond_to do |format|
+      # binding.pry
       if @post.update(post_params)
         flash.now[:notice] = "Post '#{@post.title}' updated!"
         format.turbo_stream
