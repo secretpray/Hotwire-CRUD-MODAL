@@ -3,12 +3,14 @@ class Comment < ApplicationRecord
 
   belongs_to :user
   belongs_to :commentable, polymorphic: true
+  belongs_to :parent, optional: true, class_name: 'Comment'
+  has_many :comments, foreign_key: :parent_id, dependent: :destroy
   has_rich_text :body
 
   validates :body, presence: true
 
   after_create_commit do
-    broadcast_append_to [commentable, :comments], target: "#{dom_id(commentable)}_comments"
+    broadcast_append_to [commentable, :comments], target: "#{dom_id(parent || commentable)}_comments", partial: "comments/comment_with_replies"
     update_comments_counter
   end
 
@@ -18,6 +20,7 @@ class Comment < ApplicationRecord
 
   after_destroy_commit do
     broadcast_remove_to self
+    broadcast_action_to self, action: :remove, target: "#{dom_id(self)}_with_comments"
     update_comments_counter
   end
 
