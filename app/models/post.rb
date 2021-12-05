@@ -17,4 +17,16 @@ class Post < ApplicationRecord
   validates :status, inclusion: { in: Post.statuses.keys }
 
   scope :recent, -> { order(created_at: :desc) }
+
+  # broadcasts
+  # broadcasts_to ->(post) { :posts }
+  # after_update_commit { broadcast_replace_later_to 'posts' }
+
+  # for use with current_user
+  # after_update_commit -> { broadcast_replace_later_to(self, locals: { user: current_user, post: self }) }
+  # for use with current_user and fixed bug in Console
+  # after_update_commit do
+    # defined?(current_user) ? broadcast_replace_later_to(self, locals: { user: current_user, post: self }) : nil
+    # current_user ? broadcast_replace_later_to(self, locals: { user: current_user, post: self }) : nil
+  # end
 end

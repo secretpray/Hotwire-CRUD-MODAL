@@ -3,10 +3,12 @@
     <div class="m-auto w-full max-w-3xl border-2 p-4 rounded-xl border-opacity-50"
       style="border-left-color: <%= status_color(@post.status) %>; border-left-width: 8px;">
 
-      <%= render @post %>
+      <%#= render @post %>
+      <%= render partial: 'post', locals: { post: @post, user: current_user } %>
 
       <div class="mt-4 mx-3">
-        <% if is_author?(@post, current_user) %>
+        <% if is_author?(@post, current_user&.id) %>
+        <%# if is_author?(@post, current_user) %>
           <%= link_to 'Edit post', edit_post_path(@post), data: { turbo_frame: :modal }, class: "rounded-lg py-3 px-5 bg-yellow-400 text-lg filter saturate-150 contrast-75 text-yellow-800 hover:opacity-80 transition duration-300" %>
           <div class="inline-block ml-2">
             <%= button_to 'Delete', post_path(@post), method: :delete, data: { confirm: "Are you sure you want to delete this post?" },
