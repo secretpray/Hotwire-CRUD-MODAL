@@ -8,8 +8,9 @@
       <div class='text-xs mx-2 text-gray-400'>
         <%= time_ago_in_words(comment.created_at) %> ago by <%= comment.user&.email %>
       </div>
-      <div class="flex items-center">
-        <%# if secret_clearance %>
+      <div class="flex items-center hidden"
+           data-controller="object-author"
+           data-object-author-author-id-value="<%= comment.user.id %>">
           <%= link_to edit_comment_path(comment),
                       class: 'mr-2 text-yellow-400 opacity-50 hover:text-yellow-500 text-md hover:opacity-100' do %>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

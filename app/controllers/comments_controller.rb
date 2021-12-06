@@ -4,9 +4,13 @@ class CommentsController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    render status: 403 unless @comment.user == current_user
+  end
 
   def update
+    render status: 403 unless @comment.user == current_user
+
     if @comment.update(comment_params)
       flash.now[:notice] = "Comment '#{@comment.id}' updated!"
       # format.turbo_stream
@@ -19,7 +23,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    # return unless current_user == @post.user
+    # return unless current_user == @comment.user
+    render status: 403 unless @comment.user == current_user
 
     @comment.destroy
     flash.now[:notice] = "Comment '#{@comment.id}' destroyed!"

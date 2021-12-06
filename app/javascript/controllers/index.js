@@ -20,3 +20,6 @@ application.register("alert", AlertController)
 
 import CommentReplyController from "./comment_reply_controller"
 application.register("comment-reply", CommentReplyController)
+
+import ObjectAuthorController from "./object_author_controller"
+application.register("object-author", ObjectAuthorController)

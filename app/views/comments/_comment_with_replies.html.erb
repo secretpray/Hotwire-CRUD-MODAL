@@ -2,7 +2,8 @@
 <!-- border-l-4  -->
 <div class="pl-4 ml-4 border-gray-600"
      id="<%= dom_id(comment) %>_with_comments"
-     data-controller="comment-reply">
+     data-controller="comment-reply "
+     data-user-id="<%= comment.user.id %>">
   <%= render comment %>
 
   <div class="text-xs">
