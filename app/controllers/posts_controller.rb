@@ -21,11 +21,11 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         flash.now[:notice] = "Post '#{@post.title}' created!"
-        format.turbo_stream
+        format.turbo_stream {}
         format.html { redirect_to posts_url }
       else
         # flash.now[:alert] = @post.errors.full_messages.join('. ')
-        format.turbo_stream
+        format.turbo_stream {}
         format.html { render :new, status: :unprocessable_entity }
       end
     end
@@ -36,11 +36,11 @@ class PostsController < ApplicationController
       # binding.pry
       if @post.update(post_params)
         flash.now[:notice] = "Post '#{@post.title}' updated!"
-        format.turbo_stream
+        format.turbo_stream {}
         format.html { redirect_to posts_url }
       else
         # flash.now[:alert] = @post.errors.full_messages.join('. ')
-        format.turbo_stream
+        format.turbo_stream {}
         format.html { render :edit, status: :unprocessable_entity }
       end
     end

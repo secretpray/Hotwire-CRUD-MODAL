@@ -3,8 +3,7 @@
     <div class="m-auto w-full max-w-3xl border-2 p-4 rounded-xl border-opacity-50"
       style="border-left-color: <%= status_color(@post.status) %>; border-left-width: 8px;">
 
-      <%#= render @post %>
-      <%= render partial: 'post', locals: { post: @post, user: current_user } %>
+      <%= render @post %>
 
       <div class="mt-4 mx-3">
         <%# if is_author?(@post, current_user&.id) %>

@@ -1,52 +1,55 @@
-<!-- <div id="<%= dom_id post %>"></div> -->
-<%= turbo_frame_tag dom_id(post) do %>
-<div class='post-card min-h-96 transform transition duration-500 <%= "hover:scale-95 group hover:bg-gray-700" unless controller_name == 'posts' && action_name == "show" %> rounded-xl'
-  <% unless controller_name == 'posts' && action_name == "show"%>
-    data-action='dblclick->modal#showPost'
-    data-id=<%= post.id %>
-  <% end %>
-  >
-  <div class="mt-5 mb-1 mx-3 text-xl text-gray-200 truncate">
-    <%= link_to post.title, post_path(post),
-                class: 'hover:text-yellow-400 focus:opacity-90 transition duration-300 cursor-pointer',
-                id: "btn_show_#{post.id}",
-                data: { modal_target: "showButton", turbo_frame: :_top } %>
-  </div>
+<!-- <%= turbo_frame_tag dom_id(post) do %> -->
+<%= turbo_stream_from post %>
 
-  <div class='text-xs mx-3 text-gray-400'>
-    <%= time_ago_in_words(post.created_at) %> ago by <%= post.user&.email %>
-  </div>
-  <div class="flex justify-between">
-    <p class="my-5 text-xl flex-1 flex">
-      <strong class="block font-semibold mb-1 mx-3 text-gray-400">
-        Category:
-      </strong>
-      <%= post.category %>
-    </p>
-
-    <p class="my-5 text-xl w-full flex justify-end mr-2">
-      <span class='text-xs px-3 py-2 text-center'
-            style='border-left: 6px solid <%= status_color(post.status) %>;'>
-        <%= post.status %>
-      </span>
-    </p>
-  </div>
-
-  <hr class='mx-3'>
-  <div class="my-5 mx-3 text-xl">
-    <span>
-      <%= post.content %>
-    </span>
-  </div>
-
-  <div class="mt-2 mb-4 mx-3 flex">
-    <% if action_name != "show" && is_author?(post, user&.id) %>
-    <%# if action_name != "show" && is_author?(post, current_user&.id) %>
-      <%= link_to 'Edit post', edit_post_path(post), data: { turbo_frame: :modal },
-          class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80" %>
-      <%= button_to 'Delete', post_path(post), method: :delete, data: { confirm: "Are you sure you want to delete this post?" },
-          class: "p-2 ml-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+<div id="<%= dom_id post %>" class='w-2/5'>
+  <div class='post-card min-h-72 transform transition duration-500 <%= "hover:scale-95 group hover:bg-gray-700" unless controller_name == 'posts' && action_name == "show" %> rounded-xl'
+    <% unless controller_name == 'posts' && action_name == "show"%>
+      data-action='dblclick->modal#showPost'
+      data-id=<%= post.id %>
     <% end %>
+    >
+    <div class="mt-5 mb-1 mx-3 text-xl text-gray-200 truncate">
+      <%= link_to post.title, post_path(post),
+                  class: 'hover:text-yellow-400 focus:opacity-90 transition duration-300 cursor-pointer',
+                  id: "btn_show_#{post.id}",
+                  data: { modal_target: "showButton", turbo_frame: :_top } %>
+    </div>
+
+    <div class='text-xs mx-3 text-gray-400'>
+      <%= time_ago_in_words(post.created_at) %> ago by <%= post.user&.email %>
+    </div>
+    <div class="flex justify-between">
+      <p class="my-5 text-xl flex-1 flex">
+        <strong class="block font-semibold mb-1 mx-3 text-gray-400">
+          Category:
+        </strong>
+        <%= post.category %>
+      </p>
+
+      <p class="my-5 text-xl w-full flex justify-end mr-2">
+        <span class='text-xs px-3 py-2 text-center'
+              style='border-left: 6px solid <%= status_color(post.status) %>;'>
+          <%= post.status %>
+        </span>
+      </p>
+    </div>
+
+    <hr class='mx-3'>
+    <div class="my-5 mx-3 text-xl">
+      <span>
+        <%= post.content %>
+      </span>
+    </div>
+
+    <div class="mt-2 mb-4 mx-3 flex">
+      <% if action_name != "show" %>
+      <%# if action_name != "show" && is_author?(post, current_user&.id) %>
+        <%= link_to 'Edit', edit_post_path(post), data: { turbo_frame: :modal },
+            class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80" %>
+        <%= button_to 'Delete', post_path(post), method: :delete, data: { confirm: "Are you sure you want to delete this post?" },
+            class: "p-2 ml-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+      <% end %>
+    </div>
   </div>
 </div>
-<% end %>
+<!-- <% end %> %> -->

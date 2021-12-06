@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_rich_text :content
 
-  enum status: %i[draft publish deleted spam] # statuses.invert
+  enum status: %i[draft publish deleted spam]
   COLOR_STATUSES = { draft: 'grey', publish: 'orange', deleted: 'green', spam: 'red' }
 
   MIN_TITLE_LENGTH = 4
@@ -18,15 +18,24 @@ class Post < ApplicationRecord
 
   scope :recent, -> { order(created_at: :desc) }
 
-  # broadcasts
-  # broadcasts_to ->(post) { :posts }
-  # after_update_commit { broadcast_replace_later_to 'posts' }
+  after_create_commit do
+    broadcast_prepend_to 'posts'
+    update_posts_counter
+  end
 
-  # for use with current_user
-  # after_update_commit -> { broadcast_replace_later_to(self, locals: { user: current_user, post: self }) }
-  # for use with current_user and fixed bug in Console
-  # after_update_commit do
-    # defined?(current_user) ? broadcast_replace_later_to(self, locals: { user: current_user, post: self }) : nil
-    # current_user ? broadcast_replace_later_to(self, locals: { user: current_user, post: self }) : nil
-  # end
+  after_update_commit do
+    # broadcast_replace_later_to 'posts'
+    broadcast_replace_to self
+  end
+
+  after_destroy_commit do
+    broadcast_remove_to 'posts', target: "post_#{self.id}"
+    update_posts_counter
+  end
+
+  private
+
+  def update_posts_counter
+    broadcast_update_to 'posts', target: 'posts_counter', html: "Post#{Post.all.size > 1 ? 's: ' : ': '}#{Post.all.size}"
+  end
 end
