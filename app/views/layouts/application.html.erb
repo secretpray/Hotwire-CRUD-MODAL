@@ -3,6 +3,7 @@
   <head>
     <title>HotwireCrudModal</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="current-user-id" content="<%= current_user&.id %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
@@ -14,7 +15,7 @@
   <body class='text-gray-200 bg-gray-800 h-min-screen'
         data-controller='modal modal-user'
         data-controller-name=<%= controller_name %>
-        data-action-name=<%= action_name %>>        
+        data-action-name=<%= action_name %>>
 
     <div class="max-w-7xl w-full mx-auto">
       <%= turbo_frame_tag :flash %>
