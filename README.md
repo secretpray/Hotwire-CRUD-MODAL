@@ -17,3 +17,7 @@ https://user-images.githubusercontent.com/17977331/144759682-3296d459-e2ee-4c77-
 
 https://user-images.githubusercontent.com/17977331/144759752-f09ea168-0158-4410-980a-74000ca0da01.mov
 
+## Authorization Hotwire Commets & Reply (broadcast)
+
+https://user-images.githubusercontent.com/17977331/144826926-6c9c593d-4d51-4e4e-b49c-c18d7b5cdf50.mov
+
