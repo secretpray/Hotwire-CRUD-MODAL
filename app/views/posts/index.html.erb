@@ -12,7 +12,7 @@
     <div>
   <% else %>
     <div class="w-full mx-auto">
-      <div class="flex justify-between items-center mb-4">
+      <div class="mx-8 flex justify-between items-center mb-4">
         <div>
           <h1 class="text-lg font-bold text-4xl p-2 mt-5" id='posts_counter'>
             Post<%= @posts.size > 1 ? 's: ' : ': ' %><%= @posts.size %>
@@ -22,7 +22,7 @@
       </div>
       <hr>
       <div class="flex flex-row my-5">
-        <%= turbo_frame_tag 'posts', class: 'flex flex-wrap justify-center gap-5' do %>
+        <%= turbo_frame_tag 'posts', class: 'flex flex-wrap justify-evenly gap-5' do %>
           <%= render @posts %>
         <% end %>
       </div>

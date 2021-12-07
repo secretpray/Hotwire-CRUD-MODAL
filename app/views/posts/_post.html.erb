@@ -1,8 +1,8 @@
 <!-- <%= turbo_frame_tag dom_id(post) do %> -->
 <%= turbo_stream_from post %>
 
-<div id="<%= dom_id post %>" class='w-2/5'>
-  <div class='post-card min-h-72 transform transition duration-500 <%= "hover:scale-95 group hover:bg-gray-700" unless controller_name == 'posts' && action_name == "show" %> rounded-xl'
+<div id="<%= dom_id post %>" class="<%= 'w-2/5' unless controller_name == 'posts' && action_name == "show" %>">
+  <div class='mx-4 p-4 post-card min-h-72 transform transition duration-500 <%= "hover:scale-95 group hover:bg-gray-700" unless controller_name == 'posts' && action_name == "show" %> rounded-xl'
     <% unless controller_name == 'posts' && action_name == "show"%>
       data-action='dblclick->modal#showPost'
       data-id=<%= post.id %>
@@ -41,14 +41,19 @@
       </span>
     </div>
 
-    <div class="mt-2 mb-4 mx-3 flex">
-      <% if action_name != "show" %>
+    <div class="mt-5 mb-3 pt-4 mx-3 flex justify-between items-center">
       <%# if action_name != "show" && is_author?(post, current_user&.id) %>
+      <div class="flex">
         <%= link_to 'Edit', edit_post_path(post), data: { turbo_frame: :modal },
-            class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80" %>
+        class: "rounded-lg py-3 px-5 bg-yellow-400 filter saturate-150 contrast-75 text-yellow-800 font-medium hover:opacity-80" %>
         <%= button_to 'Delete', post_path(post), method: :delete, data: { confirm: "Are you sure you want to delete this post?" },
-            class: "p-2 ml-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
-      <% end %>
+        class: "p-2 ml-2 px-5 bg-transparent border-2 border-grey-300 text-grey-300 text-lg filter saturate-150 contrast-75 opacity-50 rounded-lg hover:border-yellow-400 hover:text-yellow-400 hover:opacity-100 focus:border-4 focus:border-yellow-300 focus:opacity-90 transition duration-300 cursor-pointer" %>
+      </div>
+      <div class="">
+        <%= link_to '◄ Back', posts_path,
+            data: { turbo_frame: :_top },
+            class: "rounded-lg py-2 px-5 text-lg text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline hover:opacity-80 transition duration-300" %>
+      </div>
     </div>
   </div>
 </div>
