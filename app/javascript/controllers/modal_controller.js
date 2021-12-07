@@ -26,7 +26,7 @@ export default class extends Controller {
   // Show post with doubleclick
   showPost(event) {
     var buttonShow = document.getElementById(`btn_show_${+event.currentTarget.dataset.id}`)
-    if (buttonShow) {
+    if (buttonShow && document.body.dataset.actionName == 'index') {
       buttonShow.click()
     }
     // if (this.hasShowButtonTarget) {

@@ -25,7 +25,7 @@
     <div class="relative flex flex-1 flex-col pr-5">
       <div class="flex">
         Status:
-        <%= form.select :status, options_for_select(Post.statuses.keys, { selected: @post.status || Post.new.status }), {include_blank: false},
+        <%= form.select :status, options_for_select(Post.statuses.keys, { selected: @post&.status || Post.new.status }), {include_blank: false},
         { class: 'ml-4 appearance-none w-full border border-gray-300 hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline placeholder-gray-300 bg-transparent'} %>
       </div>
     </div>

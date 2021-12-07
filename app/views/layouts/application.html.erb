@@ -12,10 +12,10 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class='text-gray-200 bg-gray-800 h-min-screen'
+  <body class='antialiased text-gray-200 bg-gray-800 h-min-screen'
         data-controller='modal modal-user'
-        data-controller-name=<%= controller_name %>
-        data-action-name=<%= action_name %>>
+        data-controller-name='<%= controller_name %>'
+        data-action-name='<%= action_name %>'>
 
     <div class="max-w-7xl w-full mx-auto">
       <%= turbo_frame_tag :flash %>
