@@ -21,3 +21,7 @@ https://user-images.githubusercontent.com/17977331/144759752-f09ea168-0158-4410-
 
 https://user-images.githubusercontent.com/17977331/144826926-6c9c593d-4d51-4e4e-b49c-c18d7b5cdf50.mov
 
+## Authorization Hotwire Posts (broadcast)
+
+https://user-images.githubusercontent.com/17977331/145093777-8c493f4d-9336-4c18-b1fa-540fa0a57f33.mp4
+
