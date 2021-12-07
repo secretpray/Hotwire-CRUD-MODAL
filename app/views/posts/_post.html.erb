@@ -1,13 +1,15 @@
 <!-- <%= turbo_frame_tag dom_id(post) do %> -->
 <%= turbo_stream_from post %>
 
-<div id="<%= dom_id post %>" class="" data-visible-class-to='<%= action_name %>'>
-  <div class='mx-4 p-4 post-card min-h-72 transform transition duration-500 <%= "hover:scale-95 group hover:bg-gray-700 cursor-pointer" if controller_name == 'posts' && action_name == "index" %> rounded-xl'
-    <% unless controller_name == 'posts' && action_name == "show"%>
+<div id="<%= dom_id post %>"
+     class=""
+     data-controller="cards-util"
+     data-cards-util-target='card_frame'>
+  <div class='mx-4 p-4 post-card min-h-72 transform transition duration-500 hover:scale-95 group hover:bg-gray-700 cursor-pointer rounded-xl'
+      data-controller='current-page'
+      data-current-page-target='hover'
       data-action='dblclick->modal#showPost'
-      data-id=<%= post.id %>
-    <% end %>
-    >
+      data-id='<%= post.id %>'>
     <div class="mt-5 mb-1 mx-3 text-xl text-gray-200 truncate">
       <%= link_to post.title, post_path(post),
                   class: 'hover:text-yellow-400 focus:opacity-90 transition duration-300 cursor-pointer',
@@ -58,12 +60,11 @@
           </svg>
         <% end %>
       </div>
-      <div class="ml-auto">
-        <% if controller_name == 'posts' && action_name == "show" %>
+      <div class="ml-auto back-button hidden"
+           data-current-page-target='back_button'>
           <%= link_to '◄ Back', posts_path,
               data: { turbo_frame: :_top },
               class: "rounded-lg py-2 px-5 text-lg text-yellow-400 filter saturate-150 contrast-75 font-medium hover:underline hover:opacity-80 transition duration-300" %>
-          <% end %>
       </div>
     </div>
   </div>

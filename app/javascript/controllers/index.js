@@ -23,3 +23,9 @@ application.register("comment-reply", CommentReplyController)
 
 import ObjectAuthorController from "./object_author_controller"
 application.register("object-author", ObjectAuthorController)
+
+import CardsUtilController from "./cards_util_controller"
+application.register("cards-util", CardsUtilController)
+
+import CurrentPageController from "./current_page_controller"
+application.register("current-page", CurrentPageController)
