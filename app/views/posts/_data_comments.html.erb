@@ -1,0 +1,11 @@
+<% data = comments_user_data(post) %>
+
+<span class='flex w-full items-center'>
+  Comment<%= data[:count] > 1 ? 's: ' : ': ' %> <%= data[:count] %>
+  <% if data[:count] > 0 %>
+    by&nbsp;
+    <span class='flex ml-2 gap-1'>
+      <%== data[:users_avatar] %>
+    </span>
+  <% end %>
+</span>
