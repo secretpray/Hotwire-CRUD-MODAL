@@ -25,3 +25,7 @@ https://user-images.githubusercontent.com/17977331/144826926-6c9c593d-4d51-4e4e-
 
 https://user-images.githubusercontent.com/17977331/145093777-8c493f4d-9336-4c18-b1fa-540fa0a57f33.mp4
 
+## Hotwire Comments info: comments count and author avatar (broadcast)
+
+https://user-images.githubusercontent.com/17977331/145165029-52a11c83-7411-4642-a343-5b82a24696b5.mov
+
