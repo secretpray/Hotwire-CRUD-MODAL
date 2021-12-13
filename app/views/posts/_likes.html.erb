@@ -9,5 +9,4 @@
 <% else %>
   <%= button_to "Likes: (#{post.likes.count})", like_post_path(post), method: 'put', disabled: true,
               class: 'px-4 py-2 bg-transparent text-gray-500 border-2 rounded-xl border-gray-600 hover:border-gray-700 hover:text-gray-600 cursor-pointer' %>
-  <!-- <%= link_to 'Sign up', new_user_registration_path %> or <%= link_to 'login', new_user_session_path %> to like this -->
 <% end %>

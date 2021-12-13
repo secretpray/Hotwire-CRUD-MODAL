@@ -34,20 +34,16 @@ class Post < ApplicationRecord
   end
 
   after_create_commit do
-    # broadcast_prepend_to 'posts', partial: 'posts/post_brc', locals: { post: self } # not worked with grid!!!!
     broadcast_prepend_to 'posts', target: 'post_list',  partial: 'posts/post_brc', locals: { post: self }
     update_posts_counter
   end
 
   after_update_commit do
-    # broadcast_replace_later_to 'posts'
-    # broadcast_replace_to self
     broadcast_replace_to self, partial: 'posts/post_brc', locals: { post: self } # for broadcast with likes
   end
 
   after_destroy_commit do
     broadcast_remove_to self
-    # broadcast_remove_to 'posts', target: "post_#{self.id}"
     update_posts_counter
   end
 

@@ -16,14 +16,12 @@ class CommentsController < ApplicationController
       # format.turbo_stream
       redirect_to @comment
     else
-      # flash.now[:alert] = @post.errors.full_messages.join('. ')
 
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    # return unless current_user == @comment.user
     render status: 403 unless @comment.user == current_user
 
     @comment.destroy
@@ -42,7 +40,5 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:body, :parent_id)
-    # params.fetch(:post, {}).permit(:title, :content, :status, :category)
   end
-
 end
