@@ -29,7 +29,7 @@ https://user-images.githubusercontent.com/17977331/145093777-8c493f4d-9336-4c18-
 
 https://user-images.githubusercontent.com/17977331/145165029-52a11c83-7411-4642-a343-5b82a24696b5.mov
 
-## Added Hotwire 'Like' model with validation of uniqueness of the scope user / post. In real time (broadcast), information about the number of likes and whether the addressee has already voted is updated.
+## Hotwire 'Like' model with uniq validation. In real time (broadcast), information about the number of likes and whether the user has already voted is updated.
 
 https://user-images.githubusercontent.com/17977331/145777827-22698e2f-029b-4712-9877-57ac6f632dfe.mp4
 
