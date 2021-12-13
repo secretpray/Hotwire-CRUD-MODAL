@@ -2,6 +2,8 @@ require 'open-uri'
 require 'faraday'
 require 'json'
 
+Like.destroy_all
+Comment.destroy_all
 Post.destroy_all
 User.destroy_all
 
@@ -51,6 +53,7 @@ POST_CATEGORY =  %w(Crime
 puts 'Please wait while get seed data!'
 admin = User.where(email: 'admin@mail.com', first_name: 'Aleksey', last_name: 'Reznov').first_or_initialize
 admin.update(password: 'password') if admin.new_record?
+# User.create!(email: 'a.p.ruban@gmail.com', first_name: 'Aleksander', last_name: 'Ruban', password: 'password')
 
 # Star Wars heroes
 response = Faraday.get('https://akabab.github.io/starwars-api/api/all.json')
@@ -77,7 +80,7 @@ def create_avatar(user, gender, url = nil)
   end
   return if downloaded_image.nil?
 
-  user.avatar.attach(io: downloaded_image, filename: user.email)
+  user.avatar.attach(io: downloaded_image, filename: "#{SecureRandom.uuid}_image")
 end
 
 def create_user(hero)
@@ -109,6 +112,19 @@ while Post.count < 100 do
   print('.')
 end
 
+print "Create likes."
+while Like.count < 30 do
+  user = User.all.sample
+  post = Post.all.sample
+  next if Like.where(user: user, post: post).any?
+
+  Like.create!(user_id: user.id,
+               post_id: post.id)
+  print('.')
+end
+
+
 puts "All Ok!"
 puts "Created #{User.count} users!"
 puts "Created #{Post.count} posts!"
+puts "Created #{Like.count} likes!"

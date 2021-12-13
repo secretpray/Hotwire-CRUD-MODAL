@@ -1,4 +1,4 @@
 <%= render_flash %>
-<%#= turbo_stream.update('posts_counter', "Post#{Post.all.size > 1 ? 's: ' : ': '}#{Post.all.size}" ) %>
+<%#= turbo_stream.remove(@post) %>
 <%#= turbo_stream.remove "post_#{@post.id}" %>
-<%#= turbo_stream.replace :posts, partial: 'posts/posts', locals: { posts: Post.recent } %>
+<%#= turbo_stream.update('posts_counter', "Post#{Post.all.size > 1 ? 's: ' : ': '}#{Post.all.size}" ) %>

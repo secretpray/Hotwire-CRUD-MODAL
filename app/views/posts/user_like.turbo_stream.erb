@@ -1,0 +1,1 @@
+<%= turbo_stream.update("#{@post.id}_like", partial: 'posts/likes', locals: { post: @post}) %>

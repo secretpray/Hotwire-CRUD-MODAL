@@ -1,0 +1,7 @@
+<% # Return handled by cable %>
+<%#= render_flash %>
+<%#= turbo_stream.replace(@post, target: "post_#{@post.id}", partial: 'posts/post', locals: { post: @post }) %>
+<%#= turbo_stream.update('posts', target: "#{@post.id}_like", partial: 'posts/likes', locals: { post: post}) %>
+<%#= turbo_stream.replace "#{@post.id}_like" do %>
+  <%#= render partial: 'posts/likes', locals: { post: @post } %>
+<%# end %>
