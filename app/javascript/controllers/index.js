@@ -29,3 +29,6 @@ application.register("cards-util", CardsUtilController)
 
 import CurrentPageController from "./current_page_controller"
 application.register("current-page", CurrentPageController)
+
+import LikesController from "./likes_controller"
+application.register("likes", LikesController)

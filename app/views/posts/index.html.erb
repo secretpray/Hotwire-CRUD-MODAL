@@ -21,10 +21,12 @@
         <%= render 'shared/user_auth' %>
       </div>
       <hr>
-      <div class="flex flex-row my-5">
-        <%= turbo_frame_tag 'posts', class: 'flex flex-wrap justify-evenly gap-3' do %>
-          <%= render @posts %>
-        <% end %>
-      </div>
+      <%= turbo_frame_tag 'posts' do %>
+        <div class="flex flex-row my-5">
+          <div class='flex flex-wrap justify-evenly gap-3' id="post_list">
+            <%= render @posts %>
+          </div>
+        </div>
+      <% end %>
     </div>
 <% end %>

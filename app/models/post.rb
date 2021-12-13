@@ -1,6 +1,9 @@
 class Post < ApplicationRecord
+  include ActionView::RecordIdentifier
   belongs_to :user, inverse_of: :posts
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :likes, dependent: :destroy, inverse_of: :post
+
   has_rich_text :content
 
   enum status: %i[draft publish deleted spam]
@@ -13,23 +16,38 @@ class Post < ApplicationRecord
   validates :title, uniqueness: true
   validates :content, :status, presence: true
   validates :title, length: { in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH }
-  validates :content, length: { minimum: MIN_CONTENT_LENGTH } # Action Text > 320 symbol
+  validates :content, length: { minimum: MIN_CONTENT_LENGTH }
   validates :status, inclusion: { in: Post.statuses.keys }
 
   scope :recent, -> { order(created_at: :desc) }
 
+  def liked?(user)
+    Like.where(post: self, user: user).any?
+  end
+
+  def update_like(user)
+    if liked?(user)
+      user.likes.find_by(post: self).destroy
+    else
+      user.likes.create(post_id: self.id)
+    end
+  end
+
   after_create_commit do
-    broadcast_prepend_to 'posts'
+    # broadcast_prepend_to 'posts', partial: 'posts/post_brc', locals: { post: self } # not worked with grid!!!!
+    broadcast_prepend_to 'posts', target: 'post_list',  partial: 'posts/post_brc', locals: { post: self }
     update_posts_counter
   end
 
   after_update_commit do
     # broadcast_replace_later_to 'posts'
-    broadcast_replace_to self
+    # broadcast_replace_to self
+    broadcast_replace_to self, partial: 'posts/post_brc', locals: { post: self } # for broadcast with likes
   end
 
   after_destroy_commit do
-    broadcast_remove_to 'posts', target: "post_#{self.id}"
+    broadcast_remove_to self
+    # broadcast_remove_to 'posts', target: "post_#{self.id}"
     update_posts_counter
   end
 

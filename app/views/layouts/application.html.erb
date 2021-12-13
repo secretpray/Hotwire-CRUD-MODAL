@@ -22,7 +22,7 @@
       <p class='mt-6 text-center'><%= Time.zone.now %></p>
       <%= yield %>
     </div>
-    <%= turbo_frame_tag :modal, data: { modal_target: 'frame' } %>
+    <%= turbo_frame_tag 'modal', data: { modal_target: 'frame' } %>
     <%= turbo_frame_tag :user_modal, data: { modal_user_target: 'form_frame' } %>
   </body>
 </html>
