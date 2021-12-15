@@ -2,6 +2,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!, except: %i[new create]
   before_action :set_user, only: %i(edit update)
 
+  def create
+    super
+    logger.debug "User #{@user.email} created (in user/RegistrationsController)!"
+    User.add_online_user(@user.id)
+    update_online_status(@user)
+  end
 
   def edit; end
 
@@ -29,6 +35,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # Allows user to update registration information without password.
     resource.update_without_password(params.except("current_password"))
+  end
+
+  def update_online_status(user)
+    user.posts.each do |post|
+      t = "post_#{post.id}_user_email"
+      p = 'users/user_email'
+      l = { post: post, online_user_ids: User.online_users }
+      # posts index
+      post.broadcast_replace_to('posts', target: t, partial: p, locals: l)
+      # post show
+      post.broadcast_replace_to(post, target: t, partial: p, locals: l)
+    end
   end
 
   private

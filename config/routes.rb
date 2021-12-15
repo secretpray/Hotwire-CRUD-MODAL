@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'posts#index'
+
   resources :posts do
     member do
       put :like, to: 'posts#like'
@@ -12,7 +14,7 @@ Rails.application.routes.draw do
     resources :comments, module: :comments
   end
 
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations',
+                                    sessions: 'users/sessions' }
   resources :users, only: :show, as: :account
-  root 'posts#index'
 end

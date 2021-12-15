@@ -1,0 +1,9 @@
+<% if post.user_id.in?(online_user_ids) %>
+  <span class='text-blue-400 font-bold'>
+    <%= post.user&.email %>
+  </span>
+<% else %>
+  <span class='text-gray-400 font-medium'>
+    <%= post.user&.email %>
+  </span>
+<% end %>
