@@ -1,9 +1,28 @@
 # Full CRUD on Hotwire
 
+## Getting Started
+
+1) Bundle install:
+
+```
+bundle
+```
+
+2) Yarn install:
+
+```
+yarn install --check-files
+```
+
+3) Prepare database (db:setup or db:prepare)
+
+```
+bin/rails db:setup
+```
+
 ## Hotwire CRUD
 
 https://user-images.githubusercontent.com/17977331/142139566-8944ec36-3649-4a59-963e-1df8956c2dfe.mp4
-
 
 ## Hotwire CRUD in Modal (with validation)
 
@@ -32,4 +51,8 @@ https://user-images.githubusercontent.com/17977331/145165029-52a11c83-7411-4642-
 ## Hotwire 'Like' model with uniq validation. In real time (broadcast), information about the number of likes and whether the user has already voted is updated.
 
 https://user-images.githubusercontent.com/17977331/145777827-22698e2f-029b-4712-9877-57ac6f632dfe.mp4
+
+## Hotwire online user status.
+
+https://user-images.githubusercontent.com/17977331/146153984-2170b5ca-6535-4de9-a199-439de09c58ff.mp4
 
