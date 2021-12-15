@@ -58,7 +58,6 @@ admin.update(password: 'password') if admin.new_record?
 # Star Wars heroes
 response = Faraday.get('https://akabab.github.io/starwars-api/api/all.json')
 data = JSON.parse(response.body)
-# sleep 1
 males, females = data.partition { |hero| hero['gender'] == 'male' }
 # limit users => 15
 males = males.sample(MAX_MALES)

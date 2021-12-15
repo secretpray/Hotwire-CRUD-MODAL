@@ -18,12 +18,6 @@
         <% end %>
       </span>
     </div>
-    <!-- <div data-action="click@window->dropdown#hide"
-         tabindex="-1"
-         class='hidden fixed inset-0 h-full w-full bg-gray-400 filter opacity-50 cursor-default'
-         data-dropdown-target="shadow">
-         <button type="button" name="button" tabindex="-1" class='fixed inset-0 h-full w-full bg-black opacity-50 cursor-default'></button>
-    </div>-->
     <div data-dropdown-target="menu" class="z-10 absolute -left-4 mt-2 bg-gray-800 hidden">
       <div class="bg-gray-800 shadow rounded border border-gray-600 overflow-hidden mt-1">
         <form>
@@ -41,8 +35,8 @@
           <div class="h-px m-2 bg-gray-400"></div>
         </form>
         <%= button_to "Sign out", destroy_user_session_path, method: :delete,
-        data: { action: "click->dropdown#toggle" },
-        class: 'no-underline text-left w-full no-underline block pl-2 tracking-wider py-3 mt-1.5 mx-2 rounded text-gray-400 bg-gray-800 hover:bg-gray-600 hover:text-gray-300 whitespace-nowrap' %>
+            data: { action: "click->dropdown#toggle" },
+            class: 'no-underline text-left w-full no-underline block pl-2 tracking-wider py-3 mt-1.5 mx-2 rounded text-gray-400 bg-gray-800 hover:bg-gray-600 hover:text-gray-300 whitespace-nowrap' %>
       </div>
     </div>
   </div>

@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   include ActionView::RecordIdentifier
+
   belongs_to :user, inverse_of: :posts
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, dependent: :destroy, inverse_of: :post
@@ -34,12 +35,12 @@ class Post < ApplicationRecord
   end
 
   after_create_commit do
-    broadcast_prepend_to 'posts', target: 'post_list',  partial: 'posts/post_brc', locals: { post: self }
+    broadcast_prepend_to 'posts', target: 'post_list',  partial: 'posts/post_brc', locals: { post: self, online_user_ids: User.online_users }
     update_posts_counter
   end
 
   after_update_commit do
-    broadcast_replace_to self, partial: 'posts/post_brc', locals: { post: self } # for broadcast with likes
+    broadcast_replace_to self, partial: 'posts/post_brc', locals: { post: self, online_user_ids: User.online_users } # for broadcast with likes
   end
 
   after_destroy_commit do

@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :user_like]
   before_action :auth_post, only: [:edit, :update, :destroy]
+  before_action :get_online_user_id, only: %i[index show update]
 
   def index
     @posts = Post.recent
@@ -80,5 +81,10 @@ class PostsController < ApplicationController
 
   def auth_post
     render status: 403 unless @post.user == current_user
+  end
+
+  def get_online_user_id
+    @online_user_ids = User.online_users
+    # @online_user_ids = (1..6).to_a
   end
 end

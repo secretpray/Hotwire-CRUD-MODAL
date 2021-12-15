@@ -18,7 +18,11 @@
     <div class="flex justify-between">
       <div class='text-xs mx-3 self-center text-gray-400'>
         <!-- post.created_at.to_s(:short) -->
-        <%= time_ago_in_words(post.created_at) %> ago by <%= post.user&.email %>
+        <%= time_ago_in_words(post.created_at) %> ago by
+        <span id='<%= dom_id(post) %>_user_email'>
+          <%= render partial: 'users/user_email', locals: { post: post, online_user_ids: @online_user_ids } %>
+          <%#= post.user&.email %>
+        </span>
       </div>
 
       <div class="mr-2" id="<%= post.id %>_like">
