@@ -58,5 +58,9 @@
   Hotwire online user status.
 
   https://user-images.githubusercontent.com/17977331/146153984-2170b5ca-6535-4de9-a199-439de09c58ff.mp4
+  
+  The maximum depth of nesting comments has been set (in Comment model -> 3).
+  
+  https://user-images.githubusercontent.com/17977331/146458915-1ea489b5-1419-4279-a802-5657140e3b33.mp4
 
 </details>
