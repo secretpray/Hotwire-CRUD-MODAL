@@ -24,7 +24,7 @@
       <%= turbo_frame_tag 'posts' do %>
         <div class="flex flex-row my-5">
           <div class='flex flex-wrap justify-evenly gap-3' id="post_list">
-            <% @posts = @posts.take(10) %>
+            <%# @posts = @posts.take(10) %>
             <%= render @posts %>
           </div>
         </div>

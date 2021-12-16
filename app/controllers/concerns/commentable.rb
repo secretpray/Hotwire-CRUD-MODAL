@@ -10,7 +10,13 @@ module Commentable
   def create
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
-    @comment.parent_id = @parent&.id
+    if @parent&.nesting.blank? || @parent&.nesting < Comment.max_nesting
+      @comment.parent_id = @parent&.id
+      @comment.nesting = @comment.set_nesting
+    else
+      @comment.parent_id = @parent&.parent_id
+      @comment.nesting = @comment.set_nesting
+    end
 
     respond_to do |format|
       if @comment.save
