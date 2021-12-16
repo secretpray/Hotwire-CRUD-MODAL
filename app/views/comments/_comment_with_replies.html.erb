@@ -7,7 +7,10 @@
   <%= render comment %>
 
   <div class="text-xs">
+    <!-- Nesting <%= comment.nesting %> (<%= comment.set_nesting %>) of <%= Comment.max_nesting %> max nesting! -->
+    <!-- Parent id: <%= comment.parent&.id %> Nesting: <%= comment.nesting %> -->
     <%= link_to "Reply", "javascript:void(0);", data: { action: "click->comment-reply#toggle" } %>
+    <%#= link_to "Reply", "javascript:void(0);", data: { action: "click->comment-reply#toggle" } if Comment.max_nesting > comment.set_nesting %>
   </div>
 
   <div class="" id="<%= dom_id(comment) %>_comments">

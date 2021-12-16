@@ -7,6 +7,8 @@ class Comment < ApplicationRecord
   has_many :comments, foreign_key: :parent_id, dependent: :destroy
   has_rich_text :body
 
+  MAX_NESTING_DEPTH = 3
+
   validates :body, presence: true
 
   after_create_commit do
@@ -24,6 +26,18 @@ class Comment < ApplicationRecord
     broadcast_action_to self, action: :remove, target: "#{dom_id(self)}_with_comments"
     update_comments_counter
     update_post_comments_data
+  end
+
+  def set_nesting
+    if self.parent.present? && self.parent.nesting.present?
+      self.nesting = self.parent.nesting + 1
+    else
+      self.nesting = 1
+    end
+  end
+
+  def self.max_nesting
+    MAX_NESTING_DEPTH
   end
 
   private
