@@ -3,5 +3,5 @@
 <% else %>
   <%= render_flash %>
   <%= turbo_stream.replace "post_#{@post.id}", partial: 'posts/post', locals: { post: @post, online_user_ids: @online_user_ids } %>
-  <%= turbo_stream.update('modal', nil) %>
+  <%= turbo_stream.update(:modal, nil) %>
 <% end %>

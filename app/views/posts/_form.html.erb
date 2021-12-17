@@ -5,16 +5,7 @@
     <a href="javascript:void(0);" class='text-orange-500 text-3xl font-semibold' data-action='modal#close'>&times;</a>
   </div>
 
-  <% if post.errors.any? %>
-    <div id="error_explanation" class="bg-transparent border-l-8 border-red-500 py-3 px-5 text-red-500 font-medium rounded mt-3 mb-2 rounded-lg border-opacity-60">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-      <ul class='mt-1'>
-        <% post.errors.each do |error| %>
-          <li>* <%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/errors', post: post %>
 
   <div class="my-5">
     <%= form.label :title %>
