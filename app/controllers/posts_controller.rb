@@ -23,10 +23,8 @@ class PostsController < ApplicationController
       if @post.save
         flash.now[:notice] = "Post '#{@post.title}' created!"
         format.turbo_stream
-        format.html { redirect_to posts_url }
       else
         format.turbo_stream
-        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -36,10 +34,8 @@ class PostsController < ApplicationController
       if @post.update(post_params)
         flash.now[:notice] = "Post '#{@post.title}' updated!"
         format.turbo_stream
-        format.html { redirect_to posts_url }
       else
         format.turbo_stream
-        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
@@ -49,7 +45,6 @@ class PostsController < ApplicationController
     flash.now[:notice] = "Post '#{@post.title}' destroyed!"
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to posts_url }
     end
   end
 
@@ -65,7 +60,7 @@ class PostsController < ApplicationController
 
   def user_like
     respond_to do |format|
-      format.turbo_stream # rendered in posts/user_like.turbo_stream.erb
+      format.turbo_stream
     end
   end
 
@@ -85,6 +80,5 @@ class PostsController < ApplicationController
 
   def get_online_user_id
     @online_user_ids = User.online_users
-    # @online_user_ids = (1..6).to_a
   end
 end

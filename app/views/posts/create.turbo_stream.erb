@@ -1,5 +1,5 @@
 <% if @post.errors.any? %>
-  <%= turbo_stream.replace 'new_post', partial: 'form', locals: { post: @post } %>
+  <%= turbo_stream.replace 'new_post', partial: 'form', locals: { post: @post }, status: :unprocessable_entity %>
 <% else %>
   <%= render_flash %>
   <%= turbo_stream.replace 'new_post', partial: 'form', locals: { post: @post } %>

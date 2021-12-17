@@ -2,6 +2,17 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ['frame', 'container', 'showButton']
+  // static targets = ['frame', 'container', 'showButton', 'errors']
+
+  // handleSuccess({ detail: { success } }) {
+  //   if (success && !this.hasErrorsTarget) {
+  //
+  //     console.log('Successed form!')
+  //     // this.close()
+  //     // this.clearErrors()
+  //     // this.formTarget.reset()
+  //   }
+  // }
 
   // click on background
   closeBackground(event) {
@@ -18,7 +29,6 @@ export default class extends Controller {
 
   close(event) {
     event && event.preventDefault()
-    // event.stopPropagation()
     this.containerTarget.remove()
     this.frameTarget.src = ''
   }
@@ -29,8 +39,5 @@ export default class extends Controller {
     if (buttonShow && document.body.dataset.actionName == 'index') {
       buttonShow.click()
     }
-    // if (this.hasShowButtonTarget) {
-    //   this.showButtonTarget.click()
-    // }
   }
 }
