@@ -20,8 +20,6 @@ class Post < ApplicationRecord
   validates :content, length: { minimum: MIN_CONTENT_LENGTH }
   validates :status, inclusion: { in: Post.statuses.keys }
 
-  scope :recent, -> { order(created_at: :desc) }
-
   def liked?(user)
     Like.where(post: self, user: user).any?
   end

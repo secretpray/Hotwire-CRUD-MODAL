@@ -16,7 +16,7 @@ class AvatarPresenter
 
   def call
     if avatar.attached?
-      image_tag polymorphic_url(avatar.variant(resize: "#{size}x#{size}!"), only_path: true), class: 'rounded-full'
+      image_tag polymorphic_url(avatar.variant(resize: "#{size}x#{size}!"), only_path: true), class: 'rounded-full transform hover:scale-125 cursor-pointer'
     else
       avatar_circle
     end
@@ -46,13 +46,13 @@ class AvatarPresenter
     # image_tag gravatar_image_url(email, size: size), class: 'rounded-full'
     gravatar_id = Digest::MD5.hexdigest(email)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"
-    image_tag(gravatar_url, size: size, class: 'rounded-full')
+    image_tag(gravatar_url, size: size, class: 'rounded-full transform hover:scale-125 cursor-pointer')
   end
 
   def initials_element
     style = "background-color: #{avatar_color(initials.first)}; height: #{size}px; width: #{size}px;"
-    content_tag :div, class: 'avatar-circle', style: style do
-      content_tag :div, initials, class: 'avatar-text'
+    content_tag :div, class: 'h-10 w-10 transform hover:scale-110 rounded-full relative', style: style do
+      content_tag :div, initials, class: 'avatar-text cursor-pointer'
     end
   end
 

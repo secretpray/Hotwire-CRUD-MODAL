@@ -5,7 +5,9 @@ class PostsController < ApplicationController
   before_action :get_online_user_id, only: %i[index show update]
 
   def index
-    @posts = Post.recent
+    # @posts = Post.recent
+    @query = Post.ransack(params[:query])
+    @posts = @query.result(distinct: true).recent
   end
 
   def show; end

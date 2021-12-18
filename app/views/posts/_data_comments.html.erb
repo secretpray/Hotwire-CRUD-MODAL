@@ -1,10 +1,11 @@
 <% data = comments_user_data(post) %>
 
 <span class='flex w-full items-center'>
-  Comment<%= data[:count] > 1 ? 's: ' : ': ' %> <%= data[:count] %>
+  <%= pluralize(data[:count], "Comment").split().reverse.join(': ') %>
+  <!-- Comment<%= data[:count] > 1 ? 's: ' : ': ' %> <%= data[:count] %> -->
   <% if data[:count] > 0 %>
     by&nbsp;
-    <span class='flex ml-2 gap-1'>
+    <span class='flex w-4/6 ml-2 gap-1 truncate'>
       <%== data[:users_avatar] %>
     </span>
   <% end %>

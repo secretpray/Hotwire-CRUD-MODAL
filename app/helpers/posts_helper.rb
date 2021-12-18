@@ -17,6 +17,6 @@ module PostsHelper
     comment_users =  User.find(post.comments.pluck(:user_id).uniq)
     users_avatar = comment_users.map{|user| AvatarPresenter.call(user, 40)}
 
-    return { count: comments_count, users_avatar: users_avatar.join(', ') }
+    return { count: comments_count, users_avatar: users_avatar.join(' ') }
   end
 end
