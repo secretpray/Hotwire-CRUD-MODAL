@@ -20,6 +20,32 @@ class Post < ApplicationRecord
   validates :content, length: { minimum: MIN_CONTENT_LENGTH }
   validates :status, inclusion: { in: Post.statuses.keys }
 
+  scope :commented, -> { order('comments_count') }  # Post.commented.pluck(:id, :comments_count)
+  scope :liked, -> { order('likes_count') }         # Post.liked.pluck(:id, :likes_count)
+
+  def self.sort(selection)
+    case selection.join('')
+    when 'new'
+      order(created_at: :desc)
+    when 'old'
+      order(created_at: :asc)
+    when 'likes'
+      order(likes_count: :desc)
+      # list_sort('like', 'desc')
+    when 'dislikes'
+      order(likes_count: :asc)
+      # list_sort('like', 'asc')
+    when 'commentes'
+      order(comments_count: :desc)
+      # list_sort('comment', 'desc')
+    when 'uncommentes'
+      order(comments_count: :asc)
+      # list_sort('comment', 'asc')
+    else
+      Post.recent
+    end
+  end
+
   def liked?(user)
     Like.where(post: self, user: user).any?
   end
@@ -51,4 +77,11 @@ class Post < ApplicationRecord
   def update_posts_counter
     broadcast_update_to 'posts', target: 'posts_counter', html: "Post#{Post.all.size > 1 ? 's: ' : ': '}#{Post.all.size}"
   end
+
+  # def list_sort(model, direction)
+  #   klass = model.classify.constantize
+  #   sorted = find(klass.group(:post_id).order(Arel.sql("count(post_id) #{direction}")).pluck(:post_id))
+  #   other = (Post.all - sorted).sort.reverse
+  #   sorted + other
+  # end
 end

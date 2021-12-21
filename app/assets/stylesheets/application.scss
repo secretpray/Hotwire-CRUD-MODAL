@@ -26,7 +26,7 @@
 [type='week'], [multiple],
 textarea, select {
   // background-color: rgb(251, 191, 36);
-  background-color: #364151 !important;
+  background-color: #364151 !important; // gray
 }
 
 [type='checkbox']:checked,
@@ -40,4 +40,97 @@ textarea, select {
 }
 .toggle-checkbox:checked + .toggle-label {
   // background-color: rgb(251, 191, 36) !important;
+}
+
+// turbo-frame[busy] .frame-loading-hide, turbo-frame .frame-loading-show {
+//     display: none;
+// }
+// turbo-frame[busy] .frame-loading-show {
+//     display: inline-block;
+// }
+turbo-frame {
+    display: block;
+}
+turbo-frame[busy] {
+    opacity: .7;
+}
+turbo-frame[busy] .frame-loading-hide, turbo-frame .frame-loading-show {
+    display: none;
+}
+turbo-frame[busy] .frame-loading-show {
+    display: inline-block;
+}
+
+// Loader for turbo-frame
+.loader {
+  position: absolute;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  perspective: 800px;
+}
+
+.inner {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.inner.one {
+  left: 0%;
+  top: 0%;
+  animation: rotate-one 1s linear infinite;
+  border-bottom: 3px solid #EFEFFA;
+}
+
+.inner.two {
+  right: 0%;
+  top: 0%;
+  animation: rotate-two 1s linear infinite;
+  border-right: 3px solid #EFEFFA;
+}
+
+.inner.three {
+  right: 0%;
+  bottom: 0%;
+  animation: rotate-three 1s linear infinite;
+  border-top: 3px solid #EFEFFA;
+}
+
+@keyframes rotate-one {
+  0% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+  }
+}
+
+@keyframes rotate-two {
+  0% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+  }
+}
+
+@keyframes rotate-three {
+  0% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+  }
+}
+
+// checkbox
+input:checked + label {
+	background-color: #F59E0A !important;
+  color: #94420F !important;
+	// box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }

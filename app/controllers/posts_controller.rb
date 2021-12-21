@@ -7,7 +7,13 @@ class PostsController < ApplicationController
   def index
     # @posts = Post.recent
     @query = Post.ransack(params[:query])
-    @posts = @query.result(distinct: true).recent
+    # binding.pry
+    # params[:sorting].reject(&:blank?)
+    if params[:sort].present?
+      @posts = Post.sort(params[:sort])
+    else
+      @posts = @query.result(distinct: true).recent
+    end
   end
 
   def show; end
