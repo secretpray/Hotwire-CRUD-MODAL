@@ -62,5 +62,10 @@
   The maximum depth of nesting comments has been set (in Comment model -> 3).
   
   https://user-images.githubusercontent.com/17977331/146458915-1ea489b5-1419-4279-a802-5657140e3b33.mp4
+  
+  Added posts sorting with Hotwire. The selected sorting method is saved in Kredis.
+  
+  https://user-images.githubusercontent.com/17977331/147132281-937e9427-a1a6-447d-88fc-973495c62802.mp4
+
 
 </details>
