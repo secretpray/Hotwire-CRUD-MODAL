@@ -32,3 +32,6 @@ application.register("current-page", CurrentPageController)
 
 import LikesController from "./likes_controller"
 application.register("likes", LikesController)
+
+import DropdownSortController from "./dropdown_sort_controller"
+application.register("dropdown-sort", DropdownSortController)

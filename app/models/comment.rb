@@ -2,7 +2,7 @@ class Comment < ApplicationRecord
   include ActionView::RecordIdentifier
 
   belongs_to :user
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true
   belongs_to :parent, optional: true, class_name: 'Comment'
   has_many :comments, foreign_key: :parent_id, dependent: :destroy
   has_rich_text :body

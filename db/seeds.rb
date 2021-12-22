@@ -34,10 +34,11 @@ POST_CATEGORY =  %w(Crime
                   )
 STUPID_COMMENTS = %w(Cool Nice Best Sh1t Thanks)
 
-puts 'Please wait while get seed data!'
+puts ''
+print '=' * 39 + ' Please wait while get seed data! ' + '=' * 39
 admin = User.where(email: 'admin@mail.com', first_name: 'Aleksey', last_name: 'Reznov').first_or_initialize
 admin.update(password: 'password') if admin.new_record?
-# User.create!(email: 'a.p.ruban@gmail.com', first_name: 'Aleksander', last_name: 'Ruban', password: 'password')
+User.create!(email: 'a.p.ruban@gmail.com', first_name: 'Aleksander', last_name: 'Ruban', password: 'password')
 
 # Star Wars heroes
 response = Faraday.get('https://akabab.github.io/starwars-api/api/all.json')
@@ -82,6 +83,9 @@ def create_reply(comment, commentable, max, counter)
     reply.nesting = reply.set_nesting
   end
   reply.save
+  faker_date = Faker::Date.between(from: commentable.created_at, to: Time.zone.now)
+  reply.update!(created_at: faker_date,
+                updated_at: faker_date + rand(1..12).hours + rand(1..59).minutes)
   print('.')
   counter += 1
   create_reply(reply, commentable, max, counter)
@@ -99,7 +103,64 @@ def create_user(hero)
   print('.')
 end
 
-print "Create users."
+# Fake date for Post
+# last_year               = Faker::Date.between(from: Date.today.beginning_of_year, to: Date.today)
+# last_month              = Faker::Date.between(from: Date.today.beginning_of_month, to: Date.today)
+# last_week               = Faker::Date.between(from: Date.today.beginning_of_week, to: Date.today)
+
+def prev_year_to_last_year
+  prev_year               = Date.today.beginning_of_year - 1.days
+  Faker::Date.between(from: prev_year.beginning_of_year, to: prev_year)
+end
+
+def last_year_to_last_month
+  Faker::Date.between(from: Date.today.beginning_of_year, to: Date.today.beginning_of_month)
+end
+
+def last_month_to_last_week
+  Faker::Date.between(from: Date.today.beginning_of_month, to: Date.today.beginning_of_week)
+end
+
+def last_week_to_last_day
+  Faker::Date.between(from: Date.today.beginning_of_week, to: 1.days.ago)
+end
+
+def last_day
+  Faker::Date.between(from: 1.days.ago, to: Time.zone.now)
+end
+
+def update_date(list, method_name_with_suffix)
+  list.each do |post|
+    period = self.send(method_name_with_suffix.delete_suffix("_posts").to_sym)
+    post.update!(
+      created_at: period,
+      updated_at: period
+    )
+    print('.')
+  end
+end
+
+def add_comments(posts, with_reply = nil)
+  posts.each do |post|
+    rand(1..3).times do
+      parent_comment = post.comments.create!(user_id: User.all.sample.id,
+                                             body: Faker::TvShows::Community.quotes)
+
+      faker_parent_date = Faker::Date.between(from: post.created_at, to: Time.zone.now)
+      parent_comment.update(nesting: 1,
+                            created_at: faker_parent_date,
+                            updated_at: faker_parent_date)
+      unless with_reply.nil?
+        max = rand(0..4)
+        create_reply(parent_comment, post, max, 0)
+      end
+    end
+  end
+end
+
+puts ''
+# Create object!
+print "Create users"
 males.each   { |hero| create_user(hero) }
 females.each { |hero| create_user(hero) }
 
@@ -118,22 +179,37 @@ while Post.count < 100 do
 end
 
 puts ''
-print "Create comments."
-posts = Post.all.sample(20) # Post.take(20)
+print('Adding a fake date to posts')
+posts = Post.all
 
-posts.each do |post|
-  rand(2..4).times do
-    parent_comment = post.comments.create!(user_id: User.all.sample.id,
-                                           body: Faker::TvShows::Community.quotes)
-    parent_comment.update(nesting: 1)
-    max = rand(0..5)
-    create_reply(parent_comment, post, max, 0)
-  end
-end
+prev_year_to_last_year_posts = posts.take(5)
+update_date(prev_year_to_last_year_posts, 'prev_year_to_last_year_posts')
+
+last_year_to_last_month_posts = (posts - prev_year_to_last_year_posts).take(60)
+update_date(last_year_to_last_month_posts, 'last_year_to_last_month_posts')
+
+last_month_to_last_week_posts = (posts - (prev_year_to_last_year_posts + last_year_to_last_month_posts)).take(25)
+update_date(last_month_to_last_week_posts, 'last_month_to_last_week_posts')
+
+last_week_to_last_day_posts = (posts - (prev_year_to_last_year_posts + last_year_to_last_month_posts + last_month_to_last_week_posts)).take(7)
+update_date(last_week_to_last_day_posts, 'last_week_to_last_day_posts')
+
+last_day_posts = (posts - (prev_year_to_last_year_posts + last_year_to_last_month_posts + last_month_to_last_week_posts + last_week_to_last_day_posts))
+update_date(last_day_posts, 'last_day_posts')
+
+puts ''
+print "Create comments"
+posts = Post.all
+# comments with reply
+posts_with_reply = posts.sample(40) # Post.take(20)
+add_comments(posts_with_reply, 'with_reply')
+# comments without reply
+posts_with_comments = (posts - posts_with_reply).sample(50)
+add_comments(posts_with_comments)
 
 puts ''
 print "Create likes"
-while Like.count < 30 do
+while Like.count < 70 do
   user = User.all.sample
   post = Post.all.sample
   next if Like.where(user: user, post: post).any?
@@ -143,9 +219,61 @@ while Like.count < 30 do
   print('.')
 end
 
-puts '----------------------------------------------------------------------------'
-puts "All Ok!"
+puts ''
+puts '=' * 51 + '  All Ok! ' + '=' * 51
 puts "Created #{User.count} users!"
 puts "Created #{Post.count} posts!"
 puts "Created #{Comment.count} comments (#{Comment.where(parent_id: nil).count} - parent)!"
 puts "Created #{Like.count} likes!"
+
+# PS
+# last_day:   Faker::Date.between(from: 1.days.ago, to: Time.zone.now)
+# last week:  Faker::Date.between(from: Date.today.beginning_of_week, to: Date.today)
+# last month: Faker::Date.between(from: Date.today.beginning_of_month, to: Date.today)
+# last_year:  Faker::Date.between(from: Date.today.beginning_of_year, to: Date.today)
+# prev_year:  prev_year = Date.today.beginning_of_year - 1.days
+#             Faker::Date.between(from: prev_year.beginning_of_year, to: prev_year)
+# prev_month: Time.zone.now.beginning_of_month - rand(1..29).days
+# rand(10.weeks.ago..1.day.ago)
+# Time.zone.now - rand(16..35.years) - rand(1..31).days
+# beginning_of_month, beginning_of_quarter, beginning_of_week, beginning_of_year
+# end_of_month, end_of_quarter, end_of_week, end_of_year
+
+# Filter
+# beginning_of_year_posts = Post.where('created_at < ? AND created_at > ?', Date.today, Date.today.beginning_of_year)
+
+
+# # Random date between dates
+# # Keyword arguments: from, to
+# Faker::Date.between(from: '2014-09-23', to: '2014-09-25') #=> #<Date: 2014-09-24>
+# # If used with Rails (the Active Support gem), additional options are available:
+# Faker::Date.between(from: 2.days.ago, to: Date.today) #=> #<Date: 2014-09-24>
+#
+# # Random date between dates except for certain date
+# # Keyword arguments: from, to, excepted
+# Faker::Date.between_except(from: '2014-09-23', to: '2015-09-25', excepted: '2015-01-24') #=> #<Date: 2014-10-03>
+# # If used with Rails (the Active Support gem), additional options are available:
+# Faker::Date.between_except(from: 1.year.ago, to: 1.year.from_now, excepted: Date.today) #=> #<Date: 2014-10-03>
+#
+# # Random date in the future (up to maximum of N days)
+# # Keyword arguments: days
+# Faker::Date.forward(days: 23) # => "Fri, 03 Oct 2014"
+#
+# # Random date in the past (up to maximum of N days)
+# # Keyword arguments: days
+# Faker::Date.backward(days: 14) #=> "Fri, 19 Sep 2014"
+#
+# # Random birthday date (maximum age between 18 and 65)
+# # Keyword arguments: min_age, max_age
+# Faker::Date.birthday(min_age: 18, max_age: 65) #=> "Mar, 28 Mar 1986"
+#
+# # Random date in current year
+# Faker::Date.in_date_period #=> #<Date: 2019-09-01>
+#
+# # Random date for range of year 2018 and month 2
+# # Keyword arguments: year, month
+# Faker::Date.in_date_period(year: 2018, month: 2) #=> #<Date: 2018-02-26>
+#
+# # Random date for range of current year and month 2
+# # Keyword arguments: month
+# Faker::Date.in_date_period(month: 2) #=> #<Date: 2019-02-26>

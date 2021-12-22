@@ -1,9 +1,10 @@
 <%= turbo_stream_from post %>
 
-<div id="<%= dom_id post %>"
+<div turbo_frame="<%= dom_id post %>"
      class=""
      data-controller="cards-util"
-     data-cards-util-target='card_frame'>
+     data-cards-util-target='card_frame'
+     loading="lazy">
   <div class='mx-4 p-4 post-card min-h-72 transform transition duration-500 hover:scale-95 group hover:bg-gray-700 cursor-pointer rounded-xl'
       data-controller='current-page'
       data-current-page-target='hover'

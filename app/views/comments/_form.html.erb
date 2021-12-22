@@ -4,17 +4,9 @@
       id: dom_id_for_records(*model),
       data: local_assigns[:data],
       class: ["my-4"] + Array.wrap(local_assigns[:class]) do |form| %>
+
   <!-- errors -->
-  <% if form.object.errors.any? %>
-    <div id="error_explanation" class="bg-transparent border-l-8 border-red-500 py-3 px-5 text-red-500 font-medium rounded mt-3 mb-2 rounded-lg border-opacity-60">
-      <h2><%= pluralize(form.object.errors.count, "error") %> prohibited this post from being saved:</h2>
-      <ul class='mt-1'>
-        <% form.object.errors.full_messages.each do |message| %>
-          <li>* <%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/errors_form', form: form %>
   <!-- forms content -->
   <%= form.rich_text_area :body, rows: 4,
                   id: "#{dom_id_for_records(*model)}_body",

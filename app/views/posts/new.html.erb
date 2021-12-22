@@ -1,4 +1,4 @@
-<%= turbo_frame_tag 'modal' do %>
+<%= turbo_frame_tag :modal do %>
   <div class="flex flex-col items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-900 bg-opacity-80"
      data-modal-target='container'
      data-action='click->modal#closeBackground keyup@window->modal#closeWithKeyboard'>

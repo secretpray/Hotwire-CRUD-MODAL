@@ -4,12 +4,12 @@ class Post < ApplicationRecord
   belongs_to :user, inverse_of: :posts
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, dependent: :destroy, inverse_of: :post
-
   has_rich_text :content
 
   enum status: %i[draft publish deleted spam]
-  COLOR_STATUSES = { draft: 'grey', publish: 'orange', deleted: 'green', spam: 'red' }
 
+  SORTED_METHODS = %w(new old likes dislikes commentes uncommentes).freeze
+  COLOR_STATUSES = { draft: 'grey', publish: 'orange', deleted: 'green', spam: 'red' }
   MIN_TITLE_LENGTH = 4
   MAX_TITLE_LENGTH = 120
   MIN_CONTENT_LENGTH = 2
@@ -20,7 +20,58 @@ class Post < ApplicationRecord
   validates :content, length: { minimum: MIN_CONTENT_LENGTH }
   validates :status, inclusion: { in: Post.statuses.keys }
 
-  scope :recent, -> { order(created_at: :desc) }
+  scope :commented, -> { order('comments_count') }  # Post.commented.pluck(:id, :comments_count)
+  scope :liked, -> { order('likes_count') }         # Post.liked.pluck(:id, :likes_count)
+
+  # Save sorted method
+  def self.saved_sort
+    @sort_list ||= Kredis.string "sort_list"
+  end
+
+  def self.get_saved_sort
+    Post.saved_sort if @sort_list.nil?
+    @sort_list.value
+    # Post.saved_sort.value
+  end
+
+  def self.set_saved_sort(sort_method)
+    Post.saved_sort if @sort_list.nil?
+    sort_method = sort_method.in?(SORTED_METHODS) ? sort_method : ''
+
+    @sort_list.value = sort_method
+    # Post.saved_sort.value
+  end
+
+  def self.make_sort(selection, list)
+    selection = selection.is_a?(Array) ? selection.join('') : selection
+
+    case selection
+    when 'new'
+      Post.set_saved_sort('new')
+      list.order(created_at: :desc)
+    when 'old'
+      Post.set_saved_sort('old')
+      list.order(created_at: :asc)
+    when 'likes'
+      Post.set_saved_sort('likes')
+      list.order(likes_count: :desc)
+      # list_sort('like', 'desc')
+    when 'dislikes'
+      Post.set_saved_sort('dislikes')
+      list.order(likes_count: :asc)
+      # list_sort('like', 'asc')
+    when 'commentes'
+      Post.set_saved_sort('commentes')
+      list.order(comments_count: :desc)
+      # list_sort('comment', 'desc')
+    when 'uncommentes'
+      Post.set_saved_sort('uncommentes')
+      list.order(comments_count: :asc)
+      # list_sort('comment', 'asc')
+    else
+      list.recent
+    end
+  end
 
   def liked?(user)
     Like.where(post: self, user: user).any?
@@ -53,4 +104,11 @@ class Post < ApplicationRecord
   def update_posts_counter
     broadcast_update_to 'posts', target: 'posts_counter', html: "Post#{Post.all.size > 1 ? 's: ' : ': '}#{Post.all.size}"
   end
+
+  # def list_sort(model, direction)
+  #   klass = model.classify.constantize
+  #   sorted = find(klass.group(:post_id).order(Arel.sql("count(post_id) #{direction}")).pluck(:post_id))
+  #   other = (Post.all - sorted).sort.reverse
+  #   sorted + other
+  # end
 end

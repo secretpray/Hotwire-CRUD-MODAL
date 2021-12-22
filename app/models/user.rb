@@ -29,7 +29,6 @@ class User < ApplicationRecord
 
   def self.online_users_reset
     Kredis.clear_all
-    # online_user_ids.elements.remove(online_user_ids.elements)
   end
 
   def self.online_users_count

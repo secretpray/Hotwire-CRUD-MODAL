@@ -13,17 +13,25 @@
   <% else %>
     <div class="w-full mx-auto">
       <div class="mx-8 flex justify-between items-center mb-4">
-        <div>
-          <h1 class="text-lg font-bold text-4xl p-2 mt-5" id='posts_counter'>
-            Post<%= @posts.size > 1 ? 's: ' : ': ' %><%= @posts.size %>
+        <div class='flex items-center'>
+          <%= render 'select_form' %>
+          <h1 class="text-lg font-bold text-4xl" id='posts_counter'>
+            <%= pluralize(@posts.count, "Post").split().reverse.join(': ') %>
           </h1>
+        </div>
+        <div class="">
+          <%#= form_tag root_path, method: :get do %>
+            <%#= text_field_tag :query, params[:query] %>
+            <%#= submit_tag 'Search' %>
+          <%# end %>
         </div>
         <%= render 'shared/user_auth' %>
       </div>
       <hr>
       <%= turbo_frame_tag 'posts' do %>
+        <%= render 'shared/loader' %>
         <div class="flex flex-row my-5">
-          <div class='flex flex-wrap justify-evenly gap-3' id="post_list">
+          <div class='flex flex-wrap justify-evenly gap-3 frame-loading-hide' id="post_list">
             <%# @posts = @posts.take(10) %>
             <%= render @posts %>
           </div>

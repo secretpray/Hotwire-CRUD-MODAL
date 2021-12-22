@@ -1,11 +1,5 @@
 <% if user_signed_in? %>
   <div class="flex items-center">
-    <!-- <span class='text-gray-400 transform transition duration-300 hover:scale-110 cursor-pointer'>
-      <%= link_to account_path(current_user), data: { turbo_frame: 'user' } do %>
-        <%#= user_avatar(current_user, 40) %>
-        <%= AvatarPresenter.call(current_user, 40) %>
-      <% end %>
-    </span> -->
     <%= render 'shared/dropdown_account' %>
 
     <%= link_to 'New post', new_post_path,
