@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import {enter, leave} from 'el-transition'
 
 export default class extends Controller {
-  static targets = ["menu", "button"]
+  static targets = ["menu", "button", "submit"]
 
   toggleMenu() {
     if(this.menuTarget.classList.contains('hidden')) {
@@ -15,6 +15,13 @@ export default class extends Controller {
   closeWithKeyboard(event) {
     switch (event.keyCode) {
       case 27: // ESC
+      leave(this.menuTarget)
+    }
+  }
+
+  clickSort() {
+    if(this.hasSubmitTarget && !this.menuTarget.classList.contains('hidden')) {
+      this.submitTarget.click()
       leave(this.menuTarget)
     }
   }

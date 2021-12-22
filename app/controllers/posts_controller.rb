@@ -5,15 +5,18 @@ class PostsController < ApplicationController
   before_action :get_online_user_id, only: %i[index show update]
 
   def index
-    # @posts = Post.recent
-    @query = Post.ransack(params[:query])
     # binding.pry
+    @query = Post.ransack(params[:query])
+    @posts = @query.result(distinct: true)
     # params[:sorting].reject(&:blank?)
     if params[:sort].present?
-      @posts = Post.sort(params[:sort])
+      @posts = Post.make_sort(params[:sort], @posts)
     else
-      @posts = @query.result(distinct: true).recent
+      get_sort = Post.get_saved_sort
+      @posts = get_sort.in?(Post::SORTED_METHODS) ? Post.make_sort(get_sort, @posts) : @posts.recent
     end
+    @sorted_value = Post.get_saved_sort
+    # binding.pry
   end
 
   def show; end
