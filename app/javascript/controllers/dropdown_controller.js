@@ -1,13 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  // static targets = [ "toggleable" ]
-  //
-  // toggle() {
-  //   console.log('this.toggleableTarget: ', this.toggleableTarget)
-  //   this.toggleableTarget.classList.toggle('hidden')
-  // }
-
   static targets = ['menu', 'button']
   static values = { open: Boolean }
 

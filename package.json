@@ -10,6 +10,7 @@
     "@rails/request.js": "^0.0.6",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.4.3",
+    "el-transition": "^0.0.7",
     "trix": "^1.2.0",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
