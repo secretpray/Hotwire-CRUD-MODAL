@@ -16,14 +16,14 @@
 
 
 // main_color  color: rgb(251, 191, 36);
-
+// [type='search']
 [type='text'], [type='email'],
 [type='url'], [type='password'],
 [type='number'], [type='date'],
 [type='datetime-local'],
-[type='month'], [type='search'],
-[type='tel'], [type='time'],
-[type='week'], [multiple],
+[type='month'], [type='tel'],
+[type='time'], [type='week'],
+[multiple],
 textarea, select {
   // background-color: rgb(251, 191, 36);
   background-color: #364151 !important; // gray

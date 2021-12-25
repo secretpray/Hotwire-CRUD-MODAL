@@ -34,90 +34,9 @@
       <div class="" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
         <div class="bg-gray-800 shadow rounded border border-gray-600 overflow-hidden">
           <%= form_with model: @post, url: posts_path, method: :get, data: { turbo_frame: 'posts' } do |form| %>
-            <div class="flex items-center">
-              <%= form.radio_button 'sort[]', 'new',
-                  class: 'appearance-none hidden',
-                  data: { action: "click->dropdown-sort#clickSort" },
-                  selected: @sorted_value == 'new' %>
-              <label class="flex flex-col w-full cursor-pointer rounded-md" for="sort[]_new">
-                <div class='px-4 py-4 cursor-pointer flex items-center justify-between rounded whitespace-nowrap truncate uppercase font-semibold text-sm text-gray-500 hover:text-gray-300 hover:bg-gray-600 w-full'>
-                  By date
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7" />
-                  </svg>
-                </div>
-              </label>
-            </div>
-            <div class="flex items-center">
-              <%= form.radio_button 'sort[]', 'old',
-                  class: 'appearance-none hidden',
-                  data: { action: "click->dropdown-sort#clickSort" },
-                  selected: @sorted_value == 'old' %>
-              <label class="flex flex-col w-full cursor-pointer rounded-md" for="sort[]_old">
-                <div class='px-4 py-4 cursor-pointer flex items-center justify-between rounded whitespace-nowrap truncate uppercase font-semibold text-sm text-gray-500 hover:text-gray-300 hover:bg-gray-600 w-full'>
-                  By date
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
-                  </svg>
-                </div>
-              </label>
-            </div>
-            <div class="flex items-center">
-              <%= form.radio_button 'sort[]', 'likes',
-                  class: 'appearance-none hidden',
-                  data: { action: "click->dropdown-sort#clickSort" },
-                  selected: @sorted_value == 'likes' %>
-              <label class="flex flex-col w-full cursor-pointer rounded-md" for="sort[]_likes">
-                <div class='px-4 py-4 cursor-pointer flex items-center justify-between rounded whitespace-nowrap truncate uppercase font-semibold text-sm text-gray-500 hover:text-gray-300 hover:bg-gray-600 w-full'>
-                  By rating
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7" />
-                  </svg>
-                </div>
-              </label>
-            </div>
-            <div class="flex items-center">
-              <%= form.radio_button 'sort[]', 'dislikes',
-                  class: 'appearance-none hidden',
-                  data: { action: "click->dropdown-sort#clickSort" },
-                  selected: @sorted_value == 'dislikes' %>
-              <label class="flex flex-col w-full cursor-pointer rounded-md" for="sort[]_dislikes">
-                <div class='px-4 py-4 cursor-pointer flex items-center justify-between rounded whitespace-nowrap truncate uppercase font-semibold text-sm text-gray-500 hover:text-gray-300 hover:bg-gray-600 w-full'>
-                  By rating
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
-                  </svg>
-                </div>
-              </label>
-            </div>
-            <div class="flex items-center">
-              <%= form.radio_button 'sort[]', 'commentes',
-                  class: 'appearance-none hidden',
-                  data: { action: "click->dropdown-sort#clickSort" },
-                  selected: @sorted_value == 'commentes' %>
-              <label class="flex flex-col w-full cursor-pointer rounded-md" for="sort[]_commentes">
-                <div class='px-4 py-4 cursor-pointer flex items-center justify-between rounded whitespace-nowrap truncate uppercase font-semibold text-sm text-gray-500 hover:text-gray-300 hover:bg-gray-600 w-full'>
-                  By popularity
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7" />
-                  </svg>
-                </div>
-              </label>
-            </div>
-            <div class="flex items-center">
-              <%= form.radio_button 'sort[]', 'uncommentes',
-                  class: 'appearance-none hidden',
-                  data: { action: "click->dropdown-sort#clickSort" },
-                  selected: @sorted_value == 'uncommentes' %>
-              <label class="flex flex-col w-full cursor-pointer rounded-md" for="sort[]_uncommentes">
-                <div class='px-4 py-4 cursor-pointer flex items-center justify-between rounded whitespace-nowrap truncate uppercase font-semibold text-sm text-gray-500 hover:text-gray-300 hover:bg-gray-600 w-full'>
-                  By popularity
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
-                  </svg>
-                </div>
-              </label>
-            </div>
+            <% Post::SORTED_METHODS.each.with_index(1) do |item, index| %>
+              <%= render 'posts/select_form_item', form: form, item: item, index: index, sorted_value: @sorted_value %>
+            <% end %>
             <%= form.submit "Sort",
                 data: { dropdown_sort_target: "submit" },
                 class: 'px-4 py-2 bg-gray-700 rounded border-2 border-gray-600 hover:border-yellow-400 hover:text-yellow-400 hidden' %>

@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, dependent: :destroy, inverse_of: :post
   has_rich_text :content
+  # has_one :action_text_rich_text, class_name: 'ActionText::RichText', as: :record
 
   enum status: %i[draft publish deleted spam]
 
@@ -19,6 +20,15 @@ class Post < ApplicationRecord
   validates :title, length: { in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH }
   validates :content, length: { minimum: MIN_CONTENT_LENGTH }
   validates :status, inclusion: { in: Post.statuses.keys }
+
+  scope :with_title_category_containing, ->(query) { where("title ilike ? OR category ilike ?", "%#{query}%","%#{query}%") }
+  scope :with_content_containing, ->(query) { joins(:rich_text_content).merge(ActionText::RichText.where('body ILIKE ?', "%#{query}%")) }
+  scope :multi_records_containing, -> (query) {
+     joins(:rich_text_content).merge(ActionText::RichText.where('title ILIKE ? OR category ILIKE ? OR body ILIKE ?', "%#{query}%","%#{query}%","%#{query}%"))
+  }
+  # scope :with_content_containing, ->(query) { joins(:rich_text_content).merge(ActionText::RichText.where <<~SQL, "%" + query + "%") }
+  #   body ILIKE ?
+  # SQL
 
   scope :commented, -> { order('comments_count') }  # Post.commented.pluck(:id, :comments_count)
   scope :liked, -> { order('likes_count') }         # Post.liked.pluck(:id, :likes_count)
@@ -72,6 +82,23 @@ class Post < ApplicationRecord
       list.recent
     end
   end
+
+  # def self.parse_filter_params(params)
+  #   case
+  #   when !params[:filter_name].blank?
+  #     @users = User.where('name ILIKE ? OR email ILIKE ?', "%#{params[:filter_name]}%", "%#{params[:filter_name]}%")
+  #     # @users = result.includes(:team, :user)
+  #     #               .where('name ILIKE ? OR description ILIKE ?', "%#{params[:filter_name]}%", "%#{params[:filter_name]}%")
+  #   # when !params[:description].blank?
+  #   #   @ingredients = Bio.joins(:action_text_rich_text)
+  #   #                       .where("action_text_rich_texts.body ILIKE ?", "%#{params[:description]}%")
+  #   #   @recipes = Recipe.joins(:ingredients).where("ingredients.id" => @ingredients)
+  # when !params[:age].blank?
+  #     @users = @users.where("age LIKE ?", "%#{params[:age]}%")
+  #   else
+  #     @users = @users.includes(:team)
+  #   end
+  # end
 
   def liked?(user)
     Like.where(post: self, user: user).any?

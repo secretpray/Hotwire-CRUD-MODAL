@@ -19,4 +19,14 @@ module PostsHelper
 
     return { count: comments_count, users_avatar: users_avatar.join(' ') }
   end
+
+  def set_title(item)
+    return unless item.in?(Post::SORTED_METHODS)
+
+    if item.end_with?('commentes') || item.end_with?('likes')
+      item.end_with?('likes') ? 'By rating' : 'By popularity'
+    else
+      'By date'
+    end
+  end
 end

@@ -19,7 +19,7 @@
 
     <div class="max-w-7xl w-full mx-auto">
       <%= turbo_frame_tag :flash %>
-      <p class='mt-6 text-center'><%= Time.zone.now %></p>
+      <p class='ml-12 mt-6 mb-2 text-left text-xs text-gray-500'><%= Time.zone.now.strftime("%A, %D: %k:%M:%S.%L") %></p>
       <%= yield %>
     </div>
     <%= turbo_frame_tag 'modal', data: { modal_target: 'frame' } %>

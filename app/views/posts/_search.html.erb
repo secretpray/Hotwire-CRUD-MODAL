@@ -1,0 +1,34 @@
+<div class="search-box flex items-center justify-evenly">
+  <%= form_tag root_path, method: :get, class: 'flex items-center', autocomplete: "off" do %>
+    <%= text_field_tag :query, params[:query],
+          placeholder: request.query_parameters.any? ? params[:query] : "Search...",
+          # autocomplete: 'off',
+          # value: request.query_parameters[:query],
+          class: "search-input bg-gray-700 text-gray-300 border-2 border-gray-500 focus:ring-transparent focus:border-2 focus:border-yellow-500 focus:border-opacity-75" %>
+    <div class="btn bg-gray-800 bg-no-repeat flex border-2 border-gray-500 hover:border-yellow-500 bg-center items-center justify-center search-button">
+      <%= submit_tag 'Search', class: 'hidden submit-btn' %>
+    </div>
+  <% end %>
+  <% if request.query_parameters.any? %>
+    <%= link_to 'reset', root_path,
+        class: 'reset-search-link rounded-lg py-3 px-5 text-yellow-400 mr bg-transparent filter saturate-150 contrast-75 font-medium hover:underline' %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  document.querySelector('.btn').addEventListener('click', () => {
+    var input = document.querySelector('.search-input')
+    var submitBtn = document.querySelector('.submit-btn')
+    var resetSearchLink = document.querySelector('.reset-search-link')
+    input.classList.toggle("active")
+    input.focus()
+    document.querySelector('.search-button').classList.toggle('animate')
+    if(resetSearchLink && input.classList.contains("active")) {
+      resetSearchLink.classList.add("reset-active")
+    } else if (resetSearchLink && !input.classList.contains("active")) {
+      resetSearchLink.classList.remove("reset-active")
+    }
+    // submitBtn.click()
+    // input.value = ''
+  })
+</script>

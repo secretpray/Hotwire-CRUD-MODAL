@@ -19,12 +19,7 @@
             <%= pluralize(@posts.count, "Post").split().reverse.join(': ') %>
           </h1>
         </div>
-        <div class="">
-          <%#= form_tag root_path, method: :get do %>
-            <%#= text_field_tag :query, params[:query] %>
-            <%#= submit_tag 'Search' %>
-          <%# end %>
-        </div>
+        <%= render 'posts/search' %>
         <%= render 'shared/user_auth' %>
       </div>
       <hr>
