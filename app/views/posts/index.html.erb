@@ -19,7 +19,7 @@
             <%= pluralize(@posts.count, "Post").split().reverse.join(': ') %>
           </h1>
         </div>
-        <%= render 'posts/search' %>
+        <%= render 'posts/search', posts: @posts %>
         <%= render 'shared/user_auth' %>
       </div>
       <hr>

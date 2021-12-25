@@ -26,9 +26,6 @@ class Post < ApplicationRecord
   scope :multi_records_containing, -> (query) {
      joins(:rich_text_content).merge(ActionText::RichText.where('title ILIKE ? OR category ILIKE ? OR body ILIKE ?', "%#{query}%","%#{query}%","%#{query}%"))
   }
-  # scope :with_content_containing, ->(query) { joins(:rich_text_content).merge(ActionText::RichText.where <<~SQL, "%" + query + "%") }
-  #   body ILIKE ?
-  # SQL
 
   scope :commented, -> { order('comments_count') }  # Post.commented.pluck(:id, :comments_count)
   scope :liked, -> { order('likes_count') }         # Post.liked.pluck(:id, :likes_count)
@@ -41,7 +38,6 @@ class Post < ApplicationRecord
   def self.get_saved_sort
     Post.saved_sort if @sort_list.nil?
     @sort_list.value
-    # Post.saved_sort.value
   end
 
   def self.set_saved_sort(sort_method)
@@ -49,7 +45,6 @@ class Post < ApplicationRecord
     sort_method = sort_method.in?(SORTED_METHODS) ? sort_method : ''
 
     @sort_list.value = sort_method
-    # Post.saved_sort.value
   end
 
   def self.make_sort(selection, list)
@@ -65,19 +60,15 @@ class Post < ApplicationRecord
     when 'likes'
       Post.set_saved_sort('likes')
       list.order(likes_count: :desc)
-      # list_sort('like', 'desc')
     when 'dislikes'
       Post.set_saved_sort('dislikes')
       list.order(likes_count: :asc)
-      # list_sort('like', 'asc')
     when 'commentes'
       Post.set_saved_sort('commentes')
       list.order(comments_count: :desc)
-      # list_sort('comment', 'desc')
     when 'uncommentes'
       Post.set_saved_sort('uncommentes')
       list.order(comments_count: :asc)
-      # list_sort('comment', 'asc')
     else
       list.recent
     end
@@ -131,11 +122,4 @@ class Post < ApplicationRecord
   def update_posts_counter
     broadcast_update_to 'posts', target: 'posts_counter', html: "Post#{Post.all.size > 1 ? 's: ' : ': '}#{Post.all.size}"
   end
-
-  # def list_sort(model, direction)
-  #   klass = model.classify.constantize
-  #   sorted = find(klass.group(:post_id).order(Arel.sql("count(post_id) #{direction}")).pluck(:post_id))
-  #   other = (Post.all - sorted).sort.reverse
-  #   sorted + other
-  # end
 end

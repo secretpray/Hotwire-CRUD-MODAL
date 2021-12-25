@@ -1,0 +1,5 @@
+<% if request.query_parameters.any? || posts.count < Post.all.count %>
+  <%= link_to 'reset', root_path,
+      data: { turbo_frame: :_top },
+      class: 'reset-search-link rounded-lg py-3 px-5 text-yellow-400 mr bg-transparent filter saturate-150 contrast-75 font-medium hover:underline' %>
+<% end %>

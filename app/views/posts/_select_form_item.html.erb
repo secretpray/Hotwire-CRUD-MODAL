@@ -1,4 +1,4 @@
-<div class="flex items-center">
+<div class="flex items-center" id='sort_by_<%=item%>'>
   <%= form.radio_button 'sort[]', item,
       class: 'appearance-none hidden',
       data: { action: "click->dropdown-sort#clickSort" },

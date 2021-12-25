@@ -1,7 +1,12 @@
 <div class="search-box flex items-center justify-evenly">
-  <%= form_tag root_path, method: :get, class: 'flex items-center', autocomplete: "off" do %>
-    <%= text_field_tag :query, params[:query],
-          placeholder: request.query_parameters.any? ? params[:query] : "Search...",
+  <%= form_tag root_path, method: :get,
+               class: 'flex items-center',
+               autocomplete: "off",
+               data: { turbo_frame: :_top } do %>
+    <%= search_field_tag :query, params[:query],
+          # placeholder: request.query_parameters.any? ? params[:query] : "Search...",
+          placeholder: "Search...",
+          data: { posts_count: posts.count },
           # autocomplete: 'off',
           # value: request.query_parameters[:query],
           class: "search-input bg-gray-700 text-gray-300 border-2 border-gray-500 focus:ring-transparent focus:border-2 focus:border-yellow-500 focus:border-opacity-75" %>
@@ -9,10 +14,9 @@
       <%= submit_tag 'Search', class: 'hidden submit-btn' %>
     </div>
   <% end %>
-  <% if request.query_parameters.any? %>
-    <%= link_to 'reset', root_path,
-        class: 'reset-search-link rounded-lg py-3 px-5 text-yellow-400 mr bg-transparent filter saturate-150 contrast-75 font-medium hover:underline' %>
-  <% end %>
+  <span id='reset-link'>
+    <%= render 'posts/reset_link', posts: posts %>
+  </span>
 </div>
 
 <script type="text/javascript">
