@@ -1,14 +1,12 @@
 <div class="search-box flex items-center justify-evenly">
-  <%= form_tag root_path, method: :get,
+  <%= form_with url: root_path, method: :get,
                class: 'flex items-center',
                autocomplete: "off",
-               data: { turbo_frame: :_top } do %>
+               data: { turbo_frame: 'posts', turbo_action: "advance" } do %>
     <%= search_field_tag :query, params[:query],
-          # placeholder: request.query_parameters.any? ? params[:query] : "Search...",
           placeholder: "Search...",
           data: { posts_count: posts.count },
           # autocomplete: 'off',
-          # value: request.query_parameters[:query],
           class: "search-input bg-gray-700 text-gray-300 border-2 border-gray-500 focus:ring-transparent focus:border-2 focus:border-yellow-500 focus:border-opacity-75" %>
     <div class="btn bg-gray-800 bg-no-repeat flex border-2 border-gray-500 hover:border-yellow-500 bg-center items-center justify-center search-button">
       <%= submit_tag 'Search', class: 'hidden submit-btn' %>

@@ -33,12 +33,12 @@
     <div class="rounded-md bg-gray-800 border border-gray-600 shadow-xs">
       <div class="" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
         <div class="bg-gray-800 shadow rounded border border-gray-600 overflow-hidden">
-          <%= form_with model: @post, url: posts_path, method: :get, data: { turbo_frame: 'posts' } do |form| %>
+          <%= form_with url: posts_path, method: :get, data: { turbo_frame: 'posts' } do |form| %>
             <% Post::SORTED_METHODS.each.with_index(1) do |item, index| %>
               <%= render 'posts/select_form_item', form: form, item: item, index: index, sorted_value: @sorted_value %>
             <% end %>
             <%= form.submit "Sort",
-                data: { dropdown_sort_target: "submit" },
+                data: { dropdown_sort_target: "submit", params: params, request_query: request.query_parameters },
                 class: 'px-4 py-2 bg-gray-700 rounded border-2 border-gray-600 hover:border-yellow-400 hover:text-yellow-400 hidden' %>
           <% end %>
         </div>

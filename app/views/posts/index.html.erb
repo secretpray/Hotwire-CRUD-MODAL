@@ -1,5 +1,7 @@
 <%= turbo_stream_from 'posts' %>
-<% unless @posts.present? %>
+
+<%= turbo_frame_tag 'posts' do %>
+  <% unless @posts.present? %>
     <div class="w-full justify-center">
       <div class="flex justify-between mt-10">
         <div>
@@ -15,22 +17,21 @@
       <div class="mx-8 flex justify-between items-center mb-4">
         <div class='flex items-center'>
           <%= render 'select_form' %>
-          <h1 class="text-lg font-bold text-4xl" id='posts_counter'>
-            <%= pluralize(@posts.count, "Post").split().reverse.join(': ') %>
-          </h1>
+          <div id="posts_counter"
+            <%= render 'posts/posts_counter', count: @posts.count %>
+          </div>
         </div>
         <%= render 'posts/search', posts: @posts %>
         <%= render 'shared/user_auth' %>
       </div>
       <hr>
-      <%= turbo_frame_tag 'posts' do %>
         <%= render 'shared/loader' %>
         <div class="flex flex-row my-5">
           <div class='flex flex-wrap justify-evenly gap-3 frame-loading-hide' id="post_list">
-            <%# @posts = @posts.take(10) %>
+            <%# @posts = @posts.take(20) %>
             <%= render @posts %>
           </div>
         </div>
-      <% end %>
     </div>
+  <% end %>
 <% end %>

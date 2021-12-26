@@ -5,7 +5,6 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, dependent: :destroy, inverse_of: :post
   has_rich_text :content
-  # has_one :action_text_rich_text, class_name: 'ActionText::RichText', as: :record
 
   enum status: %i[draft publish deleted spam]
 
@@ -120,6 +119,6 @@ class Post < ApplicationRecord
   private
 
   def update_posts_counter
-    broadcast_update_to 'posts', target: 'posts_counter', html: "Post#{Post.all.size > 1 ? 's: ' : ': '}#{Post.all.size}"
+    broadcast_update_to 'posts', target: 'posts_counter', partial: 'posts/posts_counter', locals: { count: Post.count }
   end
 end

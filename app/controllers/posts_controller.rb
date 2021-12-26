@@ -5,8 +5,8 @@ class PostsController < ApplicationController
   before_action :get_online_user_id, only: %i[index show update]
 
   def index
+    # binding.pry
     posts = params[:query].blank? ? Post.all : Post.multi_records_containing(params[:query])
-
     if params[:sort].present?
       @posts = Post.make_sort(params[:sort], posts)
     else

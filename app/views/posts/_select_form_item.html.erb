@@ -1,9 +1,9 @@
 <div class="flex items-center" id='sort_by_<%=item%>'>
   <%= form.radio_button 'sort[]', item,
-      class: 'appearance-none hidden',
+      class: 'sort-item appearance-none hidden',
       data: { action: "click->dropdown-sort#clickSort" },
       selected: sorted_value == item %>
-  <label class="flex flex-col w-full cursor-pointer rounded-md" for="sort[]_<%= item %>">
+  <label class="flex flex-col w-full cursor-pointer rounded-md <%= 'bg-yellow-500 text-yellow-900' if sorted_value == item %>" for="sort[]_<%= item %>">
     <div class='px-4 py-4 cursor-pointer flex items-center justify-between rounded whitespace-nowrap truncate uppercase font-semibold text-sm text-gray-500 hover:text-gray-300 hover:bg-gray-600 w-full'>
       <%= set_title(item) %>
       <% if index.odd? %>
