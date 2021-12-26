@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <div class="flex items-center">
+  <div class="flex items-center mr-12">
     <%= render 'shared/dropdown_account' %>
 
     <%= link_to 'New post', new_post_path,
@@ -8,7 +8,7 @@
   </div>
 <% else %>
   <ul>
-    <div class="flex items-center">
+    <div class="flex items-center mr-12">
       <li class="flex align-center">
         <%= link_to 'Sign up', new_user_registration_path,
             class: 'rounded-lg py-3 px-5 text-yellow-400 mr bg-transparent filter saturate-150 contrast-75 font-medium hover:underline' %>

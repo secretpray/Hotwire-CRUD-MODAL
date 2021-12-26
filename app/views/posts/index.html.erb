@@ -2,9 +2,9 @@
 
 <%= turbo_frame_tag 'posts' do %>
   <% unless @posts.present? %>
-    <div class="w-full justify-center">
-      <div class="flex justify-between mt-10">
-        <div>
+    <div class="w-full flex justify-center pt-1">
+      <div class="flex items-center w-full justify-between mt-10">
+        <div class='flex items-center ml-12'>
           <h1 class="font-bold text-4xl text-gray-400 text-center w-full inline-block">
             No posts to display! Do you want to add?
           </h1>
@@ -13,7 +13,7 @@
       </div>
     <div>
   <% else %>
-    <div class="w-full mx-auto">
+    <div class="w-full mx-auto pt-1">
       <div class="mx-8 flex justify-between items-center mb-4">
         <div class='flex items-center'>
           <%= render 'select_form' %>

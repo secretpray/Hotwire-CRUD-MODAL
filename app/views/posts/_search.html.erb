@@ -2,35 +2,27 @@
   <%= form_with url: root_path, method: :get,
                class: 'flex items-center',
                autocomplete: "off",
-               data: { turbo_frame: 'posts', turbo_action: "advance" } do %>
+               data: { turbo_frame: 'posts',
+                       turbo_action: "advance",
+                       controller: 'search',
+                       action: 'keyup->search#search_with_debounce' } do %>
     <%= search_field_tag :query, params[:query],
           placeholder: "Search...",
-          data: { posts_count: posts.count },
+          data: { posts_count: posts.count,
+                  search_target: 'searchInput' },
           # autocomplete: 'off',
           class: "search-input bg-gray-700 text-gray-300 border-2 border-gray-500 focus:ring-transparent focus:border-2 focus:border-yellow-500 focus:border-opacity-75" %>
-    <div class="btn bg-gray-800 bg-no-repeat flex border-2 border-gray-500 hover:border-yellow-500 bg-center items-center justify-center search-button">
-      <%= submit_tag 'Search', class: 'hidden submit-btn' %>
+    <div class="btn bg-gray-800 bg-no-repeat flex border-2 border-gray-500 hover:border-yellow-500 bg-center items-center justify-center search-button"
+         data-controller='animate-search'
+         data-animate-search-target='btnShowHide'
+         data-action='click->animate-search#showHide'>
+      <%= submit_tag 'Search',
+          class: 'hidden submit-btn',
+          data: { controller: 'animate-search',
+                  animate_search_target: 'submitBtn' } %>
     </div>
   <% end %>
   <span id='reset-link'>
     <%= render 'posts/reset_link', posts: posts %>
   </span>
 </div>
-
-<script type="text/javascript">
-  document.querySelector('.btn').addEventListener('click', () => {
-    var input = document.querySelector('.search-input')
-    var submitBtn = document.querySelector('.submit-btn')
-    var resetSearchLink = document.querySelector('.reset-search-link')
-    input.classList.toggle("active")
-    input.focus()
-    document.querySelector('.search-button').classList.toggle('animate')
-    if(resetSearchLink && input.classList.contains("active")) {
-      resetSearchLink.classList.add("reset-active")
-    } else if (resetSearchLink && !input.classList.contains("active")) {
-      resetSearchLink.classList.remove("reset-active")
-    }
-    // submitBtn.click()
-    // input.value = ''
-  })
-</script>
