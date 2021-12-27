@@ -1,3 +1,27 @@
-<h1 class="text-lg font-bold text-4xl">
-  <%= pluralize(count, "Post").split().reverse.join(': ') %>
-</h1>
+<div class="relative inline-block tooltip"
+     id='post-tooltip'
+     data-controller='tooltip'
+     data-action='mouseover->tooltip#hoverInPost'>
+  <!-- data-action='mouseover->tooltip#hoverIn mouseout->tooltip#hoverOut' -->
+  <h1 class="text-lg font-bold text-4xl">
+    <%= pluralize(count, "Post").split().reverse.join(': ') %>
+  </h1>
+  <div class="flex bg-gray-800 text-gray-300 rounded-md z-20 absolute invisible tooltip-item cursor-pointer" id='post-tooltip-item'>
+    <div class="animate-pulse font-semibold px-4 mr-auto">
+      <span class='flex text-yellow-500 font-bold px-2 py-1 border-2 border-yellow-500 rounded-lg tracking-wider opacity-75'>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        &nbsp; Sort
+      </span>
+    </div>
+    <div class="animate-pulse font-semibold px-4 ml-auto">
+      <span class='flex text-yellow-500 font-bold px-2 py-1 border-2 border-yellow-500 rounded-lg tracking-wider opacity-75'>
+        Search &nbsp;
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </span>
+    </div>
+  </div>
+</div>

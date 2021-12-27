@@ -42,3 +42,6 @@ application.register("object-author", ObjectAuthorController)
 
 import SearchController from "./search_controller.js"
 application.register("search", SearchController)
+
+import TooltipController from "./tooltip_controller.js"
+application.register("tooltip", TooltipController)

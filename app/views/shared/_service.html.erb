@@ -1,4 +1,4 @@
-<div class="relative inline-block tooltip">
+<div class="relative flex tooltip justify-end mr-20 active" id='header-tooltip' data-controller='tooltip' data-action='mouseover->tooltip#hoverInHeader'>
   <%= link_to root_path,
       class: 'ml-10 mt-6 mb-3 px-2 py-1 rounded text-left text-xs text-gray-300 opacity-25 hover:opacity-75 transform duration-150',
       data: { turbo_frame: 'posts'} do %>
@@ -8,7 +8,7 @@
     <div class="tooltip-container hidden relative">
       <span class="font-semibold py-4">
         <%= link_to 'Go to Home page', root_path,
-            class: 'transform hover:bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-800 hover:scale-110 duration-500' %>
+            class: 'transform hover:bg-yellow-500 px-4 py-2 mr-5 border-2 border-gray-600 rounded-lg hover:text-yellow-800 hover:border-yellow-500 duration-500' %>
       </span>
     </div>
   </div>
