@@ -21,12 +21,32 @@ module PostsHelper
   end
 
   def set_title(item)
-    return unless item.in?(Post::SORTED_METHODS)
+    return unless item.downcase.in?(Post::SORTED_METHODS) || item.is_a?(String)
 
-    if item.end_with?('commentes') || item.end_with?('likes')
-      item.end_with?('likes') ? 'By rating' : 'By popularity'
+    if item.downcase.end_with?('likes')
+      Post::SORTED_TITLES.first
+    elsif item.downcase.end_with?('commentes')
+      Post::SORTED_TITLES.second
     else
-      'By date'
+      Post::SORTED_TITLES.third
     end
+  end
+
+  def decode_sort_method(sorted_value)
+    return 'none' unless sorted_value.in?(Post::SORTED_METHODS) || sorted_value.is_a?(String)
+
+    direction =
+      if sorted_value === 'new' || sorted_value === 'likes' || sorted_value === 'commentes'
+        '&nbsp; <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
+        </svg>'
+      elsif sorted_value === 'old' || sorted_value === 'dislikes' || sorted_value === 'uncommentes'
+        '&nbsp; <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z" />
+        </svg>'
+      end
+
+    title = set_title(sorted_value)
+    title + direction
   end
 end

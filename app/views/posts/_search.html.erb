@@ -1,4 +1,4 @@
-<div class="search-box flex items-center justify-evenly">
+<div class="search-box ml-14 flex items-center justify-evenly">
   <%= form_with url: root_path, method: :get,
                class: 'flex items-center',
                autocomplete: "off",
@@ -10,7 +10,7 @@
           placeholder: "Search...",
           data: { posts_count: posts.count,
                   search_target: 'searchInput' },
-          # autocomplete: 'off',
+          autocomplete: 'off',
           class: "search-input bg-gray-700 text-gray-300 border-2 border-gray-500 focus:ring-transparent focus:border-2 focus:border-yellow-500 focus:border-opacity-75" %>
     <div class="btn bg-gray-800 bg-no-repeat flex border-2 border-gray-500 hover:border-yellow-500 bg-center items-center justify-center search-button"
          data-controller='animate-search'

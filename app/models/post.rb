@@ -8,11 +8,12 @@ class Post < ApplicationRecord
 
   enum status: %i[draft publish deleted spam]
 
-  SORTED_METHODS = %w(new old likes dislikes commentes uncommentes).freeze
-  COLOR_STATUSES = { draft: 'grey', publish: 'orange', deleted: 'green', spam: 'red' }
-  MIN_TITLE_LENGTH = 4
-  MAX_TITLE_LENGTH = 120
-  MIN_CONTENT_LENGTH = 2
+  SORTED_METHODS      = %w(new old likes dislikes commentes uncommentes).freeze
+  SORTED_TITLES       = ['By rating', 'By popularity', 'By date'].freeze
+  COLOR_STATUSES      = { draft: 'grey', publish: 'orange', deleted: 'green', spam: 'red' }
+  MIN_TITLE_LENGTH    = 4
+  MAX_TITLE_LENGTH    = 120
+  MIN_CONTENT_LENGTH  = 2
 
   validates :title, uniqueness: true
   validates :content, :status, presence: true

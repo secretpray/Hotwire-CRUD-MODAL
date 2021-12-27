@@ -5,7 +5,7 @@
 
 .search-input {
   position: absolute;
-  right: 220px;
+  right: 231px;
   box-sizing: border-box;
   width: 0px;
   height: 40px;
@@ -37,7 +37,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  right: 217px;
+  right: 228px;
   cursor: pointer;
   text-align: center;
   line-height: 80px;
@@ -70,7 +70,7 @@
 }
 
 .reset-search-link {
-  margin-left: 0;
+  margin-left: -84px;
   transition: all 0.4s ease-in-out;
 }
 

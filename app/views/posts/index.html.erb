@@ -24,14 +24,24 @@
         <%= render 'posts/search', posts: @posts %>
         <%= render 'shared/user_auth' %>
       </div>
-      <hr>
-        <%= render 'shared/loader' %>
-        <div class="flex flex-row my-5">
-          <div class='flex flex-wrap justify-evenly gap-3 frame-loading-hide' id="post_list">
-            <%# @posts = @posts.take(20) %>
-            <%= render @posts %>
-          </div>
+      <% if @sorted_value.blank? %>
+        <hr>
+      <% else %>
+        <span class='flex justify-between'>
+          <hr class='ml-10 mt-3 middle-width opacity-50'>
+            <span class='flex items-center opacity-50'>
+              <%== decode_sort_method(@sorted_value) %>
+            </span>
+          <hr class='mr-20 mt-3 middle-width opacity-50'>
+        </span>
+      <% end %>
+      <%= render 'shared/loader' %>
+      <div class="flex flex-row my-5">
+        <div class='flex flex-wrap justify-evenly gap-3 frame-loading-hide' id="post_list">
+          <%# @posts = @posts.take(20) %>
+          <%= render @posts %>
         </div>
+      </div>
     </div>
   <% end %>
 <% end %>

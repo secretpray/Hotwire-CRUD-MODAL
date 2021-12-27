@@ -1,35 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>HotwireCrudModal</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="current-user-id" content="<%= current_user&.id %>">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
+  <%= render 'shared/header' %>
   <body class='antialiased text-gray-200 bg-gray-800 h-min-screen'
         data-controller='modal modal-user'
         data-controller-name='<%= controller_name %>'
         data-action-name='<%= action_name %>'>
-
+    <!-- container -->
     <div class="max-w-7xl w-full mx-auto">
+      <!-- Flash container -->
       <%= turbo_frame_tag :flash %>
-      <div class="relative inline-block tooltip">
-        <%= link_to root_path,
-            class: 'ml-10 mt-6 mb-3 px-2 py-1 rounded text-left text-xs text-gray-500 hover:bg-yellow-500 hover:text-yellow-800',
-            data: { turbo_frame: 'posts'} do %>
-          <%= Time.zone.now.strftime("%A, %D: %k:%M:%S.%L") %>
-        <% end %>
-        <div class="flex flex-col p-3 bg-gray-700 text-gray-300 w-42 h-12 rounded-md z-20 absolute right-0 invisible tooltip-item">
-          <span class="font-semibold pb-4">Go to Home page</span>
-        </div>
-      </div>
-
+      <!-- Tooltip for Home button container -->
+      <%= render 'shared/service' %>
+      <!-- End tooltip for Home button container -->
       <%= yield %>
     </div>
     <%= turbo_frame_tag 'modal', data: { modal_target: 'frame' } %>

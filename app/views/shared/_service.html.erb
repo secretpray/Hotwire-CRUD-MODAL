@@ -1,0 +1,15 @@
+<div class="relative inline-block tooltip">
+  <%= link_to root_path,
+      class: 'ml-10 mt-6 mb-3 px-2 py-1 rounded text-left text-xs text-gray-300 opacity-25 hover:opacity-75 transform duration-150',
+      data: { turbo_frame: 'posts'} do %>
+    <%= Time.zone.now.strftime("%A, %D: %k:%M:%S.%L") %>
+  <% end %>
+  <div class="flex flex-col p-3 bg-gray-700 text-gray-300 w-42 h-12 rounded-md z-20 absolute right-0 invisible tooltip-item">
+    <div class="tooltip-container hidden relative">
+      <span class="font-semibold py-4">
+        <%= link_to 'Go to Home page', root_path,
+            class: 'transform hover:bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-800 hover:scale-110 duration-500' %>
+      </span>
+    </div>
+  </div>
+</div>
