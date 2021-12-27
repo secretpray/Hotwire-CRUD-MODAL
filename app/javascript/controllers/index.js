@@ -28,6 +28,9 @@ application.register("dropdown", DropdownController)
 import DropdownSortController from "./dropdown_sort_controller.js"
 application.register("dropdown-sort", DropdownSortController)
 
+import HovercardController from "./hovercard_controller.js"
+application.register("hovercard", HovercardController)
+
 import LikesController from "./likes_controller.js"
 application.register("likes", LikesController)
 
@@ -40,8 +43,8 @@ application.register("modal-user", ModalUserController)
 import ObjectAuthorController from "./object_author_controller.js"
 application.register("object-author", ObjectAuthorController)
 
+import PopoverController from "./popover_controller.js"
+application.register("popover", PopoverController)
+
 import SearchController from "./search_controller.js"
 application.register("search", SearchController)
-
-import TooltipController from "./tooltip_controller.js"
-application.register("tooltip", TooltipController)

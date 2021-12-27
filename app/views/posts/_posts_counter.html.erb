@@ -1,26 +1,36 @@
-<div class="relative inline-block tooltip"
-     id='post-tooltip'
-     data-controller='tooltip'
-     data-action='mouseover->tooltip#hoverInPost'>
-  <!-- data-action='mouseover->tooltip#hoverIn mouseout->tooltip#hoverOut' -->
-  <h1 class="text-lg font-bold text-4xl">
+<div  class="popover inline-block"
+      data-controller="popover"
+      data-popover-translate-x="0"
+      data-popover-translate-y="-128%"
+      data-action="mouseover->popover#mouseOver mouseout->popover#mouseOut">
+  <h1 class="text-lg font-bold text-4xl cursor-pointer">
     <%= pluralize(count, "Post").split().reverse.join(': ') %>
   </h1>
-  <div class="flex bg-gray-800 text-gray-300 rounded-md z-20 absolute invisible tooltip-item cursor-pointer" id='post-tooltip-item'>
-    <div class="animate-pulse font-semibold px-4 mr-auto">
-      <span class='flex text-yellow-500 font-bold px-2 py-1 border-2 border-yellow-500 rounded-lg tracking-wider opacity-75'>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        &nbsp; Sort
+  <div class="content absolute max-w-xs text-gray-300 z-20 bg-gray-700 rounded-lg mt-2"
+       data-popover-target="content"
+       id='post-popover'>
+    <div class="italic font-medium px-4 py-2 bg-yellow-500 text-yellow-800 rounded">
+      Published (deleted) posts:
+    </div>
+    <div class="px-4 py-2 border-b-2 border-gray-500">
+      <span>Yesterday:</span>
+      <span class='float-right'>
+        <span class='font-bold'><%= Post.yesterday.count %></span>
+        (<span class='font-bold'><%= Post.yesterday_deleted.count %></span>);
       </span>
     </div>
-    <div class="animate-pulse font-semibold px-4 ml-auto">
-      <span class='flex text-yellow-500 font-bold px-2 py-1 border-2 border-yellow-500 rounded-lg tracking-wider opacity-75'>
-        Search &nbsp;
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
+    <div class="px-4 py-2 border-b-2 border-gray-500">
+      <span>This week:</span>
+      <span class='float-right'>
+        <span class='font-bold'><%= Post.last_week.count %></span>
+        (<span class='font-bold'><%= Post.last_week_deleted.count %></span>)
+      </span>
+    </div>
+    <div class="px-4 py-2">
+      <span>This month:</span>
+      <span class='float-right'>
+        <span class='font-bold'><%= Post.last_month.count %></span>
+        (<span class='font-bold'><%= Post.last_month_deleted.count %></span>)
       </span>
     </div>
   </div>

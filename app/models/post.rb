@@ -26,7 +26,12 @@ class Post < ApplicationRecord
   scope :multi_records_containing, -> (query) {
      joins(:rich_text_content).merge(ActionText::RichText.where('title ILIKE ? OR category ILIKE ? OR body ILIKE ?', "%#{query}%","%#{query}%","%#{query}%"))
   }
-
+  scope :yesterday, -> { where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_day) }
+  scope :yesterday_deleted, -> { where(status: :deleted).where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_day) }
+  scope :last_week, -> { where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_week) }
+  scope :last_week_deleted, -> { where(status: :deleted).where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_week) }
+  scope :last_month, -> { where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_month) }
+  scope :last_month_deleted, -> { where(status: :deleted).where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_month) }
   scope :commented, -> { order('comments_count') }  # Post.commented.pluck(:id, :comments_count)
   scope :liked, -> { order('likes_count') }         # Post.liked.pluck(:id, :likes_count)
 
