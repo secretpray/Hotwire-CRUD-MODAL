@@ -1,0 +1,79 @@
+.search-box {
+  width: 450px;
+  position: relative;
+}
+
+.search-input {
+  position: absolute;
+  right: 231px;
+  box-sizing: border-box;
+  width: 0px;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 18px;
+  border-radius: 50px;
+  transition: all 0.8s ease;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #9CA3AF;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #9CA3AF;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #9CA3AF;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #9CA3AF;
+}
+
+.btn {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  right: 228px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 80px;
+  font-size: 16px;
+  color: #fff;
+  transition: all 0.8s ease;
+  background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' heigh='24px' width='24px' style='color: rgb(107, 114, 128);' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
+}
+
+.btn:hover {
+  transform: scale(1.1, 1.1);
+  background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' heigh='24px' width='24px' style='color: rgb(245, 158, 11);' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
+}
+
+.search-input.active {
+  width: 250px;
+  right: 130px;
+}
+
+.btn.animate {
+  transform: rotate(-360deg);
+  right: 125px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' heigh='24px' width='24px' style='color: rgb(107, 114, 128);' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12' /%3E%3C/svg%3E");
+  transition: all .3s ease-in-out;
+}
+
+.btn.animate:hover {
+  transform: scale(1.1, 1.1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' heigh='24px' width='24px' style='color: rgb(245, 158, 11);' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12' /%3E%3C/svg%3E");
+}
+
+.reset-search-link {
+  margin-left: -84px;
+  transition: all 0.4s ease-in-out;
+}
+
+.reset-search-link.reset-active {
+  margin-left: 14rem;
+}

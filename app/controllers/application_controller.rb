@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :render_flash
 
+  def update_state(posts)
+    render turbo_stream: turbo_stream.replace('posts_counter', html: "Post#{posts.size > 1 ? 's: ' : ': '}#{posts.size}")
+  end
+
   protected
 
   def configure_permitted_parameters

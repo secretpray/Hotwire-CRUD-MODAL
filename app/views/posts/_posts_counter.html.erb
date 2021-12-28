@@ -1,0 +1,37 @@
+<div  class="popover inline-block"
+      data-controller="popover"
+      data-popover-translate-x="0"
+      data-popover-translate-y="-128%"
+      data-action="mouseover->popover#mouseOver mouseout->popover#mouseOut">
+  <h1 class="text-lg font-bold text-4xl cursor-pointer">
+    <%= pluralize(count, "Post").split().reverse.join(': ') %>
+  </h1>
+  <div class="content absolute max-w-xs text-gray-300 z-20 bg-gray-700 rounded-lg mt-2"
+       data-popover-target="content"
+       id='post-popover'>
+    <div class="italic font-medium px-4 py-2 bg-yellow-500 text-yellow-800 rounded">
+      Published (deleted) posts:
+    </div>
+    <div class="px-4 py-2 border-b-2 border-gray-500">
+      <span>Yesterday:</span>
+      <span class='float-right'>
+        <span class='font-bold'><%= Post.yesterday.count %></span>
+        (<span class='font-bold'><%= Post.yesterday_deleted.count %></span>);
+      </span>
+    </div>
+    <div class="px-4 py-2 border-b-2 border-gray-500">
+      <span>This week:</span>
+      <span class='float-right'>
+        <span class='font-bold'><%= Post.last_week.count %></span>
+        (<span class='font-bold'><%= Post.last_week_deleted.count %></span>)
+      </span>
+    </div>
+    <div class="px-4 py-2">
+      <span>This month:</span>
+      <span class='float-right'>
+        <span class='font-bold'><%= Post.last_month.count %></span>
+        (<span class='font-bold'><%= Post.last_month_deleted.count %></span>)
+      </span>
+    </div>
+  </div>
+</div>

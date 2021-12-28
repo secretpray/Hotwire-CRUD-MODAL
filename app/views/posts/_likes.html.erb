@@ -1,12 +1,15 @@
 <% if user_signed_in? %>
   <% if post.liked?(current_user) %>
     <%= button_to "Liked (#{post.likes.count})", like_post_path(post), method: 'put',
-                  class: 'px-4 py-2 bg-transparent text-yellow-400 border-2 rounded-xl border-yellow-400 hover:border-yellow-500 hover:text-yellow-500 cursor-pointer' %>
+                  class: 'px-4 py-2 bg-transparent text-yellow-400 border-2 rounded-xl border-yellow-400 hover:border-yellow-500 hover:text-yellow-500 cursor-pointer',
+                  data: { turbo_frame: 'posts' } %>
   <% else %>
     <%= button_to "Like! (#{post.likes.count})", like_post_path(post), method: 'put',
-                  class: 'px-4 py-2 bg-transparent text-gray-400 border-2 rounded-xl border-gray-500 hover:border-gray-500 hover:text-gray-400 cursor-pointer' %>
+                  class: 'px-4 py-2 bg-transparent text-gray-400 border-2 rounded-xl border-gray-500 hover:border-gray-500 hover:text-gray-400 cursor-pointer',
+                  data: { turbo_frame: 'posts' } %>
   <% end %>
 <% else %>
   <%= button_to "Likes: (#{post.likes.count})", like_post_path(post), method: 'put', disabled: true,
-              class: 'px-4 py-2 bg-transparent text-gray-500 border-2 rounded-xl border-gray-600 hover:border-gray-700 hover:text-gray-600 cursor-pointer' %>
+              class: 'px-4 py-2 bg-transparent text-gray-500 border-2 rounded-xl border-gray-600 hover:border-gray-700 hover:text-gray-600 cursor-pointer',
+              data: { turbo_frame: 'posts' } %>
 <% end %>

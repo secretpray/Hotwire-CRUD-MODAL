@@ -1,8 +1,10 @@
 <%= turbo_stream_from 'posts' %>
-<% unless @posts.present? %>
-    <div class="w-full justify-center">
-      <div class="flex justify-between mt-10">
-        <div>
+
+<%= turbo_frame_tag 'posts' do %>
+  <% unless @posts.present? %>
+    <div class="w-full flex justify-center pt-1">
+      <div class="flex items-center w-full justify-between mt-10">
+        <div class='flex items-center ml-12'>
           <h1 class="font-bold text-4xl text-gray-400 text-center w-full inline-block">
             No posts to display! Do you want to add?
           </h1>
@@ -11,31 +13,35 @@
       </div>
     <div>
   <% else %>
-    <div class="w-full mx-auto">
+    <div class="w-full mx-auto pt-1">
       <div class="mx-8 flex justify-between items-center mb-4">
         <div class='flex items-center'>
           <%= render 'select_form' %>
-          <h1 class="text-lg font-bold text-4xl" id='posts_counter'>
-            <%= pluralize(@posts.count, "Post").split().reverse.join(': ') %>
-          </h1>
-        </div>
-        <div class="">
-          <%#= form_tag root_path, method: :get do %>
-            <%#= text_field_tag :query, params[:query] %>
-            <%#= submit_tag 'Search' %>
-          <%# end %>
-        </div>
-        <%= render 'shared/user_auth' %>
-      </div>
-      <hr>
-      <%= turbo_frame_tag 'posts' do %>
-        <%= render 'shared/loader' %>
-        <div class="flex flex-row my-5">
-          <div class='flex flex-wrap justify-evenly gap-3 frame-loading-hide' id="post_list">
-            <%# @posts = @posts.take(10) %>
-            <%= render @posts %>
+          <div id="posts_counter"
+            <%= render 'posts/posts_counter', count: @posts.count %>
           </div>
         </div>
+        <%= render 'posts/search', posts: @posts %>
+        <%= render 'shared/user_auth' %>
+      </div>
+      <% if @sorted_value.blank? %>
+        <hr>
+      <% else %>
+        <span class='flex justify-between'>
+          <hr class='ml-10 mt-3 middle-width opacity-50'>
+            <span class='flex items-center opacity-50'>
+              <%== decode_sort_method(@sorted_value) %>
+            </span>
+          <hr class='mr-20 mt-3 middle-width opacity-50'>
+        </span>
       <% end %>
+      <%= render 'shared/loader' %>
+      <div class="flex flex-row my-5">
+        <div class='flex flex-wrap justify-evenly gap-3 frame-loading-hide' id="post_list">
+          <%# @posts = @posts.take(20) %>
+          <%= render @posts %>
+        </div>
+      </div>
     </div>
+  <% end %>
 <% end %>

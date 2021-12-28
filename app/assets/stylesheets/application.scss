@@ -14,16 +14,44 @@
  *= require_self
  */
 
+:root {
+  --bg-under-tooltip:rgba(0, 0, 0, .7);
+  // yellow variable
+  // gray variable
+  --bg-gray-100:rgba(243, 244, 246, 1);
+  --bg-gray-200:rgba(229, 231, 235, 1);
+  --bg-gray-300:rgba(209, 213, 219, 1);
+  --bg-gray-500:rgba(107, 114, 128, 1);
+  --bg-gray-600:rgba(75, 85, 99, 1);
+  --bg-gray-700:rgba(55, 65, 81, 1);
+  --bg-gray-800:rgba(31, 41, 55, 1);
+  --bg-gray-900:rgba(31, 41, 55, 1);
+}
+
+#post-popover {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .6s ease-in-out;
+}
+
+.middle-width {
+  width: 40%;
+}
+
+#post-popover.active {
+  visibility: visible;
+  opacity: 1;
+}
 
 // main_color  color: rgb(251, 191, 36);
-
+// [type='search']
 [type='text'], [type='email'],
 [type='url'], [type='password'],
 [type='number'], [type='date'],
 [type='datetime-local'],
-[type='month'], [type='search'],
-[type='tel'], [type='time'],
-[type='week'], [multiple],
+[type='month'], [type='tel'],
+[type='time'], [type='week'],
+[multiple],
 textarea, select {
   // background-color: rgb(251, 191, 36);
   background-color: #364151 !important; // gray

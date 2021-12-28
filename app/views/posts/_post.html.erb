@@ -1,6 +1,6 @@
 <%= turbo_stream_from post %>
 
-<div turbo_frame="<%= dom_id post %>"
+<div id="<%= dom_id post %>"
      class=""
      data-controller="cards-util"
      data-cards-util-target='card_frame'
