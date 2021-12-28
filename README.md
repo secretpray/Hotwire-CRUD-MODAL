@@ -82,6 +82,8 @@
   
   3. Sanitize search input
   
-  4. Infinity scroll (maybe)
+  4. User history search in tooltip (5 result)
+  
+  5. Infinity scroll (maybe)
 
 </details>
