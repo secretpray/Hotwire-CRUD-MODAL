@@ -37,6 +37,7 @@
             <% Post::SORTED_METHODS.each.with_index(1) do |item, index| %>
               <%= render 'posts/select_form_item', form: form, item: item, index: index, sorted_value: @sorted_value %>
             <% end %>
+            <%= hidden_field_tag :query, request.query_parameters[:query] if request.query_parameters[:query].present? %>
             <%= form.submit "Sort",
                 data: { dropdown_sort_target: "submit", params: params, request_query: request.query_parameters },
                 class: 'px-4 py-2 bg-gray-700 rounded border-2 border-gray-600 hover:border-yellow-400 hover:text-yellow-400 hidden' %>

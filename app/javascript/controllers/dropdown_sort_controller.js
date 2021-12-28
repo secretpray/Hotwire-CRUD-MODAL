@@ -21,8 +21,6 @@ export default class extends Controller {
 
   clickSort() {
     if(this.hasSubmitTarget && !this.menuTarget.classList.contains('hidden')) {
-      console.log('query')
-      console.log(document.querySelector('#query').value)
       this.submitTarget.click()
       leave(this.menuTarget)
     }

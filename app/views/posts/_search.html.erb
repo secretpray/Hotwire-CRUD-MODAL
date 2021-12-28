@@ -5,12 +5,14 @@
                data: { turbo_frame: 'posts',
                        turbo_action: "advance",
                        controller: 'search',
-                       action: 'keyup->search#search_with_debounce' } do %>
+                       action: 'keyup->search#search_with_debounce invalid->search#hideValidationMessage:capture' } do %>
     <%= search_field_tag :query, params[:query],
           placeholder: "Search...",
           data: { posts_count: posts.count,
                   search_target: 'searchInput' },
           autocomplete: 'off',
+          pattern: '.*\w+.*',
+          required: true,
           class: "search-input bg-gray-700 text-gray-300 border-2 border-gray-500 focus:ring-transparent focus:border-2 focus:border-yellow-500 focus:border-opacity-75" %>
     <div class="btn bg-gray-800 bg-no-repeat flex border-2 border-gray-500 hover:border-yellow-500 bg-center items-center justify-center search-button"
          data-controller='animate-search'
