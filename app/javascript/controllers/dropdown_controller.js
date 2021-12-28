@@ -48,13 +48,11 @@ export default class extends Controller {
       if (cardUnderDropdown) {
         cardUnderDropdown.classList.add('pointer-events-none')
       }
-      // console.log('openValue _show')
       this._show()
     } else {
       if (cardUnderDropdown && cardUnderDropdown.classList.contains('pointer-events-none')) {
         cardUnderDropdown.classList.remove('pointer-events-none')
       }
-      // console.log('openValue _hide')
       this._hide()
     }
   }

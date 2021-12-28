@@ -1,5 +1,6 @@
 class Comment < ApplicationRecord
   include ActionView::RecordIdentifier
+  include ActionView::Helpers::TextHelper
 
   belongs_to :user
   belongs_to :commentable, polymorphic: true, counter_cache: true
@@ -43,7 +44,8 @@ class Comment < ApplicationRecord
   private
 
   def update_comments_counter
-    broadcast_update_to [commentable, :comments], target: "#{dom_id(commentable)}_comments_counter", html: "Comment#{commentable.comments.size > 1 ? 's: ' : ': '}#{commentable.comments.size}"
+    broadcast_update_to [commentable, :comments], target: "#{dom_id(commentable)}_comments_counter",
+                        html: "#{pluralize(commentable.comments.size, 'Comment').split().reverse.join(': ')}"
   end
 
   def update_post_comments_data

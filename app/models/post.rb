@@ -32,8 +32,8 @@ class Post < ApplicationRecord
   scope :last_week_deleted, -> { where(status: :deleted).where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_week) }
   scope :last_month, -> { where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_month) }
   scope :last_month_deleted, -> { where(status: :deleted).where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_month) }
-  scope :commented, -> { order('comments_count') }  # Post.commented.pluck(:id, :comments_count)
-  scope :liked, -> { order('likes_count') }         # Post.liked.pluck(:id, :likes_count)
+  scope :commented, -> { order('comments_count') }
+  scope :liked, -> { order('likes_count') }
 
   # Save sorted method
   def self.saved_sort
@@ -118,6 +118,7 @@ class Post < ApplicationRecord
   end
 
   after_destroy_commit do
+    # binding.pry
     broadcast_remove_to self
     update_posts_counter
   end
