@@ -66,6 +66,22 @@
   Added posts sorting with Hotwire. The selected sorting method is saved in Kredis.
   
   https://user-images.githubusercontent.com/17977331/147132281-937e9427-a1a6-447d-88fc-973495c62802.mp4
+  
+  Added live search on posts (with validation and debounce). Posts are sorted based on search results. Added tooltip.
+  
+  https://user-images.githubusercontent.com/17977331/147553151-0a5f9df0-077f-43c7-b75a-e1edd2f8c009.mov
 
+ 
+</details>
+<details>
+  <summary>TODO:</summary>
+  
+  1. Pagination
+  
+  2. Filter search result
+  
+  3. Sanitize search input
+  
+  4. Infinity scroll (maybe)
 
 </details>
