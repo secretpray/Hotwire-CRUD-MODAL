@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  # Not needed -> added to config/initializers/pagy.rb
+  # include Pagy::Backend
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def render_flash

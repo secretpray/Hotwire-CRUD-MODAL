@@ -2,17 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ['frame', 'container', 'showButton']
-  // static targets = ['frame', 'container', 'showButton', 'errors']
-
-  // handleSuccess({ detail: { success } }) {
-  //   if (success && !this.hasErrorsTarget) {
-  //
-  //     console.log('Successed form!')
-  //     // this.close()
-  //     // this.clearErrors()
-  //     // this.formTarget.reset()
-  //   }
-  // }
 
   // click on background
   closeBackground(event) {

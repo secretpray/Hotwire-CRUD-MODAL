@@ -25,6 +25,5 @@ export default class extends Controller {
     } else {
       event.target.remove()
     }
-    // this.toggle(event)
   }
 }

@@ -22,7 +22,6 @@
         <%= time_ago_in_words(post.created_at) %> ago by
         <span id='<%= dom_id(post) %>_user_email'>
           <%= render partial: 'users/user_email', locals: { post: post, online_user_ids: @online_user_ids } %>
-          <%#= post.user&.email %>
         </span>
       </div>
 

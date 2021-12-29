@@ -46,7 +46,7 @@ module PostsHelper
         </svg>'
       end
 
-    title = set_title(sorted_value)
+    title = set_title(sorted_value).downcase
     title + direction
   end
 end

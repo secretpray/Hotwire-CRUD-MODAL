@@ -12,6 +12,7 @@ gem 'gravatar_image_tag', github: 'secretpray/gravatar_image_tag', branch: 'mast
 gem 'hotwire-rails'
 gem 'image_processing', '~> 1.2'
 gem 'kredis', '~> 1.0'
+gem 'pagy'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'

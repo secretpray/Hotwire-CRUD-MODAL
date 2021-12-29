@@ -218,6 +218,7 @@ blockquote.twitter-tweet>a {
 .trix-button {
   // filter: brightness(0.8) sepia(0.5) hue-rotate(334deg) saturate(16);
 }
+// Redefine icon style
 trix-toolbar .trix-button--icon-attach::before {
   background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22%23e5e5e5%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M16.5%206v11.5a4%204%200%201%201-8%200V5a2.5%202.5%200%200%201%205%200v10.5a1%201%200%201%201-2%200V6H10v9.5a2.5%202.5%200%200%200%205%200V5a4%204%200%201%200-8%200v12.5a5.5%205.5%200%200%200%2011%200V6h-1.5z%22%2F%3E%3C%2Fsvg%3E);}
 trix-toolbar .trix-button--icon-bold::before {

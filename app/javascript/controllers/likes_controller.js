@@ -13,8 +13,6 @@ export default class extends Controller {
     const request = new FetchRequest("get", this.urlValue, {responseKind: "turbo-stream"})
     const response = await request.perform()
     if (response.ok) {
-      // console.log('Server response OK!')
     }
-
   }
 }

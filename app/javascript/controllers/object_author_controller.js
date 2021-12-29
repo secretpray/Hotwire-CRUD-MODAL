@@ -8,7 +8,6 @@ export default class extends Controller {
   connect() {
     if (this.currentUserId === this.authorId) {
       this.element.classList.remove("hidden")
-      // this.element.hidden = false
     }
   }
 

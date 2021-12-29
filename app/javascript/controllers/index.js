@@ -31,6 +31,9 @@ application.register("dropdown-sort", DropdownSortController)
 import HovercardController from "./hovercard_controller.js"
 application.register("hovercard", HovercardController)
 
+import PagyController from "./pagy_controller.js"
+application.register("pagy", PagyController)
+
 import LikesController from "./likes_controller.js"
 application.register("likes", LikesController)
 

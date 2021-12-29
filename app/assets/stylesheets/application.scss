@@ -28,14 +28,29 @@
   --bg-gray-900:rgba(31, 41, 55, 1);
 }
 
+.dialog {
+  transition-property: opacity, display;
+  transition-duration: 0.5s, 0;
+  transition-delay: 0, 0.5s;
+}
+
+// .fadeOut {
+//   visibility: hidden;
+//   opacity: 0;
+//   transition: opacity 250ms ease-in, visibility 0ms ease-in 250ms;
+// }
+//
+// .fadeIn {
+//   visibility: visible;
+//   opacity: 1;
+//   transition: opacity 250ms ease-in, visibility 0ms ease-in 0ms;
+// }
+
+
 #post-popover {
   visibility: hidden;
   opacity: 0;
   transition: opacity .6s ease-in-out;
-}
-
-.middle-width {
-  width: 40%;
 }
 
 #post-popover.active {
