@@ -16,7 +16,7 @@
   3) Prepare database (db:setup or db:prepare)
  
   ```ruby
-  yarn install --check-files
+  db:setups
   ```
   
 </details>
@@ -70,20 +70,22 @@
   Added live search on posts (with validation and debounce). Posts are sorted based on search results. Added tooltip.
   
   https://user-images.githubusercontent.com/17977331/147553151-0a5f9df0-077f-43c7-b75a-e1edd2f8c009.mov
+  
+  Added pagination with Pagy (Hotwire)
+  
+  https://user-images.githubusercontent.com/17977331/147630254-1c79de48-f292-4c9d-99f5-bf810d136baa.mov
 
  
 </details>
 <details>
   <summary>TODO:</summary>
   
-  1. Pagination
+  1. Filter search result
   
-  2. Filter search result
+  2. Sanitize search input
   
-  3. Sanitize search input
+  3. User history search in tooltip (5 result)
   
-  4. User history search in tooltip (5 result)
-  
-  5. Infinity scroll (maybe)
+  4. Infinity scroll (maybe)
 
 </details>
