@@ -150,6 +150,7 @@ GEM
     nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (5.4.0)
     pg (1.2.3)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -268,6 +269,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   kredis (~> 1.0)
   listen (~> 3.3)
+  pagy
   pg (~> 1.1)
   pry (~> 0.13.1)
   pry-byebug

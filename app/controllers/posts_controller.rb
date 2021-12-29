@@ -6,14 +6,18 @@ class PostsController < ApplicationController
 
   def index
     query = params[:query]
+    # Search
     posts = query.blank? ? Post.all : Post.multi_records_containing(query)
+    # Sort
     if params[:sort].present?
-      @posts = Post.make_sort(params[:sort], posts)
+      posts_unpaged = Post.make_sort(params[:sort], posts)
     else
       get_sort = Post.get_saved_sort
-      @posts = get_sort.in?(Post::SORTED_METHODS) ? Post.make_sort(get_sort, posts) : posts.recent
+      posts_unpaged = get_sort.in?(Post::SORTED_METHODS) ? Post.make_sort(get_sort, posts) : posts.recent
     end
-
+    # Pagination
+    @page, @posts = pagy(posts_unpaged, items: 10)
+    # fetch saved sort params (from Redis DB)
     @sorted_value = Post.get_saved_sort
   end
 

@@ -18,7 +18,7 @@
         <div class='flex items-center'>
           <%= render 'select_form' %>
           <div id="posts_counter"
-            <%= render 'posts/posts_counter', count: @posts.count %>
+            <%= render 'posts/posts_counter', count: @page.count %>
           </div>
         </div>
         <%= render 'posts/search', posts: @posts %>
@@ -27,12 +27,24 @@
       <% if @sorted_value.blank? %>
         <hr>
       <% else %>
-        <span class='flex justify-between'>
-          <hr class='ml-10 mt-3 middle-width opacity-50'>
-            <span class='flex items-center opacity-50'>
-              <%== decode_sort_method(@sorted_value) %>
-            </span>
-          <hr class='mr-20 mt-3 middle-width opacity-50'>
+        <span class='flex justify-between' data-controller="pagy">
+          <%= render 'shared/page_prev', page: @page %>
+          <hr class='mt-5 flex-1 opacity-50'>
+            <div class='flex items-center rounded-xl px-4 py-2 transform border-2 border-opacity-30 relative'
+                 data-action="mouseover->pagy#mouseOver mouseout->pagy#mouseOut"
+                 data-pagy-target="pagy"
+                 id='page-wrapper'>
+              <span class='flex transform opacity-30 hidden' id='more-info' data-pagy-target="more">
+                Page: <%= @page.page %> in <%= @page.pages %>
+                <!-- (Posts: <%#= @page.offset + @page.in %> of <%#= @page.count %>) Page: 1 in 10 (Posts: 30 of 99) -->
+                sorted <%== decode_sort_method(@sorted_value) %>
+              </span>
+              <span class='flex opacity-30 transform' id='lite-info' data-pagy-target="lite">
+                <%== decode_sort_method(@sorted_value) %>
+              </span>
+            </div>
+          <hr class='mt-5 flex-1 opacity-50'>
+          <%= render 'shared/page_next', page: @page %>
         </span>
       <% end %>
       <%= render 'shared/loader' %>

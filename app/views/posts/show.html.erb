@@ -25,7 +25,6 @@
 </div>
 
 <div class="mt-4 mb-5 mx-auto max-w-3xl">
-  <%#= turbo_stream_from @post, :comments %>
   <%= tag.div id: "#{dom_id(@post)}_comments" do %>
     <%= render partial: "comments/comment_with_replies", collection: @post.comments.where(parent_id: nil), as: :comment %>
   <% end %>
