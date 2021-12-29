@@ -16,7 +16,7 @@
   3) Prepare database (db:setup or db:prepare)
  
   ```ruby
-  db:setups
+  bin/rails db:setups
   ```
   
 </details>
