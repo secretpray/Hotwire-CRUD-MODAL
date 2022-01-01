@@ -1,9 +1,7 @@
-<%= turbo_stream_from post %>
+<%= turbo_stream_from post, class: 'hidden' %>
 
 <div id="<%= dom_id post %>"
      class=""
-     data-controller="cards-util"
-     data-cards-util-target='card_frame'
      loading="lazy">
   <div class='mx-4 p-4 post-card min-h-72 transform transition duration-500 hover:scale-95 group hover:bg-gray-700 cursor-pointer rounded-xl'
       data-controller='current-page'
@@ -18,6 +16,7 @@
     </div>
     <div class="flex justify-between">
       <div class='text-xs mx-3 self-center text-gray-400'>
+        <!-- post.created_at.to_s(:short) -->
         <%= time_ago_in_words(post.created_at) %> ago by
         <span id='<%= dom_id(post) %>_user_email'>
           <%= render partial: 'users/user_email', locals: { post: post, online_user_ids: online_user_ids } %>

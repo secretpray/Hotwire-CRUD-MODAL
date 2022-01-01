@@ -28,7 +28,9 @@
         <hr>
       <% else %>
         <span class='flex justify-between' data-controller="pagy">
-          <%= render 'shared/page_prev', page: @page %>
+          <div id='prev-page-link'>
+            <%= render 'shared/page_prev', page: @page %>
+          </div>
           <hr class='mt-5 flex-1 opacity-50'>
             <div class='flex items-center rounded-xl px-4 py-2 transform border-2 border-opacity-30 relative'
                  data-action="mouseover->pagy#mouseOver mouseout->pagy#mouseOut"
@@ -44,15 +46,16 @@
               </span>
             </div>
           <hr class='mt-5 flex-1 opacity-50'>
-          <%= render 'shared/page_next', page: @page %>
+          <div id='next-page-link'>
+            <%= render 'shared/page_next', page: @page %>
+          </div>
         </span>
       <% end %>
-      <%= render 'shared/loader' %>
-      <div class="flex flex-row my-5">
-        <div class='flex flex-wrap justify-evenly gap-3 frame-loading-hide' id="post_list">
-          <%= render @posts %>
-        </div>
-      </div>
+    </div>
+    <%= render 'shared/loader' %>
+    <div class='grid gap-5 grid-cols-2 frame-loading-hide mt-8' id="post_list">
+      <%= render @posts %>
+      <div id="endless_list" class='hidden'></div>
     </div>
   <% end %>
 <% end %>
