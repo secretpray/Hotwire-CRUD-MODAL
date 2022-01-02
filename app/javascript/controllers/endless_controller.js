@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
-import { turboReady } from "../utils/turbo_utils"
+import { get } from "@rails/request.js";
+// import { turboReady } from "../utils/turbo_utils" // wait formSubmission (not needed now)
 
-// Connects to data-controller="endless"
 export default class extends Controller {
   static targets = [ "footer", "pagination" ]
   static values = {
@@ -11,11 +11,6 @@ export default class extends Controller {
 
   connect() {
     this.createObserver()
-  }
-
-  start(event){
-    console.log('turbo:before-visit')
-    console.log('event.detail.url: ', event.detail.url)
   }
 
   createObserver() {
@@ -29,31 +24,28 @@ export default class extends Controller {
 
   handleIntersect(entries) {
     entries.forEach(entry => {
-      if (entry.isIntersecting && document.body.dataset.actionName == 'index' && !this.requestValue) {
-        // console.log('this.requestValue (fired load more): ', this.requestValue)
-        this.loadMore()
+      // check: view footer in index page
+      if (entry.isIntersecting && document.body.dataset.actionName == 'index') {
+        this._loadMore()
       }
     })
   }
 
-  loadMore() {
-    if(!this.hasPaginationTarget || !this.paginationTarget.href) {
+  async _loadMore() {
+    // return if busy by prev request or !has next page link
+    if (this.requestValue || !this.hasPaginationTarget) {
       return
     }
 
-    const href = this.paginationTarget.href
     const prevPage = this.paginationTarget.dataset['endlessPrevpageValue']
     const endlessUrl = new URL(this.paginationTarget.href)
+    // endlessUrl.searchParams.set("endless", prevPage)
     endlessUrl.searchParams.append("endless", prevPage)
-    this.requestValue = true;
-    fetch(endlessUrl, {
-      headers: {
-        Accept: "text/vnd.turbo-stream.html",
-      },
-    })
-    .then(r => r.text())
-    .then(html => Turbo.renderStreamMessage(html))
-    // .then(_ => history.replaceState(history.state, "", href))
+    // busy
+    this.requestValue = true
+    // async fetch
+    await get(endlessUrl.toString(), {responseKind: 'turbo-stream'});
+    // not busy
     this.requestValue = false;
   }
 }
