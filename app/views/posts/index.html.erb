@@ -36,7 +36,13 @@
                  data-action="mouseover->pagy#mouseOver mouseout->pagy#mouseOut"
                  data-pagy-target="pagy"
                  id='page-wrapper'>
-              <span class='flex transform opacity-30 hidden' id='more-info' data-pagy-target="more">
+              <span class='flex transform opacity-30 hidden'
+                    id='more-info'
+                    data-pagy-target="more"
+                    data-endless-target="current"
+                    data-prevpage="<%= @page.page %>"
+                    data-totalpage="<%= @page.pages %>"
+                    data-prevpage-link-current="<%= pagy_url_for(@page, @page.page) %>">
                 Page: <%= @page.page %> in <%= @page.pages %>
                 <!-- (Posts: <%#= @page.offset + @page.in %> of <%#= @page.count %>) Page: 1 in 10 (Posts: 30 of 99) -->
                 sorted <%== decode_sort_method(@sorted_value) %>
@@ -57,5 +63,6 @@
       <%= render @posts %>
       <div id="endless_list" class='hidden'></div>
     </div>
+    <%= render 'shared/timer_loader' %>
   <% end %>
 <% end %>
