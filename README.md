@@ -74,6 +74,16 @@
   Added pagination with Pagy (Hotwire)
   
   https://user-images.githubusercontent.com/17977331/147630254-1c79de48-f292-4c9d-99f5-bf810d136baa.mov
+  
+  Added standard infinity scroll
+  
+  https://user-images.githubusercontent.com/17977331/148028203-4f05c9dc-614b-4f6b-a9ce-b4d22f5e0767.mp4
+    
+  Added asynchronous infinite scrolling after a certain delay (2.5 seconds)
+  
+  https://user-images.githubusercontent.com/17977331/148028250-dee27f72-0e46-4591-b848-51413573339c.mp4
+
+
 
  
 </details>
@@ -85,7 +95,5 @@
   2. Sanitize search input
   
   3. User history search in tooltip (5 result)
-  
-  4. Infinity scroll (maybe)
 
 </details>
