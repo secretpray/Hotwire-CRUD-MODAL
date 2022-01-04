@@ -1,15 +1,20 @@
 <% if page.next %>
   <%= link_to pagy_url_for(page, page.next), rel: "next",
-              class: "mr-20 flex items-center rounded-full px-4 py-2 hover:border-yellow-500 hover:text-yellow-500 hover:opacity-100 border-2 opacity-30 hidden last-child:block",
-              data: { turbo_rendering: "append", autoclick_target: "appearance" } do %>
-    <span class=''>
+              id: 'pagination-next',
+              class: "mr-10 flex items-center rounded-full px-4 py-2 hover:border-yellow-500 hover:text-yellow-500 hover:opacity-100 border-2 opacity-30 hidden last-child:block",
+              data: { endless_target: "pagination",
+                      endless_request_value: "false",
+                      disable_with: '&times;'
+                    } do %>
+    <span>
     </span>
-    <span class=''>
+    <span data-endless-target='next'
+          data-service='<%= page.page %>' >
       <%= page.next %>
     </span>
   <% end %>
 <% else %>
     <%= link_to ' ', 'javascript:void(0);',
-                     class: "mr-20 w-11 flex items-center rounded-full px-4 py-2 hover:border-yellow-500 hover:text-yellow-500 hover:opacity-25 cursor-default border-2 opacity-30 hidden last-child:block",
+                     class: "mr-10 w-11 h-11 flex items-center rounded-full px-4 py-2 hover:border-yellow-500 hover:text-yellow-500 hover:opacity-25 cursor-default border-2 opacity-30 hidden last-child:block",
                      disabled: true %>
 <% end %>

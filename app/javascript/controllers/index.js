@@ -13,9 +13,6 @@ application.register("animate-search", AnimateSearchController)
 import AutohideFlashController from "./autohide_flash_controller.js"
 application.register("autohide-flash", AutohideFlashController)
 
-import CardsUtilController from "./cards_util_controller.js"
-application.register("cards-util", CardsUtilController)
-
 import CommentReplyController from "./comment_reply_controller.js"
 application.register("comment-reply", CommentReplyController)
 
@@ -28,11 +25,11 @@ application.register("dropdown", DropdownController)
 import DropdownSortController from "./dropdown_sort_controller.js"
 application.register("dropdown-sort", DropdownSortController)
 
+import EndlessController from "./endless_controller.js"
+application.register("endless", EndlessController)
+
 import HovercardController from "./hovercard_controller.js"
 application.register("hovercard", HovercardController)
-
-import PagyController from "./pagy_controller.js"
-application.register("pagy", PagyController)
 
 import LikesController from "./likes_controller.js"
 application.register("likes", LikesController)
@@ -45,6 +42,9 @@ application.register("modal-user", ModalUserController)
 
 import ObjectAuthorController from "./object_author_controller.js"
 application.register("object-author", ObjectAuthorController)
+
+import PagyController from "./pagy_controller.js"
+application.register("pagy", PagyController)
 
 import PopoverController from "./popover_controller.js"
 application.register("popover", PopoverController)

@@ -15,10 +15,13 @@ class PostsController < ApplicationController
       get_sort = Post.get_saved_sort
       posts_unpaged = get_sort.in?(Post::SORTED_METHODS) ? Post.make_sort(get_sort, posts) : posts.recent
     end
+    # binding.pry
     # Pagination
-    @page, @posts = pagy(posts_unpaged, items: 10)
+    @page, @posts = pagy(posts_unpaged, items: 10) # old_posts = Post.limit(10).offset(30)
     # fetch saved sort params (from Redis DB)
     @sorted_value = Post.get_saved_sort
+
+    params[:endless].present? ? endless_index : standard_stream
   end
 
   def show; end
@@ -93,5 +96,54 @@ class PostsController < ApplicationController
 
   def get_online_user_id
     @online_user_ids = User.online_users
+  end
+
+  def standard_stream
+    params.delete(:endless) if params[:endless].blank?
+
+    respond_to do |format|
+      format.html
+      # format.turbo_stream
+      format.turbo_stream {
+        render turbo_stream: [
+          turbo_stream.replace('post_list',
+                        partial: 'posts/post',
+                        collection: @posts, as: :post,
+                        locals: { online_user_ids: User.online_users },
+                        formats: [:html]),
+
+          turbo_stream.update('prev-page-link',
+                        partial: 'shared/page_prev',
+                        locals: {page: @page},
+                        formats: [:html]),
+
+          turbo_stream.update('next-page-link',
+                        partial: 'shared/page_next',
+                        locals: {page: @page},
+                        formats: [:html])
+        ]
+      }
+    end
+  end
+
+  def endless_index
+    respond_to do |format|
+      format.html
+      # format.turbo_stream
+      format.turbo_stream {
+        render turbo_stream: [
+          turbo_stream.append('post_list',
+                        partial: 'posts/post',
+                        collection: @posts, as: :post,
+                        locals: { online_user_ids: User.online_users },
+                        formats: [:html]),
+
+          turbo_stream.update('next-page-link',
+                        partial: 'shared/page_next',
+                        locals: {page: @page},
+                        formats: [:html])
+        ]
+      }
+    end
   end
 end

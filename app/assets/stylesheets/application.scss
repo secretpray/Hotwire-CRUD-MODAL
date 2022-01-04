@@ -92,14 +92,16 @@ textarea, select {
 //     display: inline-block;
 // }
 turbo-frame {
-    display: block;
+  display: block;
 }
 turbo-frame[busy] {
-    opacity: .7;
+  opacity: .7;
 }
 turbo-frame[busy] .frame-loading-hide, turbo-frame .frame-loading-show {
-    display: none;
+  display: none;
 }
+
+
 turbo-frame[busy] .frame-loading-show {
     display: inline-block;
 }
