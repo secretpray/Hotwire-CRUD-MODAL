@@ -39,4 +39,8 @@ class User < ApplicationRecord
   def self.online_users
     User.where(id: online_user_ids.elements).pluck(:id) # for tets (1..5).to_a
   end
+
+  def update_user_search_history(histories)
+    broadcast_replace_to :user_history, target: 'history', partial: 'users/search_histories', locals: { histories: histories }
+  end
 end

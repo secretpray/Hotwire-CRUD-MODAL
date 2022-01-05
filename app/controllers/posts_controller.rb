@@ -21,6 +21,10 @@ class PostsController < ApplicationController
     @page, @posts = pagy(posts_unpaged, items: 10) # old_posts = Post.limit(10).offset(30)
     # fetch saved sort params (from Redis DB)
     @sorted_value = Post.get_saved_sort
+    # fetch saved searches User history (from Redis DB)
+    @histories = current_user.recent_searches.elements
+    # update user search list
+    current_user.update_user_search_history(@histories) unless query.blank?
 
     params[:endless].present? ? endless_index : standard_stream
   end
@@ -108,12 +112,12 @@ class PostsController < ApplicationController
 
           turbo_stream.update('prev-page-link',
                         partial: 'shared/page_prev',
-                        locals: {page: @page},
+                        locals: { page: @page },
                         formats: [:html]),
 
           turbo_stream.update('next-page-link',
                         partial: 'shared/page_next',
-                        locals: {page: @page},
+                        locals: { page: @page },
                         formats: [:html])
         ]
       }
@@ -134,7 +138,7 @@ class PostsController < ApplicationController
 
           turbo_stream.update('next-page-link',
                         partial: 'shared/page_next',
-                        locals: {page: @page},
+                        locals: { page: @page },
                         formats: [:html])
         ]
       }

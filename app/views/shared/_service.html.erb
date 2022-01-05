@@ -16,9 +16,8 @@
       </span>
     </div>
   </div>
-  <div class="mx-auto -mt-6 user_search_history">
-    <% current_user&.recent_searches.elements.each do |query| %>
-      <%= link_to query, root_path(query: query), class: 'text-xs text-gray-400 hover:text-yellow-500' %>
-    <% end %>
+  <%= turbo_stream_from :user_history %>
+  <div id='history'>
+    <%= render partial: 'users/search_histories', locals: { histories: @histories} %>
   </div>
 </div>
