@@ -1,20 +1,23 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="animate-search"
 export default class extends Controller {
   static targets = ['btnShowHide']
-  
-  // animate button search
-  showHide(){
-    var input = document.querySelector('.search-input')
-    var resetSearchLink = document.querySelector('.reset-search-link')
+
+  showHide = () => {
+    const input = document.querySelector('.search-input')
+    const resetSearchLink = document.querySelector('.reset-search-link')
+    const userHistory = document.querySelector('.user_search_history')
+
+    this.btnShowHideTarget.classList.toggle('animate')  // ? -> X
     input.classList.toggle("active")
     input.focus()
-    this.btnShowHideTarget.classList.toggle('animate')  // ? -> X
+    userHistory.classList.toggle("active")
+
     if (resetSearchLink && input.classList.contains("active")) {
       resetSearchLink.classList.add("reset-active")
     } else if (resetSearchLink && !input.classList.contains("active")) {
       resetSearchLink.classList.remove("reset-active")
     }
+
   }
 }

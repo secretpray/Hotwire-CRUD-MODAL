@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy, inverse_of: :user
   has_many :likes, dependent: :destroy, inverse_of: :user
 
+  kredis_unique_list :recent_searches, limit: 5
   attr_accessor :online_user_ids # kredis_unique_list :online_user_ids
 
   validates :email, presence: true, uniqueness: {case_sensitive: false}

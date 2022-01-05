@@ -6,6 +6,8 @@ class PostsController < ApplicationController
 
   def index
     query = params[:query]
+
+    current_user.recent_searches.prepend(query) unless query.blank?
     # Search
     posts = query.blank? ? Post.all : Post.multi_records_containing(query)
     # Sort
@@ -15,7 +17,6 @@ class PostsController < ApplicationController
       get_sort = Post.get_saved_sort
       posts_unpaged = get_sort.in?(Post::SORTED_METHODS) ? Post.make_sort(get_sort, posts) : posts.recent
     end
-    # binding.pry
     # Pagination
     @page, @posts = pagy(posts_unpaged, items: 10) # old_posts = Post.limit(10).offset(30)
     # fetch saved sort params (from Redis DB)
@@ -35,14 +36,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
 
-    respond_to do |format|
-      if @post.save
-        flash.now[:notice] = "Post '#{@post.title}' created!"
-        format.turbo_stream
-      else
-        format.turbo_stream
-      end
-    end
+    flash.now[:notice] = "Post '#{@post.title}' created!" if @post.save
   end
 
   def update
