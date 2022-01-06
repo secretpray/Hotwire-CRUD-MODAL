@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     query = params[:query]
     current_user.recent_searches.prepend(query) unless query.blank?
     # Search
-    posts = query.blank? ? Post.all : Post.multi_records_containing(query)
+    posts = query.blank? ? Post.all : Post.sanitize_multi_search(query)
     # Sort
     if params[:sort].present?
       posts_unpaged = Post.make_sort(params[:sort], posts)
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
       posts_unpaged = get_sort.in?(Post::SORTED_METHODS) ? Post.make_sort(get_sort, posts) : posts.recent
     end
     # Pagination
-    @page, @posts = pagy(posts_unpaged, items: 10) # old_posts = Post.limit(10).offset(30)
+    @page, @posts = pagy(posts_unpaged, items: 10) 
     # fetch saved sort params (from Redis DB)
     @sorted_value = Post.get_saved_sort
     # fetch saved searches User history (from Redis DB)
