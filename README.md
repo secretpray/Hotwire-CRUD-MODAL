@@ -82,10 +82,13 @@
   Added asynchronous infinite scrolling after a certain delay (2.5 seconds)
   
   https://user-images.githubusercontent.com/17977331/148028250-dee27f72-0e46-4591-b848-51413573339c.mp4
+  
+  Added User history search (last 5 uniq result)
+  
+  https://user-images.githubusercontent.com/17977331/148333124-cfaa9cc6-dfc4-40fd-897d-00c9aa4c2a45.mov
 
 
 
- 
 </details>
 <details>
   <summary>TODO:</summary>
@@ -93,7 +96,5 @@
   1. Filter search result
   
   2. Sanitize search input
-  
-  3. User history search in tooltip (5 result)
 
 </details>
