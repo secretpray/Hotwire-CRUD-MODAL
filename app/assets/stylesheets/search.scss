@@ -77,3 +77,13 @@
 .reset-search-link.reset-active {
   margin-left: 14rem;
 }
+
+.user_search_history {
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+
+
+.user_search_history.active {
+  opacity: 1;
+}

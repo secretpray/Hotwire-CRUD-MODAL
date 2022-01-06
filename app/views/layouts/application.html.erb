@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang='<%= I18n.locale %>'>
   <%= render 'shared/header' %>
   <body class='antialiased text-gray-200 bg-gray-800 h-min-screen'
         data-controller='modal modal-user'
         data-controller-name='<%= controller_name %>'
         data-action-name='<%= action_name %>'>
     <!-- container -->
-    <div class="max-w-7xl w-full mx-auto" data-controller='endless'>
+    <div class="max-w-7xl w-full mx-auto" data-controller='endless service'>
       <!-- Flash container -->
       <%= turbo_frame_tag :flash %>
       <!-- Tooltip for Home button container -->

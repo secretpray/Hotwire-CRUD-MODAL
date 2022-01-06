@@ -51,3 +51,6 @@ application.register("popover", PopoverController)
 
 import SearchController from "./search_controller.js"
 application.register("search", SearchController)
+
+import ServiceController from "./service_controller.js"
+application.register("service", ServiceController)
