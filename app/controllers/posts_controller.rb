@@ -6,7 +6,6 @@ class PostsController < ApplicationController
 
   def index
     query = params[:query]
-
     current_user.recent_searches.prepend(query) unless query.blank?
     # Search
     posts = query.blank? ? Post.all : Post.multi_records_containing(query)

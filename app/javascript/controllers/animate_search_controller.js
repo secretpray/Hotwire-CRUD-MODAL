@@ -4,6 +4,18 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ['btnShowHide']
 
+  connect() {
+    this.initialHide()
+  }
+
+  initialHide() {
+    if (document.querySelector('.search-input').classList.contains('active')) {
+      document.querySelector('.user_search_history').classList.add('active')
+    } else {
+      document.querySelector('.user_search_history').classList.remove('active')
+    }
+  }
+
   showHide() {
     const input = document.querySelector('.search-input')
     const resetSearchLink = document.querySelector('.reset-search-link')
@@ -13,12 +25,6 @@ export default class extends Controller {
     input.classList.toggle("active")
     input.focus()
     userHistory.classList.toggle("active")
-
-    // if (input.classList.contains("active")) {
-    //   userHistory.classList.add("active")
-    // } else {
-    //   userHistory.classList.remove("active")
-    // }
 
     if (resetSearchLink && input.classList.contains("active")) {
       resetSearchLink.classList.add("reset-active")
