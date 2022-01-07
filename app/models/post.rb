@@ -23,6 +23,7 @@ class Post < ApplicationRecord
 
   scope :with_title_category_containing, ->(query) { where("title ilike ? OR category ilike ?", "%#{query}%","%#{query}%") }
   scope :with_content_containing, ->(query) { joins(:rich_text_content).merge(ActionText::RichText.where('body ILIKE ?', "%#{query}%")) }
+  scope :multi_records_containing_sanitize, -> (sanitize_query) { joins(:rich_text_content).merge(ActionText::RichText.where(sanitize_query)) }
   scope :multi_records_containing, -> (query) {
      joins(:rich_text_content).merge(ActionText::RichText.where('title ILIKE ? OR category ILIKE ? OR body ILIKE ?', "%#{query}%","%#{query}%","%#{query}%"))
   }
@@ -34,6 +35,11 @@ class Post < ApplicationRecord
   scope :last_month_deleted, -> { where(status: :deleted).where('created_at < ? AND created_at > ?', Time.zone.now, Date.today.beginning_of_month) }
   scope :commented, -> { order('comments_count') }
   scope :liked, -> { order('likes_count') }
+
+  def self.sanitize_multi_search(query)
+    sanitize_query = Post.sanitize_sql_for_conditions(['title ILIKE ? OR category ILIKE ? OR body ILIKE ?', "%#{query}%","%#{query}%","%#{query}%"])
+    Post.multi_records_containing_sanitize(sanitize_query)
+  end
 
   # Save sorted method
   def self.saved_sort
@@ -118,7 +124,6 @@ class Post < ApplicationRecord
   end
 
   after_destroy_commit do
-    # binding.pry
     broadcast_remove_to self
     update_posts_counter
   end
