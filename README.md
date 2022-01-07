@@ -86,15 +86,16 @@
   Added User history search (last 5 uniq result)
   
   https://user-images.githubusercontent.com/17977331/148333124-cfaa9cc6-dfc4-40fd-897d-00c9aa4c2a45.mov
-
+  
+  Added forced sanitization of search input
 
 
 </details>
 <details>
   <summary>TODO:</summary>
   
-  1. Filter search result
+  1. Full text index search
   
-  2. Sanitize search input
+  2. Filter search result
 
 </details>
