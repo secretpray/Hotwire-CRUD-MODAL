@@ -7,25 +7,27 @@ class PostsController < ApplicationController
   def index
     query = params[:query]
     current_user.recent_searches.prepend(query) unless query.blank?
-    # Search
+    # make Search
     posts = query.blank? ? Post.all : Post.sanitize_multi_search(query)
-    # Sort
+    # make Sort
     if params[:sort].present?
       posts_unpaged = Post.make_sort(params[:sort], posts)
     else
       get_sort = Post.get_saved_sort
       posts_unpaged = get_sort.in?(Post::SORTED_METHODS) ? Post.make_sort(get_sort, posts) : posts.recent
     end
-    # Pagination
-    @page, @posts = pagy(posts_unpaged, items: 10) 
+    # make Pagination
+    @page, @posts = pagy(posts_unpaged, items: 10)
     # fetch saved sort params (from Redis DB)
     @sorted_value = Post.get_saved_sort
     # fetch saved searches User history (from Redis DB)
     @histories = current_user.recent_searches.elements
     # update user search list
     current_user.update_user_search_history(@histories) unless query.blank?
-
-    params[:endless].present? ? endless_index : standard_stream
+    # select method for render TURBO_STREAM (index.turbo_stream.erb)
+    @endless_render = params[:endless].present?
+    # remove blank params (if 'endless' = '')
+    params.delete(:endless) if params[:endless].blank?
   end
 
   def show; end
@@ -93,54 +95,5 @@ class PostsController < ApplicationController
 
   def get_online_user_id
     @online_user_ids = User.online_users
-  end
-
-  def standard_stream
-    params.delete(:endless) if params[:endless].blank?
-
-    respond_to do |format|
-      format.html
-      # format.turbo_stream
-      format.turbo_stream {
-        render turbo_stream: [
-          turbo_stream.replace('post_list',
-                        partial: 'posts/post',
-                        collection: @posts, as: :post,
-                        locals: { online_user_ids: User.online_users },
-                        formats: [:html]),
-
-          turbo_stream.update('prev-page-link',
-                        partial: 'shared/page_prev',
-                        locals: { page: @page },
-                        formats: [:html]),
-
-          turbo_stream.update('next-page-link',
-                        partial: 'shared/page_next',
-                        locals: { page: @page },
-                        formats: [:html])
-        ]
-      }
-    end
-  end
-
-  def endless_index
-    respond_to do |format|
-      format.html
-      # format.turbo_stream
-      format.turbo_stream {
-        render turbo_stream: [
-          turbo_stream.append('post_list',
-                        partial: 'posts/post',
-                        collection: @posts, as: :post,
-                        locals: { online_user_ids: User.online_users },
-                        formats: [:html]),
-
-          turbo_stream.update('next-page-link',
-                        partial: 'shared/page_next',
-                        locals: { page: @page },
-                        formats: [:html])
-        ]
-      }
-    end
   end
 end

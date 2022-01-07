@@ -1,18 +1,10 @@
-<%#= turbo_stream.append(target: "post_list", partial: 'posts/post', collection: @posts, as: :post, locals: { posts: @posts}, formats: [:html]) %>
-<turbo-stream action="append" target="post_list">
-  <template>
-    <%= render partial: 'posts/post', collection: @posts, as: :post, locals: { posts: @posts}, formats: [:html] %>
-  </template>
-</turbo-stream>
-
-<turbo-stream action="update" target="prev-page-link">
-  <template>
-    <%= render 'shared/page_prev', page: @page %>
-  </template>
-</turbo-stream>
-
-<turbo-stream action="update" target="next-page-link">
-  <template>
-    <%= render 'shared/page_next', page: @page %>
-  </template>
-</turbo-stream>
+<% if @endless_render %>
+  <%# endless %>
+  <%= turbo_stream.append('post_list', partial: 'posts/post', collection: @posts, as: :post, locals: { online_user_ids: User.online_users }, formats: [:html]) %>
+  <%= turbo_stream.update('next-page-link', partial: 'shared/page_next', locals: { page: @page }, formats: [:html]) %>
+<% else %>
+  <%# standard_stream%>
+  <%= turbo_stream.replace('post_list', partial: 'posts/post', collection: @posts, as: :post, locals: { online_user_ids: User.online_users }, formats: [:html]) %>
+  <%= turbo_stream.update('prev-page-link', partial: 'shared/page_prev', locals: { page: @page }, formats: [:html]) %>
+  <%= turbo_stream.update('next-page-link', partial: 'shared/page_next', locals: { page: @page }, formats: [:html]) %>
+<% end %>

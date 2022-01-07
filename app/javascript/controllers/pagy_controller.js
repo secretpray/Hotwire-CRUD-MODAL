@@ -13,12 +13,10 @@ export default class extends Controller {
   }
   pagyTargetDisconnected(element) {
     // console.log('Disconnected pagyTarget: ', this.pagyTarget)
-    // console.log('DiscConnected pagyTargets: ', this.pagyTargets)
   }
 
   // Show the popover
   mouseOver() {
-    // console.log('mouseOver hasPagyTarget: ', this.hasPagyTarget)
     if (this.hasPagyTarget) {
       this.liteTarget.classList.add('hidden')
       this.moreTarget.classList.remove('hidden')
